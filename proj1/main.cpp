@@ -7,7 +7,18 @@
 using namespace std;
 
 int main(void) {
-	voteread();
+
+	vector <vector <string> > votes;
+	votes = voteread();
+	int votesize = votes.size();
+	for (int i = 0; i < votesize; i++){
+		int datasize = votes[i].size();
+
+		for (int j = 0; j < datasize; j++){
+			cout << votes[i][j] << " ";
+		}
+		cout << "\n" << endl;
+	}
 //	cancerread();	
 //	glassread();
 //	irisread();

@@ -4,21 +4,38 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
+#include <vector>
+#include <bits/stdc++.h>
+
 using namespace std;
 
-int voteread(void) {
-        string line;
-        ifstream input ("data/house-votes-84.data");
-        if (input.is_open()){
-                while (getline (input,line)){
-                        cout << line << '\n';
-                }
-                input.close();
-        }
+vector <vector <string> > voteread(void) {
+	
+	vector <vector <string> > data;
+	ifstream infile( "data/house-votes-84.data" );
 
-        else cout << "somethin's wrong, vern";
+	while (infile){
+    		string s;
+    		if (!getline( infile, s )) break;
 
-        return 0;
+   		istringstream ss( s );
+    		vector <string> record;
+
+    		while (ss){
+      			string s;
+      			if (!getline( ss, s, ',' )) break;
+			record.push_back( s );
+    		}
+
+    		data.push_back( record );
+  	}
+  if (!infile.eof()){
+    cerr << "Fooey!\n";
+  }
+
+  return data;
+
 }
 
 #endif
