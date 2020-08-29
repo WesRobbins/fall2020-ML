@@ -2,8 +2,9 @@
 #define VOTEOBJ_H
 
 struct VoteObj{
-	char class[5];
+    VoteObj(vector<vector<string>>){}
+	char classification[5];
 	float uno,dos,tres,quatro,cinco,seis,siete,ocho,nueve,diez,once,doce,trece,catorce,quince, diezyseis;
-}
+};
 
 #endif

@@ -6,15 +6,15 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#include <bits/stdc++.h>
-#include "obj/voteobj.h"
+//#include "obj/voteobj.h"
 
 using namespace std;
 
-voteprocess(vector <vector <string>> data) {
+/*voteprocess(vector <vector <string>> data) {
   return data;
 
 }
+*/
 
 #endif
 

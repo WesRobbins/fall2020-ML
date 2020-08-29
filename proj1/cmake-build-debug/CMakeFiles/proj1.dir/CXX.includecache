@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/wesrobbins/CSProjects/CLionProjects/csci447/proj1/Classifications.h
+iostream
+-
+DataLine.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447/proj1/DataLine.h
+
+/Users/wesrobbins/CSProjects/CLionProjects/csci447/proj1/DataLine.h
+vector
+-
+iostream
+-
+
+/Users/wesrobbins/CSProjects/CLionProjects/csci447/proj1/Evaluate.cpp
+Evaluate.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447/proj1/Evaluate.h
+
+/Users/wesrobbins/CSProjects/CLionProjects/csci447/proj1/Evaluate.h
+DataLine.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447/proj1/DataLine.h
+Classifications.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447/proj1/Classifications.h
+
