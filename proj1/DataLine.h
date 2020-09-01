@@ -12,11 +12,11 @@ using namespace std;
 
 class DataLine {
 public:
-    vector<float> feature_vector;
+    vector<int> feature_vector;
     string classification;
-    DataLine(vector<float> feature_vector_in, string classification_in);
+    DataLine(vector<int> feature_vector_in, string classification_in);
     string get_classification();
-    vector<float> get_feature_vector();
+    vector<int> get_feature_vector();
 };
 
 

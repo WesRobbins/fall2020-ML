@@ -5,6 +5,7 @@
 #ifndef PROJ1_EVALUATE_H
 #define PROJ1_EVALUATE_H
 
+#include <math.h>
 #include "DataLine.h"
 #include "Classifications.h"
 

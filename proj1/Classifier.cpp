@@ -9,10 +9,11 @@ Classifier::Classifier() {
 
 }
 
-tuple<Classifications, float> Classifier::argmax(vector<Classifications> classes, vector<float> input_feature_vector) {
+tuple<Classifications, float>
+Classifier::argmax(vector<Classifications> classes, vector<int> input_feature_vector, vector<int> bins_count) {
     vector<tuple<Classifications, float>> Cx_values;
     for (int i = 0; i<classes.size(); i++){
-        float Cx = Cx_calculator(classes[i], input_feature_vector);
+        float Cx = Cx_calculator(classes[i], input_feature_vector, bins_count);
         tuple<Classifications, float> myt{classes[i], Cx};
         Cx_values.push_back(myt);
     }
@@ -34,21 +35,21 @@ tuple<Classifications, float> Classifier::argmax(vector<Classifications> classes
 }
 
 // this is being implemented for 2 bin from 1 vector and complementation
-float Classifier::Cx_calculator(Classifications classification, vector<float> input_features) {
-    float Cx;
-    float PI_d;
-    if (input_features[0] == 1){
-        PI_d = classification.F_vector[0];
-    }
-    else if (input_features[0] == 0){
-        PI_d = 1-classification.F_vector[0];
-    }
-    for (int i = 1; i<input_features.size(); i++){
-        if (input_features[i] == 1){
-            PI_d *= classification.F_vector[i];
+float Classifier::Cx_calculator(Classifications classification, vector<int> input_feature_vector, vector<int> bins_count) {
+    float Cx = 0;
+    float PI_d = 0;
+    for (int i = 0; i<bins_count[i]; i++){
+        if (input_feature_vector[0] == i){
+            PI_d = classification.F_vector[0][i];
+            break;
         }
-        else if (input_features[i] == 0){
-            PI_d *= 1-classification.F_vector[i];
+    }
+    for (int i = 1; i<input_feature_vector.size(); i++){
+        for (int j = 0; j<bins_count[i]; j++){
+            if (input_feature_vector[i] == j){
+                PI_d *= classification.F_vector[i][j];
+                break;
+            }
         }
     }
     Cx = PI_d*classification.Q;

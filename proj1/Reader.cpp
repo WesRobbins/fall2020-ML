@@ -8,8 +8,8 @@
 Reader::Reader(string file_name){
     data_name = file_name.substr(5,5);
     cout<<data_name<<endl;
-    vector<vector<string>> string_vector = file_to_vector(file_name);
-    data = vector_to_vector(string_vector);
+    string_data = file_to_vector(file_name);
+
 }
 
 
@@ -44,7 +44,7 @@ vector<vector<string>> Reader::file_to_vector(string file_name){
 
 }
 
-vector<DataLine> Reader::vector_to_vector(vector<vector<string>> string_vector){
+/*vector<DataLine> Reader::vector_to_vector(vector<vector<string>> string_vector){
     vector<DataLine> data2;
     for (vector<string> i : string_vector){
 
@@ -84,15 +84,14 @@ vector<DataLine> Reader::vector_to_vector(vector<vector<string>> string_vector){
     }
     return data2;
 }
-
-vector<DataLine> Reader::get_data() {
-    return data;
+*/
+vector<vector<string>> Reader::get_data() {
+    return string_data;
 }
 
 void Reader::print_data() {
-    for (DataLine i : data){
-        cout<<i.classification<<"    ";
-        for (float j : i.feature_vector){
+    for (vector<string> i : string_data){
+        for (string j : i){
             cout<<j<<" ";
         }
         cout<<endl;

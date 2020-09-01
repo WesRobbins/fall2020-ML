@@ -16,6 +16,8 @@ public:
     DataClass dataclass;
     Algorithm algorithm;
     void print_data(vector<DataLine> d);
+    void print_title(string fil_name);
+
 };
 
 

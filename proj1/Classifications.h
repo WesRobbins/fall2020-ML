@@ -12,16 +12,17 @@ class Classifications {
 public:
 
     string name;
+
     float Q;
     int Nci;
-    vector<float> F_vector;
+    vector<vector<float>> F_vector;
     vector<DataLine> class_data;
 
-    Classifications(string name_in, vector<DataLine> full_train_data);
+    Classifications(string name_in, vector<DataLine> full_train_data, vector<int> bins_data);
     vector<DataLine> make_class_data(vector<DataLine> full);
-    vector<float> calculate_F_vector(vector<DataLine> c_data);
+    vector<vector<float>> calculate_F_vector(vector<DataLine> c_data, vector<int> vector1);
 
-    vector<float> get_F_vector();
+    vector<vector<float>> get_F_vector();
 
 };
 

@@ -32,10 +32,15 @@ float Evaluate::one_zero_loss(vector<DataLine> test_set_in, vector<tuple<Classif
 }
 
 float Evaluate::log_loss(vector<DataLine> test_set_in, vector<tuple<Classifications, float>> predicted_in) {
-    int incorrect_count;
+    float log_totals = 0;
     for (int i = 0; i<test_set_in.size(); ++i){
         if (test_set_in[i].classification != get<0>(predicted_in[i]).name){
-            incorrect_count++;
+            log_totals += -1*log(1-get<1>(predicted_in[i]));
+        }
+        else if ((test_set_in[i].classification == get<0>(predicted_in[i]).name)){
+            log_totals += -1*log(get<1>(predicted_in[i]));
         }
     }
+    float log_score = log_totals/(float)test_set_in.size();
+    return log_score;
 }
