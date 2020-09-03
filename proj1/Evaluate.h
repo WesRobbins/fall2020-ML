@@ -18,6 +18,8 @@ public:
     float percent_accuracy(vector<DataLine> test_set_in, vector<tuple<Classifications, float>> predicted_in);
     float one_zero_loss(vector<DataLine> test_set_in, vector<tuple<Classifications, float>> predicted_in);
     float log_loss(vector<DataLine> test_set_in, vector<tuple<Classifications, float>> predicted_in);
+    //float precision(vector<DataLine> test_set_in, vector<tuple<Classifications, float>> predicted_in);
+    //float recall(vector<DataLine> test_set_in, vector<tuple<Classifications, float>> predicted_in);
 };
 
 

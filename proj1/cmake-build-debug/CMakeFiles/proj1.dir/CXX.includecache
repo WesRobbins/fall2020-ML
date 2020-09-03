@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Algorithm.cpp
+Algorithm.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Algorithm.h
+
 /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Algorithm.h
 algorithm
 -
@@ -32,6 +36,10 @@ tuple
 Classifications.h
 /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifications.h
 
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataClass.cpp
+DataClass.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataClass.h
+
 /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataClass.h
 vector
 -
@@ -52,6 +60,10 @@ vector
 iostream
 -
 
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Evaluate.cpp
+Evaluate.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Evaluate.h
+
 /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Evaluate.h
 math.h
 -
@@ -59,6 +71,10 @@ DataLine.h
 /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataLine.h
 Classifications.h
 /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifications.h
+
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/ML.cpp
+ML.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/ML.h
 
 /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/ML.h
 iostream

@@ -25,6 +25,7 @@ vector<DataLine> DataClass::string_to_DataLine(vector<vector<string>> string_dat
         for (string j : i){
             if (file_name == "house"){
 
+
                 if (j == "n"){
                     features.push_back(0);
                 }
@@ -36,6 +37,14 @@ vector<DataLine> DataClass::string_to_DataLine(vector<vector<string>> string_dat
                 }
                 else {
                     features.push_back(999);
+                }
+            }
+            else if (file_name == "breas"){
+                if (j == "?"){
+                    features.push_back(5);
+                }
+                else {
+                    features.push_back(stof(j));
                 }
             }
             else {
@@ -116,10 +125,16 @@ int DataClass::choose_bin_count(vector<float> ranges){
         return 2;
     }
     else {
-        return 2;
+        return 4;
     }
 }
-
+vector<DataLine> randomize(vector<DataLine> original){
+    vector<DataLine> data_copy = original;
+    auto random_device = std::random_device {};                 //randomize data_copy
+    auto rng = std::default_random_engine {random_device()};
+    shuffle(std::begin(data_copy), std::end(data_copy), rng);
+    return data_copy;
+}
 vector<vector<DataLine>> DataClass::single_hold_out(vector<DataLine> data_in) {
     vector<vector<DataLine>> train_test(2);
     vector<DataLine> data_copy = data_in;
@@ -151,6 +166,34 @@ vector<vector<DataLine>> DataClass::single_hold_out_nr(vector<DataLine> data_in)
         }
     }
     return train_test;
+}
+
+vector<vector<vector<DataLine>>> DataClass::ten_fold_cross_validation(vector<DataLine> all_data){
+    all_data = randomize(all_data);
+    vector<vector<vector<DataLine>>> return_data;
+    vector<vector<DataLine>> ten_fold{10};
+    for (int i = 0; i<10; i++){
+        for (int j = 0; j<all_data.size(); j++){
+            if (j >= .1*i*all_data.size() && j<.1*(i+1)*all_data.size()){
+                ten_fold[i].push_back(all_data[j]);
+            }
+        }
+    }
+    for (int i = 0; i<10; i++){
+        vector<vector<DataLine>> ten_fold_copy{ten_fold};
+        vector<vector<DataLine>> train_test{2};
+        train_test[1] = ten_fold_copy[i];
+        ten_fold_copy.erase(ten_fold_copy.begin()+i);
+        vector<DataLine> train;
+        for (vector<DataLine> j : ten_fold_copy){
+            for (DataLine k : j){
+                train.push_back(k);
+            }
+        }
+        train_test[0] = train;
+        return_data.push_back(train_test);
+    }
+    return return_data;
 }
 
 vector<int> DataClass::get_bins_count() {

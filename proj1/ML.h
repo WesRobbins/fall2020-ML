@@ -15,8 +15,10 @@ public:
     ML(string file_name);
     DataClass dataclass;
     Algorithm algorithm;
+    vector<int> bins_count;
     void print_data(vector<DataLine> d);
-    void print_title(string fil_name);
+    void print_title(string file_name);
+    void run_all_sets(vector<vector<vector<DataLine>>>);
 
 };
 

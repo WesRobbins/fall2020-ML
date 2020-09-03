@@ -27,7 +27,7 @@ void Algorithm::run_machine_learning(vector<vector<DataLine>> train_test_data, v
     cout<<"classification accuracy: "<<evaluater.percent_accuracy(evaluater.test_set, evaluater.predicted)*100<<"%"<<endl;
     cout<<"1/0 loss value: "<<evaluater.one_zero_loss(evaluater.test_set, evaluater.predicted)<<endl;
     cout<<"log loss value: "<<evaluater.log_loss(evaluater.test_set, evaluater.predicted)<<endl;
-    print_groundxpredicted(test_set, classified_data);
+    //print_groundxpredicted(test_set, classified_data);
 
 
 }

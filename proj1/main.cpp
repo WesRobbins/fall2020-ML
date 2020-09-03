@@ -13,6 +13,15 @@ int main(void) {
     ML votes("data/house-votes-84.data");
     //ML glass("data/glass.data");
     //ML iris("data/iris.data");
+    //ML breast_cancer("data/breast-cancer-wisconsin.data");
+    //ML soybean("data/soybean-small.data");
+    //------------------------------------------------------
+    // Shuffled data models
+    //ML votes("data/house-votes-84.data");
+    //ML glass("data/glass.data");
+    //ML iris("data/iris.data");
+    //ML breast_cancer("data/breast-cancer-wisconsin.data");
+    //ML soybean("data/soybean-small.data");
 
 	return 0;
 }

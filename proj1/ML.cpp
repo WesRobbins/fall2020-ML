@@ -11,9 +11,15 @@ ML::ML(string file_name)
      algorithm()
 {
     print_title(file_name);
-    vector<vector<DataLine>> train_test = dataclass.single_hold_out(dataclass.data);
-    vector<int> bins_count = dataclass.get_bins_count();
-    algorithm.run_machine_learning(train_test, bins_count);
+    vector<vector<vector<DataLine>>> ten_fold = dataclass.ten_fold_cross_validation(dataclass.data);
+    bins_count = dataclass.get_bins_count();
+    run_all_sets(ten_fold);
+}
+
+void ML::run_all_sets(vector<vector<vector<DataLine>>> ten_fold){
+    for (vector<vector<DataLine>> i : ten_fold){
+        algorithm.run_machine_learning(i, bins_count);
+    }
 }
 
 void ML::print_data(vector<DataLine> d) {

@@ -26,6 +26,7 @@ public:
     int choose_bin_count(vector<float> range);
     vector<vector<DataLine>> single_hold_out(vector<DataLine>);
     vector<vector<DataLine>> single_hold_out_nr(vector<DataLine>);
+    vector<vector<vector<DataLine>>> ten_fold_cross_validation(vector<DataLine>);
 
     vector<int> get_bins_count();
 };

@@ -44,3 +44,5 @@ float Evaluate::log_loss(vector<DataLine> test_set_in, vector<tuple<Classificati
     float log_score = log_totals/(float)test_set_in.size();
     return log_score;
 }
+
+
