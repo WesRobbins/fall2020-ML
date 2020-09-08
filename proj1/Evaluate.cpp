@@ -1,8 +1,9 @@
 //
 // Created by Wes Robbins on 8/28/20.
-//
+// Edited by Ben Holmgren
 
 #include "Evaluate.h"
+#include <algorithm>
 
 Evaluate::Evaluate(vector<DataLine> test_set_in, vector<tuple<Classifications, float>> predicted_in) {
     test_set = test_set_in;

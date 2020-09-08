@@ -8,139 +8,141 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug"/>
+				<Option working_dir="/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug"/>
+				<Option working_dir="/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug"/>
+				<Option working_dir="/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="proj1">
-				<Option output="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/proj1" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug"/>
+				<Option output="/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/proj1" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/Library/Developer/CommandLineTools/usr/include/c++/v1"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
 					<Add directory="/usr/local/include"/>
-					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.1/include"/>
-					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
-					<Add directory="/System/Library/Frameworks"/>
-					<Add directory="/Library/Frameworks"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 proj1"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 proj1"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="proj1/fast">
-				<Option output="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/proj1" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug"/>
+				<Option output="/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/proj1" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/Library/Developer/CommandLineTools/usr/include/c++/v1"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
 					<Add directory="/usr/local/include"/>
-					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.1/include"/>
-					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
-					<Add directory="/System/Library/Frameworks"/>
-					<Add directory="/Library/Frameworks"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 proj1/fast"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j16 -f &quot;/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 proj1/fast"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Algorithm.cpp">
+		<Unit filename="/home/benholmgren/Desktop/fall20/csci447/proj1/Algorithm.cpp">
 			<Option target="proj1"/>
 		</Unit>
-		<Unit filename="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Algorithm.h">
+		<Unit filename="/home/benholmgren/Desktop/fall20/csci447/proj1/Algorithm.h">
 			<Option target="proj1"/>
 		</Unit>
-		<Unit filename="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifications.cpp">
+		<Unit filename="/home/benholmgren/Desktop/fall20/csci447/proj1/Classifications.cpp">
 			<Option target="proj1"/>
 		</Unit>
-		<Unit filename="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifications.h">
+		<Unit filename="/home/benholmgren/Desktop/fall20/csci447/proj1/Classifications.h">
 			<Option target="proj1"/>
 		</Unit>
-		<Unit filename="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifier.cpp">
+		<Unit filename="/home/benholmgren/Desktop/fall20/csci447/proj1/Classifier.cpp">
 			<Option target="proj1"/>
 		</Unit>
-		<Unit filename="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifier.h">
+		<Unit filename="/home/benholmgren/Desktop/fall20/csci447/proj1/Classifier.h">
 			<Option target="proj1"/>
 		</Unit>
-		<Unit filename="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataClass.cpp">
+		<Unit filename="/home/benholmgren/Desktop/fall20/csci447/proj1/DataClass.cpp">
 			<Option target="proj1"/>
 		</Unit>
-		<Unit filename="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataClass.h">
+		<Unit filename="/home/benholmgren/Desktop/fall20/csci447/proj1/DataClass.h">
 			<Option target="proj1"/>
 		</Unit>
-		<Unit filename="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataLine.cpp">
+		<Unit filename="/home/benholmgren/Desktop/fall20/csci447/proj1/DataLine.cpp">
 			<Option target="proj1"/>
 		</Unit>
-		<Unit filename="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataLine.h">
+		<Unit filename="/home/benholmgren/Desktop/fall20/csci447/proj1/DataLine.h">
 			<Option target="proj1"/>
 		</Unit>
-		<Unit filename="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Evaluate.cpp">
+		<Unit filename="/home/benholmgren/Desktop/fall20/csci447/proj1/Evaluate.cpp">
 			<Option target="proj1"/>
 		</Unit>
-		<Unit filename="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Evaluate.h">
+		<Unit filename="/home/benholmgren/Desktop/fall20/csci447/proj1/Evaluate.h">
 			<Option target="proj1"/>
 		</Unit>
-		<Unit filename="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/ML.cpp">
+		<Unit filename="/home/benholmgren/Desktop/fall20/csci447/proj1/ML.cpp">
 			<Option target="proj1"/>
 		</Unit>
-		<Unit filename="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/ML.h">
+		<Unit filename="/home/benholmgren/Desktop/fall20/csci447/proj1/ML.h">
 			<Option target="proj1"/>
 		</Unit>
-		<Unit filename="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Reader.cpp">
+		<Unit filename="/home/benholmgren/Desktop/fall20/csci447/proj1/Reader.cpp">
 			<Option target="proj1"/>
 		</Unit>
-		<Unit filename="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Reader.h">
+		<Unit filename="/home/benholmgren/Desktop/fall20/csci447/proj1/Reader.h">
 			<Option target="proj1"/>
 		</Unit>
-		<Unit filename="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/main.cpp">
+		<Unit filename="/home/benholmgren/Desktop/fall20/csci447/proj1/main.cpp">
 			<Option target="proj1"/>
 		</Unit>
-		<Unit filename="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/obj/DataClass.cpp">
+		<Unit filename="/home/benholmgren/Desktop/fall20/csci447/proj1/obj/DataClass.cpp">
 			<Option target="proj1"/>
 		</Unit>
-		<Unit filename="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/obj/DataClass.h">
+		<Unit filename="/home/benholmgren/Desktop/fall20/csci447/proj1/obj/DataClass.h">
 			<Option target="proj1"/>
 		</Unit>
-		<Unit filename="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/readers/main_reader.h">
+		<Unit filename="/home/benholmgren/Desktop/fall20/csci447/proj1/readers/main_reader.h">
 			<Option target="proj1"/>
 		</Unit>
-		<Unit filename="/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/CMakeLists.txt">
+		<Unit filename="/home/benholmgren/Desktop/fall20/csci447/proj1/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

@@ -1,0 +1,66 @@
+\documentclass[twoside,11pt]{article}
+
+% Any additional packages needed should be included after jmlr2e.
+% Note that jmlr2e.sty includes epsfig, amssymb, natbib and graphicx,
+% and defines many common macros, such as 'proof' and 'example'.
+%
+% It also sets the bibliographystyle to plainnat; for more information on
+% natbib citation styles, see the natbib documentation, a copy of which
+% is archived at http://www.jmlr.org/format/natbib.pdf
+
+\usepackage{jmlr2e}
+
+% Definitions of handy macros can go here
+
+\newcommand{\dataset}{{\cal D}}
+\newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
+
+% Heading arguments are {volume}{year}{pages}{submitted}{published}{author-full-names}
+
+\jmlrheading{1}{2000}{1-48}{4/00}{10/00}{Marina Meil\u{a} and Michael I. Jordan}
+
+% Short headings should be running head and authors last names
+
+\ShortHeadings{Learning with Mixtures of Trees}{Meil\u{a} and Jordan}
+\firstpageno{1}
+
+\begin{document}
+
+\title{Learning with Naive Bayes}
+
+\author{\name Ben Holmgren\u{a} \email benjamin.holmgren1@student.montana.edu \\
+       \addr School of Computing\\
+       Montana State University\\
+       Bozeman, MT, USA
+       \AND
+       \name Wes Robbins \email wesley.robbins@student.montana.edu \\
+       \addr School of Computing\\
+       Montana State University\\
+       Bozeman, MT, USA
+       \AND
+       \name Seth Bassetti \email seth.bassetti@student.montana.edu \\
+       \addr School of Computing\\
+       Montana State University\\
+       Bozeman, MT, USA}
+\editor{Ben Holmgren, Wes Robbins, and Seth Bassetti}
+
+\maketitle
+
+\begin{abstract}%   <- trailing '%' for backward compatibility of .sty file
+This paper describes our group's findings when using a Naive Bayesian
+approach for learning on various sets of data. We provide our findings on
+these data sets with and without permutation. More specifically, we show
+how each data set performs using two different loss functions with some
+level of statistical significance. 
+\end{abstract}
+
+
+\begin{keywords}
+  Naive Bayes
+\end{keywords}
+
+
+\vskip 0.2in
+\bibliography{sample}
+
+\end{document}

@@ -1,8 +1,9 @@
 //
 // Created by Wes Robbins on 8/26/20.
-//
+// Edited by Ben Holmgren
 
 #include "Reader.h"
+#include <algorithm>
 
 
 Reader::Reader(string file_name){

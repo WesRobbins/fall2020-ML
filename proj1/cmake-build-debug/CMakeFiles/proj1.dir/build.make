@@ -54,19 +54,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake
+CMAKE_COMMAND = /home/benholmgren/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.106/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E rm -f
+RM = /home/benholmgren/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.106/bin/cmake/linux/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1
+CMAKE_SOURCE_DIR = /home/benholmgren/Desktop/fall20/csci447/proj1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug
+CMAKE_BINARY_DIR = /home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/proj1.dir/depend.make
@@ -79,133 +79,133 @@ include CMakeFiles/proj1.dir/flags.make
 
 CMakeFiles/proj1.dir/main.cpp.o: CMakeFiles/proj1.dir/flags.make
 CMakeFiles/proj1.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/proj1.dir/main.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/proj1.dir/main.cpp.o -c /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/proj1.dir/main.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/proj1.dir/main.cpp.o -c /home/benholmgren/Desktop/fall20/csci447/proj1/main.cpp
 
 CMakeFiles/proj1.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/proj1.dir/main.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/main.cpp > CMakeFiles/proj1.dir/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/benholmgren/Desktop/fall20/csci447/proj1/main.cpp > CMakeFiles/proj1.dir/main.cpp.i
 
 CMakeFiles/proj1.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/proj1.dir/main.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/main.cpp -o CMakeFiles/proj1.dir/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/benholmgren/Desktop/fall20/csci447/proj1/main.cpp -o CMakeFiles/proj1.dir/main.cpp.s
 
 CMakeFiles/proj1.dir/obj/DataClass.cpp.o: CMakeFiles/proj1.dir/flags.make
 CMakeFiles/proj1.dir/obj/DataClass.cpp.o: ../obj/DataClass.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/proj1.dir/obj/DataClass.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/proj1.dir/obj/DataClass.cpp.o -c /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/obj/DataClass.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/proj1.dir/obj/DataClass.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/proj1.dir/obj/DataClass.cpp.o -c /home/benholmgren/Desktop/fall20/csci447/proj1/obj/DataClass.cpp
 
 CMakeFiles/proj1.dir/obj/DataClass.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/proj1.dir/obj/DataClass.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/obj/DataClass.cpp > CMakeFiles/proj1.dir/obj/DataClass.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/benholmgren/Desktop/fall20/csci447/proj1/obj/DataClass.cpp > CMakeFiles/proj1.dir/obj/DataClass.cpp.i
 
 CMakeFiles/proj1.dir/obj/DataClass.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/proj1.dir/obj/DataClass.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/obj/DataClass.cpp -o CMakeFiles/proj1.dir/obj/DataClass.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/benholmgren/Desktop/fall20/csci447/proj1/obj/DataClass.cpp -o CMakeFiles/proj1.dir/obj/DataClass.cpp.s
 
 CMakeFiles/proj1.dir/ML.cpp.o: CMakeFiles/proj1.dir/flags.make
 CMakeFiles/proj1.dir/ML.cpp.o: ../ML.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/proj1.dir/ML.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/proj1.dir/ML.cpp.o -c /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/ML.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/proj1.dir/ML.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/proj1.dir/ML.cpp.o -c /home/benholmgren/Desktop/fall20/csci447/proj1/ML.cpp
 
 CMakeFiles/proj1.dir/ML.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/proj1.dir/ML.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/ML.cpp > CMakeFiles/proj1.dir/ML.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/benholmgren/Desktop/fall20/csci447/proj1/ML.cpp > CMakeFiles/proj1.dir/ML.cpp.i
 
 CMakeFiles/proj1.dir/ML.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/proj1.dir/ML.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/ML.cpp -o CMakeFiles/proj1.dir/ML.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/benholmgren/Desktop/fall20/csci447/proj1/ML.cpp -o CMakeFiles/proj1.dir/ML.cpp.s
 
 CMakeFiles/proj1.dir/DataClass.cpp.o: CMakeFiles/proj1.dir/flags.make
 CMakeFiles/proj1.dir/DataClass.cpp.o: ../DataClass.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/proj1.dir/DataClass.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/proj1.dir/DataClass.cpp.o -c /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataClass.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/proj1.dir/DataClass.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/proj1.dir/DataClass.cpp.o -c /home/benholmgren/Desktop/fall20/csci447/proj1/DataClass.cpp
 
 CMakeFiles/proj1.dir/DataClass.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/proj1.dir/DataClass.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataClass.cpp > CMakeFiles/proj1.dir/DataClass.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/benholmgren/Desktop/fall20/csci447/proj1/DataClass.cpp > CMakeFiles/proj1.dir/DataClass.cpp.i
 
 CMakeFiles/proj1.dir/DataClass.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/proj1.dir/DataClass.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataClass.cpp -o CMakeFiles/proj1.dir/DataClass.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/benholmgren/Desktop/fall20/csci447/proj1/DataClass.cpp -o CMakeFiles/proj1.dir/DataClass.cpp.s
 
 CMakeFiles/proj1.dir/Reader.cpp.o: CMakeFiles/proj1.dir/flags.make
 CMakeFiles/proj1.dir/Reader.cpp.o: ../Reader.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/proj1.dir/Reader.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/proj1.dir/Reader.cpp.o -c /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Reader.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/proj1.dir/Reader.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/proj1.dir/Reader.cpp.o -c /home/benholmgren/Desktop/fall20/csci447/proj1/Reader.cpp
 
 CMakeFiles/proj1.dir/Reader.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/proj1.dir/Reader.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Reader.cpp > CMakeFiles/proj1.dir/Reader.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/benholmgren/Desktop/fall20/csci447/proj1/Reader.cpp > CMakeFiles/proj1.dir/Reader.cpp.i
 
 CMakeFiles/proj1.dir/Reader.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/proj1.dir/Reader.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Reader.cpp -o CMakeFiles/proj1.dir/Reader.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/benholmgren/Desktop/fall20/csci447/proj1/Reader.cpp -o CMakeFiles/proj1.dir/Reader.cpp.s
 
 CMakeFiles/proj1.dir/DataLine.cpp.o: CMakeFiles/proj1.dir/flags.make
 CMakeFiles/proj1.dir/DataLine.cpp.o: ../DataLine.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/proj1.dir/DataLine.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/proj1.dir/DataLine.cpp.o -c /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataLine.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/proj1.dir/DataLine.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/proj1.dir/DataLine.cpp.o -c /home/benholmgren/Desktop/fall20/csci447/proj1/DataLine.cpp
 
 CMakeFiles/proj1.dir/DataLine.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/proj1.dir/DataLine.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataLine.cpp > CMakeFiles/proj1.dir/DataLine.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/benholmgren/Desktop/fall20/csci447/proj1/DataLine.cpp > CMakeFiles/proj1.dir/DataLine.cpp.i
 
 CMakeFiles/proj1.dir/DataLine.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/proj1.dir/DataLine.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataLine.cpp -o CMakeFiles/proj1.dir/DataLine.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/benholmgren/Desktop/fall20/csci447/proj1/DataLine.cpp -o CMakeFiles/proj1.dir/DataLine.cpp.s
 
 CMakeFiles/proj1.dir/Algorithm.cpp.o: CMakeFiles/proj1.dir/flags.make
 CMakeFiles/proj1.dir/Algorithm.cpp.o: ../Algorithm.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/proj1.dir/Algorithm.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/proj1.dir/Algorithm.cpp.o -c /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Algorithm.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/proj1.dir/Algorithm.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/proj1.dir/Algorithm.cpp.o -c /home/benholmgren/Desktop/fall20/csci447/proj1/Algorithm.cpp
 
 CMakeFiles/proj1.dir/Algorithm.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/proj1.dir/Algorithm.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Algorithm.cpp > CMakeFiles/proj1.dir/Algorithm.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/benholmgren/Desktop/fall20/csci447/proj1/Algorithm.cpp > CMakeFiles/proj1.dir/Algorithm.cpp.i
 
 CMakeFiles/proj1.dir/Algorithm.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/proj1.dir/Algorithm.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Algorithm.cpp -o CMakeFiles/proj1.dir/Algorithm.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/benholmgren/Desktop/fall20/csci447/proj1/Algorithm.cpp -o CMakeFiles/proj1.dir/Algorithm.cpp.s
 
 CMakeFiles/proj1.dir/Classifications.cpp.o: CMakeFiles/proj1.dir/flags.make
 CMakeFiles/proj1.dir/Classifications.cpp.o: ../Classifications.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/proj1.dir/Classifications.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/proj1.dir/Classifications.cpp.o -c /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifications.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/proj1.dir/Classifications.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/proj1.dir/Classifications.cpp.o -c /home/benholmgren/Desktop/fall20/csci447/proj1/Classifications.cpp
 
 CMakeFiles/proj1.dir/Classifications.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/proj1.dir/Classifications.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifications.cpp > CMakeFiles/proj1.dir/Classifications.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/benholmgren/Desktop/fall20/csci447/proj1/Classifications.cpp > CMakeFiles/proj1.dir/Classifications.cpp.i
 
 CMakeFiles/proj1.dir/Classifications.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/proj1.dir/Classifications.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifications.cpp -o CMakeFiles/proj1.dir/Classifications.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/benholmgren/Desktop/fall20/csci447/proj1/Classifications.cpp -o CMakeFiles/proj1.dir/Classifications.cpp.s
 
 CMakeFiles/proj1.dir/Classifier.cpp.o: CMakeFiles/proj1.dir/flags.make
 CMakeFiles/proj1.dir/Classifier.cpp.o: ../Classifier.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/proj1.dir/Classifier.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/proj1.dir/Classifier.cpp.o -c /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifier.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/proj1.dir/Classifier.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/proj1.dir/Classifier.cpp.o -c /home/benholmgren/Desktop/fall20/csci447/proj1/Classifier.cpp
 
 CMakeFiles/proj1.dir/Classifier.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/proj1.dir/Classifier.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifier.cpp > CMakeFiles/proj1.dir/Classifier.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/benholmgren/Desktop/fall20/csci447/proj1/Classifier.cpp > CMakeFiles/proj1.dir/Classifier.cpp.i
 
 CMakeFiles/proj1.dir/Classifier.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/proj1.dir/Classifier.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifier.cpp -o CMakeFiles/proj1.dir/Classifier.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/benholmgren/Desktop/fall20/csci447/proj1/Classifier.cpp -o CMakeFiles/proj1.dir/Classifier.cpp.s
 
 CMakeFiles/proj1.dir/Evaluate.cpp.o: CMakeFiles/proj1.dir/flags.make
 CMakeFiles/proj1.dir/Evaluate.cpp.o: ../Evaluate.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/proj1.dir/Evaluate.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/proj1.dir/Evaluate.cpp.o -c /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Evaluate.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/proj1.dir/Evaluate.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/proj1.dir/Evaluate.cpp.o -c /home/benholmgren/Desktop/fall20/csci447/proj1/Evaluate.cpp
 
 CMakeFiles/proj1.dir/Evaluate.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/proj1.dir/Evaluate.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Evaluate.cpp > CMakeFiles/proj1.dir/Evaluate.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/benholmgren/Desktop/fall20/csci447/proj1/Evaluate.cpp > CMakeFiles/proj1.dir/Evaluate.cpp.i
 
 CMakeFiles/proj1.dir/Evaluate.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/proj1.dir/Evaluate.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Evaluate.cpp -o CMakeFiles/proj1.dir/Evaluate.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/benholmgren/Desktop/fall20/csci447/proj1/Evaluate.cpp -o CMakeFiles/proj1.dir/Evaluate.cpp.s
 
 # Object files for target proj1
 proj1_OBJECTS = \
@@ -235,7 +235,7 @@ proj1: CMakeFiles/proj1.dir/Classifier.cpp.o
 proj1: CMakeFiles/proj1.dir/Evaluate.cpp.o
 proj1: CMakeFiles/proj1.dir/build.make
 proj1: CMakeFiles/proj1.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable proj1"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable proj1"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/proj1.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -248,6 +248,6 @@ CMakeFiles/proj1.dir/clean:
 .PHONY : CMakeFiles/proj1.dir/clean
 
 CMakeFiles/proj1.dir/depend:
-	cd /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1 /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1 /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/cmake-build-debug/CMakeFiles/proj1.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/benholmgren/Desktop/fall20/csci447/proj1 /home/benholmgren/Desktop/fall20/csci447/proj1 /home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug /home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug /home/benholmgren/Desktop/fall20/csci447/proj1/cmake-build-debug/CMakeFiles/proj1.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/proj1.dir/depend
 

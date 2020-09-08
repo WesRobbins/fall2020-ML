@@ -1,8 +1,9 @@
 //
 // Created by Wes Robbins on 8/26/20.
-//
+// Edited by Ben Holmgren
 
 #include "Classifications.h"
+#include <algorithm>
 
 Classifications::Classifications(string name_in, vector<DataLine> full_train_data, vector<int> bins_count) {
     name = name_in;
@@ -24,7 +25,7 @@ vector<DataLine> Classifications::make_class_data(vector<DataLine> full) {
     return class_data;
 }
 
-// this function needs ajusted so it can incoorporate another dimention on top of
+// this function needs adjusted so it can incorporate another dimension on top of
 // F_vector to represent the multiple bins. Right now it just represent 1 which can be
 // complimented to get 0 for a total of two bins.
 // this only works when there is two bins for a feature ( ex: y or n)
@@ -39,7 +40,7 @@ vector<vector<float>> Classifications::calculate_F_vector(vector<DataLine> c_dat
             feature_counts[i][j.feature_vector[i]]++; //dataline.feature_vector[i] is the bin
         }
     }
-    // calulate the % in each bin for each feature
+    // calculate the % in each bin for each feature
     vector<vector<float>> f_vector;
     for (int i = 0; i < feature_counts.size(); i++) {
         vector<float> feature_Fs;
