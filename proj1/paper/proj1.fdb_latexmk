@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex proj1"] 1599571292 "proj1.aux" "proj1.bbl" "proj1" 1599571327
+["bibtex proj1"] 1599579419 "proj1.aux" "proj1.bbl" "proj1" 1599579419
   "/usr/share/texlive/texmf-dist/bibtex/bib/gloss/sample.bib" 1136766823 2721 b88105703bd616b4f9867992219afb8a ""
   "/usr/share/texlive/texmf-dist/bibtex/bst/natbib/plainnat.bst" 1233624470 26816 ffe5423d2019860bad9f54bc402fac15 ""
-  "proj1.aux" 1599571327 45 81a9f82fd57f295cf111f336013ce3ca "pdflatex"
+  "proj1.aux" 1599579419 555 08a79a4546f26a2838f525ee61bf678b "pdflatex"
   (generated)
-  "proj1.blg"
   "proj1.bbl"
-["pdflatex"] 1599571327 "proj1.tex" "proj1.pdf" "proj1" 1599571327
+  "proj1.blg"
+["pdflatex"] 1599579419 "proj1.tex" "proj1.pdf" "proj1" 1599579419
   "/etc/texmf/web2c/texmf.cnf" 1597974185 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcrm0800.tfm" 1136768653 1536 05df9db6aeccc4eea94fec15c9024f79 ""
@@ -46,10 +46,10 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1597974292 4770781 1ed1abab22da9c3e2cc82e4db562318b ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1597974311 8256750 1f190a436f15beb31cc495e4d7cf912b ""
   "jmlr2e.sty" 1599569739 13004 3f1a49a3c69963606c36dfda469d732b ""
-  "proj1.aux" 1599571327 45 81a9f82fd57f295cf111f336013ce3ca "pdflatex"
-  "proj1.bbl" 1599571292 275 de5ffaf5b665b622658d80bed97ba2a5 "bibtex proj1"
-  "proj1.tex" 1599571326 2087 8e20b11fde69f2319463f96d1cb77e0a ""
+  "proj1.aux" 1599579419 555 08a79a4546f26a2838f525ee61bf678b "pdflatex"
+  "proj1.bbl" 1599579419 275 de5ffaf5b665b622658d80bed97ba2a5 "bibtex proj1"
+  "proj1.tex" 1599579417 2281 de836f750a697b290d7d45655827dc44 ""
   (generated)
+  "proj1.aux"
   "proj1.pdf"
   "proj1.log"
-  "proj1.aux"
