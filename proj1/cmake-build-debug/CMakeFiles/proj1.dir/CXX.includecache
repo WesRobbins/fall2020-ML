@@ -6,11 +6,23 @@
 
 #IncludeRegexTransform: 
 
-/home/benholmgren/Desktop/fall20/csci447/proj1/Classifications.h
+/home/benholmgren/Desktop/fall20/csci447/proj1/DataClass.cpp
+DataClass.h
+/home/benholmgren/Desktop/fall20/csci447/proj1/DataClass.h
+
+/home/benholmgren/Desktop/fall20/csci447/proj1/DataClass.h
+vector
+-
 iostream
+-
+algorithm
+-
+random
 -
 DataLine.h
 /home/benholmgren/Desktop/fall20/csci447/proj1/DataLine.h
+Reader.h
+/home/benholmgren/Desktop/fall20/csci447/proj1/Reader.h
 
 /home/benholmgren/Desktop/fall20/csci447/proj1/DataLine.h
 vector
@@ -18,17 +30,19 @@ vector
 iostream
 -
 
-/home/benholmgren/Desktop/fall20/csci447/proj1/Evaluate.cpp
-Evaluate.h
-/home/benholmgren/Desktop/fall20/csci447/proj1/Evaluate.h
-algorithm
+/home/benholmgren/Desktop/fall20/csci447/proj1/Reader.h
+iostream
 -
-
-/home/benholmgren/Desktop/fall20/csci447/proj1/Evaluate.h
-math.h
+vector
+-
+fstream
+-
+sstream
+-
+string
+-
+ctype.h
 -
 DataLine.h
 /home/benholmgren/Desktop/fall20/csci447/proj1/DataLine.h
-Classifications.h
-/home/benholmgren/Desktop/fall20/csci447/proj1/Classifications.h
 

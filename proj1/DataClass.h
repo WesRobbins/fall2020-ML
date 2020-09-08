@@ -1,6 +1,6 @@
 //
 // Created by Wes Robbins on 8/26/20.
-//
+// Changed by Ben Holmgren
 
 #ifndef PROJ1_DATACLASS_H
 #define PROJ1_DATACLASS_H

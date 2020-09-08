@@ -1,6 +1,6 @@
 //
 // Created by Wes Robbins on 8/26/20.
-//
+// Edited by Ben Holmgren
 
 #include "DataClass.h"
 
@@ -13,6 +13,8 @@ DataClass::DataClass(string file_name_in)
     data = string_to_DataLine(reader.get_data());
 }
 
+/*
+*/
 vector<DataLine> DataClass::string_to_DataLine(vector<vector<string>> string_data){
     vector<DataLine> final_data;            // this will  be returned from the function
     vector<vector<float>> float_data;
@@ -77,6 +79,301 @@ vector<DataLine> DataClass::string_to_DataLine(vector<vector<string>> string_dat
     }
     return final_data;
 }
+
+/*
+ */
+
+//Read in permuted!!! data
+/*
+
+vector<DataLine> DataClass::string_to_DataLine(vector<vector<string>> string_data){
+    vector<DataLine> final_data;            // this will  be returned from the function
+    vector<vector<float>> float_data;
+    vector<string> class_names;
+    int count;
+    for (vector<string> i : string_data){
+        cout << i[i.size()-1] << endl;
+        class_names.push_back(i[i.size()-1]);
+        i.pop_back();
+        //string classification(i[i.size()-1]);
+        int attribCount = 1;
+        vector<float> features;
+        for (string j : i){
+            // set up counter for each attribute, in case we need to index based on attribs
+            attribCount ++;
+            //init random seed (use count because time seed is too close to make a difference here)
+            srand (count);
+
+
+            if (file_name == "house"){
+                //Compare our random value with any number from 1 to 10, say 10
+                //this should happen 1/10 of the time or so, and we permute data
+                //whenever random value = value we chose
+                if (j == "n"){
+                    //shuffle value to yes vote if our chosen value is randomly selected
+                    if (rand() % 10 + 1 == 10){
+                        features.push_back(1);
+                    }
+                    //otherwise don't shuffle
+                    else {
+                        features.push_back(0);
+                    }
+                }
+                else if (j == "y"){
+                    if (rand() % 10 + 1 == 10){
+                        features.push_back(0);
+                    }
+                    else {
+                        features.push_back(1);
+                    }
+                }
+                else if (j == "?"){
+                    if (rand() % 10 + 1 == 10){
+                        features.push_back(1);
+                    }
+                    else{
+                        features.push_back(0);
+                    }
+                }
+                else {
+                    features.push_back(999);
+                }
+            }
+            else if (file_name == "breas"){
+                if (j == "?"){
+                    features.push_back(5);
+                }
+                else {
+                    if (rand() % 10 + 1 == 10){
+                        if (stof(j) <= 5){
+                            features.push_back(stof(j)+5);
+                        }
+                        else if (stof(j) > 5){
+                            features.push_back(stof(j)-5);
+                        }
+                    }
+                    else{
+                        features.push_back(stof(j));
+                    }
+                }
+            }
+            else if (file_name == "glass"){
+                if (rand() % 10 + 1 == 10){
+                    if (attribCount == 1){
+                        float middle = (1.527 + 1.511)/2;
+                        if (stof(j) < middle){
+                            features.push_back((middle - stof(j)) + middle);
+                        }
+                        else if (stof(j) > middle){
+                            features.push_back(middle -(stof(j)- middle));
+                        }
+                    }
+                    else if (attribCount == 2){
+                        float middle = (11.95 + 15.79)/2;
+                        if (stof(j) < middle){
+                            features.push_back((middle - stof(j)) + middle);
+                        }
+                        else if (stof(j) > middle){
+                            features.push_back(middle -(stof(j)- middle));
+                        }
+                    }
+                    else if (attribCount == 3){
+                        float middle = (4.49 + 0)/2;
+                        if (stof(j) < middle){
+                            features.push_back((middle - stof(j)) + middle);
+                        }
+                        else if (stof(j) > middle){
+                            features.push_back(middle -(stof(j)- middle));
+                        }
+                    }
+                    else if (attribCount == 4){
+                        float middle = (3.50 + 0.29)/2;
+                        if (stof(j) < middle){
+                            features.push_back((middle - stof(j)) + middle);
+                        }
+                        else if (stof(j) > middle){
+                            features.push_back(middle -(stof(j)- middle));
+                        }
+                    }
+                    else if (attribCount == 5){
+                        float middle = (69.81 + 75.41)/2;
+                        if (stof(j) < middle){
+                            features.push_back((middle - stof(j)) + middle);
+                        }
+                        else if (stof(j) > middle){
+                            features.push_back(middle -(stof(j)- middle));
+                        }
+                    }
+                    else if (attribCount == 6){
+                        float middle = (6.21/2);
+                        if (stof(j) < middle){
+                            features.push_back((middle - stof(j)) + middle);
+                        }
+                        else if (stof(j) > middle){
+                            features.push_back(middle -(stof(j)- middle));
+                        }
+                    }
+                    else if (attribCount == 7){
+                        float middle = (5.43 + 16.19)/2;
+                        if (stof(j) < middle){
+                            features.push_back((middle - stof(j)) + middle);
+                        }
+                        else if (stof(j) > middle){
+                            features.push_back(middle -(stof(j)- middle));
+                        }
+                    }
+                    else if (attribCount == 8){
+                        float  middle = 3.15/2;
+                        if (stof(j) < middle){
+                            features.push_back((middle - stof(j)) + middle);
+                        }
+                        else if (stof(j) > middle){
+                            features.push_back(middle -(stof(j)- middle));
+                        }
+                    }
+                    else if (attribCount == 9){
+                        float middle = 0.51/2;
+                        if (stof(j) < middle){
+                            features.push_back((middle - stof(j)) + middle);
+                        }
+                        else if (stof(j) > middle){
+                            features.push_back(middle -(stof(j)- middle));
+                        }
+                    }
+                    else{
+                        features.push_back(stof(j));
+                    }
+                }
+                else{
+                    features.push_back(stof(j));
+                }
+            }
+            else if (file_name == "iris.") {
+                if (rand() % 10 + 1 == 10) {
+                    if (attribCount == 0) {
+                        float middle = 5.84/2;
+                        if (stof(j) < middle){
+                            features.push_back((middle - stof(j)) + middle);
+                        }
+                        else if (stof(j) > middle){
+                            features.push_back(middle -(stof(j)- middle));
+                        }
+                    }
+                    else if (attribCount == 1) {
+                        float middle = 3.05/2;
+                        if (stof(j) < middle){
+                            features.push_back((middle - stof(j)) + middle);
+                        }
+                        else if (stof(j) > middle){
+                            features.push_back(middle -(stof(j)- middle));
+                        }
+                    }
+                    else if (attribCount == 2) {
+                        float middle = 3.76/2;
+                        if (stof(j) < middle){
+                            features.push_back((middle - stof(j)) + middle);
+                        }
+                        else if (stof(j) > middle){
+                            features.push_back(middle -(stof(j)- middle));
+                        }
+                    }
+                    else if (attribCount == 3){
+                        float middle = 1.20/2;
+                        if (stof(j) < middle){
+                            features.push_back((middle - stof(j)) + middle);
+                        }
+                        else if (stof(j) > middle){
+                            features.push_back(middle -(stof(j)- middle));
+                        }
+                    }
+                    else {
+                        features.push_back(stof(j));
+                    }
+                }
+                else{
+                    features.push_back(stof(j));
+                }
+            }
+            else if (file_name == "soybe"){
+                if (rand() % 10 + 1 == 10) {
+                    if (attribCount == 0){
+                        float middle = 6/2;
+                        if (stof(j) < middle){
+                            features.push_back((middle - stof(j)) + middle);
+                        }
+                        else if (stof(j) > middle){
+                            features.push_back(middle -(stof(j)- middle));
+                        }
+                    }
+                    else if ((attribCount == 1)||(attribCount==4)||(attribCount==8)||(attribCount==11)||(attribCount==19)||(attribCount==22)||(attribCount==23)||(attribCount==24)||(attribCount==26)||(attribCount==34)){
+                        float middle = 0.5;
+                        if (stof(j) < middle){
+                            features.push_back((middle - stof(j)) + middle);
+                        }
+                        else if (stof(j) > middle){
+                            features.push_back(middle -(stof(j)- middle));
+                        }
+                    }
+                    else if ((attribCount == 2)||(attribCount == 3)||(attribCount==7)||(attribCount == 9)||(attribCount==25)){
+                        float middle = 1;
+                        if (stof(j) < middle){
+                            features.push_back((middle - stof(j)) + middle);
+                        }
+                        else if (stof(j) > middle){
+                            features.push_back(middle -(stof(j)- middle));
+                        }
+                    }
+                    else if ((attribCount == 5)||(attribCount==6)||(attribCount==20)||(attribCount==21)||(attribCount==27)){
+                        float middle = 1.5;
+                        if (stof(j) < middle){
+                            features.push_back((middle - stof(j)) + middle);
+                        }
+                        else if (stof(j) > middle){
+                            features.push_back(middle -(stof(j)- middle));
+                        }
+                    }
+                    else{
+                        features.push_back(stof(j));
+                    }
+                }
+                else{
+                    features.push_back(stof(j));
+                }
+            }
+            else {
+                features.push_back(stof(j));
+            }
+            count++;
+        }
+        float_data.push_back(features);  // adding line to 2d float vector
+    }
+
+    // Changing float^2 vector to dataline vector
+    tuple<vector<vector<vector<float>>>, vector<int>> bins_in = make_bins(float_data);
+    vector<vector<vector<float>>> all_bins_ranges;
+    bins_vector = get<1>(bins_in);
+    all_bins_ranges = get<0>(bins_in);
+
+    for (int i = 0; i<float_data.size();i++){
+        vector<int> classified_features(0);
+        for (int j = 0; j<float_data[i].size(); j++){
+            for(int k = 0; k<all_bins_ranges[j].size(); k++){
+                if (float_data[i][j] >= all_bins_ranges[j][k][0] && float_data[i][j] <= all_bins_ranges[j][k][1]){
+                    classified_features.push_back(k);
+                    break;
+                }
+            }
+
+        }
+
+        DataLine dataline(classified_features, class_names[i]);
+        final_data.push_back(dataline);
+    }
+    return final_data;
+}
+/*
+*/
+
 
 tuple<vector<vector<vector<float>>>, vector<int>> DataClass::make_bins(vector<vector<float>> float_data){
     vector<vector<float>> by_feature_data{float_data[0].size()};
