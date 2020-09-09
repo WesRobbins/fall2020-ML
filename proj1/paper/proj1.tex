@@ -9,6 +9,7 @@
 % is archived at http://www.jmlr.org/format/natbib.pdf
 
 \usepackage{./jmlr2e}
+\usepackage{amsmath}
 
 % Definitions of handy macros can go here
 
@@ -17,18 +18,18 @@
 
 % Heading arguments are {volume}{year}{pages}{submitted}{published}{author-full-names}
 
-\jmlrheading{1}{2000}{1-48}{4/00}{10/00}{Marina Meil\u{a} and Michael I. Jordan}
+\jmlrheading{1}{2020}{1-48}{4/00}{10/00}{Ben Holmgren, Wes Robbins, and Seth Bassetti}
 
 % Short headings should be running head and authors last names
 
-\ShortHeadings{Learning with Mixtures of Trees}{Meil\u{a} and Jordan}
+\ShortHeadings{Learning with Mixtures of Trees}{Holmgren, Robbins, and Bassetti}
 \firstpageno{1}
 
 \begin{document}
 
-\title{Learning with Naive Bayes}
+\title{Learning with Na{\"i}ve Bayes}
 
-\author{\name Ben Holmgren\u{a} \email benjamin.holmgren1@student.montana.edu \\
+\author{\name Ben Holmgren \email benjamin.holmgren1@student.montana.edu \\
        \addr School of Computing\\
        Montana State University\\
        Bozeman, MT, USA
@@ -47,27 +48,83 @@
 \maketitle
 
 \begin{abstract}%   <- trailing '%' for backward compatibility of .sty file
-This paper describes our group's findings when using a Naive Bayesian
+This paper describes our group's findings when using a Na{\"i}ve Bayesian
 approach for learning on various sets of data. We provide our findings on
-these data sets with and without permutation. More specifically, we show
-how each data set performs using two different loss functions with some
-level of statistical significance. 
+these data sets with and without noise in the data. More specifically, we show
+how the model performs on each data set using a percent accuracy statistic
+and two different loss functions. Prior to the project, we were expecting to find
+that generally the model would perform best on data with more feature variables,
+and also that the model would perform best on less noisy data. Though our
+hypotheses were not fully confirmed to the degree of statistical significance
+we had initially expected, we did find that these trends were present throughout
+the project, with exceptions for specific cases.
 \end{abstract}
 
 
 \begin{keywords}
-  Naive Bayes
+  Na{\"i}ve Bayes
 \end{keywords}
 
 \section{Problem Statement}
-Utilizing a variety of datasets, we implemented a Naive Bayesian based learning model in order to understand how certain features can have an impact on model performance. Each of the five datasets we are working with has a variable number of classes and either discrete or real valued attribute values. With this project, we were interested in how the different structures of these datasets could have an impact on how our model performed when trying to learn from them. In addition to that, we wanted to explore different methods of discretizing real valued data, such as using binning to separate similar values into categorical states. To test these, we implemented two different loss functions in order to measure the performance of our algorithm across multiple runs. Our main hypothesis was that if a dataset had a higher number of attributes, our model would have a statistically significant higher performance as evaluated by the result of the loss functions. Another hy
+Utilizing five datasets- each from unique and differing settings, we implemented a
+ Na{\"i}ve Bayesian learning model in an attempt to provide insights into the correlation 
+ of features within each set of data. More rigorously, each data set came with explicit classifications,
+  and we sought to train our model in order to then guess the classification of a given set of feature data
+  in the absence of a provided classification. Each of the five datasets we use in the project have a variable 
+  number of classes and either discrete or real valued attribute values. We then provided an analysis of each
+  dataset with permutations on its feature values. We hypothesized that in general, more attributes would mean
+  a better performance of our model, since more attribute data could be interpreted as gaining greater specificity in
+  pinpointing revealing characteristics of a class. We presumed that this enhanced performance would be statistically
+  significant, in that at least 90 percent of trials would show greater reliability of learning on datasets with more attribute data 
+  when compared to datasets with fewer attributes. In this context, the reliability of learning then was measurable by the percent with which the
+  model correctly guessed a class given only feature data, and also via two loss functions of our choosing. Additionally, we
+  hypothesized that any given dataset would perform more reliably 90 percent of the time when compared to its corresponding permuted
+  data, under the same measurements for reliability as for the first hypothesis. 
 
 \section{Methods}
-In order to test our hypotheses, we ran our model on five different datasets, all with a varying number of attributes. We implemented a Naive Bayesian based model that we used to train and test our data. Due to missing attribute values in two of the datasets, we had to come up with a way to preprocess our data to account for missing values. One of our datasets had missing values that correspondeded to a "present" vote, or a refusal to take sides. For this, we assigned all missing values 0, which corresponds to a "no", since voting present usually indicates the voter is against the proposal. The other dataset with missing values was real-valued, so we simply assigned each missing value the average of all the values for that attribute. Another step of preprocessing this data was discretizing real-valued data into categorical data. To do this, we used "binning", which is the processing of dividing values into a number of bins in order to convert it into a finite number of categories. Using cross-validation, we determine XXXXX bins offered the best performance and thus divided the real values into XXXX bins to discretize it. 
+In order to test our hypotheses, we ran our model on the five original given datasets and introduced noise into each dataset,
+comparing the results that our learning model was able to attain when comparing the original data to data with permutations.
+Initially, the datasets we used to test our model included breast cancer screening data, data referring to different properties of
+various kinds of glass, data on the properties of three different iris plant species, data referring to the properties of different 
+kinds of soybeans, and the 1984 voting data of each congressman in the U.S. house of representatives on the sixteen key 
+votes identified in the Congressional Quarterly Almanac. All of these data were real valued, with the exception of the data 
+corresponding to the House of representatives, which was in the form of strings indicating a vote ``y" for yes and ``n" for no.
+We converted these strings into real valued entries by assigning all yes votes to the value 1, and all no votes to the value 0.
+We also needed to handle missing attribute values in our data, which were existent in two of our datasets. In the congressional
+ voting dataset, missing values corresponded with a "present" vote, or a refusal to take sides. For this, we assigned all missing 
+ values 0, which corresponds to a "no", since voting present most likely would indicate that the voter is against the proposal. 
+ The breast cancer dataset also had missing values which actually corresponded to data which was unavailable. Because the dataset
+  was already real valued on a range from 1 to 10, we decided to give all missing entries a value of 5 which corresponds to the midpoint
+  of the range. We rationalized that in a medical setting, this should indicate that a queried cancerous bump shouldn't be negligently overlooked,
+  but missing data also need not indicate severe cancer, so we decided that a middle value in this context was appropriate. 
 
-After fully preprocessing our data, we were able to begin implementation of the Naive Bayesian algorithm. Before beginning to tune hyperparameters, we introduced a way to add noise to our data in order to see how our model reacts. To do this, our model goes through a dataset, randomly selects ten percent of the attributes in a given dataset, and shuffles all of the values within that attribute. This allows us to see if our model is able to effectively filter out noise. Furthermore, we needed some kind of "measure" to determine how well our algorithm performs on each dataset. For this task, we introduced two log functions to measure performance, a 1-0 loss function, and a log based loss function. These loss functions provide an effective method of determining model performance when certain features of the model are changed.
 
-After setting up our algorithm and implementing loss functions, we began tuning hyperparameters to optimize model performance. Ten fold cross validation proved to be a useful method of training and testing our data. This involved dividing the dataset into ten groups, with nine being used for training and one being used for testing, and rotating so that every group is eventually used for testing. The hyperparameter we were most interested in was the number of bins we used to discretize the real valued datasets. Using the cross validation test, we ran our model using different number of bins each time and eventually settling on the bin number with the best performance as evaluated by our loss functions. TODO: INCLUDE NUMBER OF BINS WE ACTUALLY SETTLE ON
+For each of these data sets, noise was introduced by permuting
+approximately 10\% of the feature data in any given set. More precisely, for each and every feature value, there was a randomized 10\%
+chance that permutation would occur. Permutation was conducted by computing the midpoint of values for every feature, and then
+``flipping" every selected data point over this midpoint by subtracting from the midpoint the distance between the midpoint and the data point
+if the data point were initially larger than the midpoint, and otherwise adding to the midpoint the distance between the midpoint and the data
+point if the point were initially smaller than the midpoint. 
+
+Mathematically, letting $F_i$ be a feature in a dataset and $f _j\in F_i$ be an individual data point of $F_i$, a midpoint $m$ was computed by
+$m = (max(f \in F_i) + min(f \in F_i))/2$, and our permutations $f_j^*$ were then conducted by computing on the randomly selected $f_j$
+composing approximately 10\% of $F_i$:
+\[\begin{cases}
+	f_j^*=m-(f_j-m) \text{ if $f_j > m$}\\
+	f_j^*=m+(m-f_j) \text{ if $f_j < m$}
+	\end{cases}\]
+	
+Having accomplished the permutations, another step of preprocessing this data was discretizing real-valued data into categorical data. To do this, we used ``binning", which is the processing of dividing values into a number of bins in order to convert it into a finite number of categories. Initially, we
+set the number of bins to 2 for every dataset before we would go back and fine tune hyperparameters once the algorithm was fully implemented.
+
+After fully preprocessing our data, we were able to begin implementation of the Na{\"i}ve Bayesian algorithm. After doing so, we needed a metric to determine how well our algorithm performs on each dataset. For this task, we introduced two loss functions to measure performance, a 1-0 loss function, and a log based loss function. These loss functions provide an effective method of determining model performance when certain features of the model are changed. TODO:XXX INSERT LOGLOSS AND 0/1 FORMULAS
+
+Once our algorithm and loss functions had been fully implemented, we began tuning hyperparameters to optimize model performance. Ten fold cross validation proved to be a useful method of training and testing our data. This involved dividing the dataset into ten groups, with nine being used for training and one being used for testing, and rotating so that every group is eventually used for testing. The hyperparameter we were most interested in was the number of bins we used to discretize the real valued datasets. 
+Using cross-validation, we determined that 4 bins offered the best performance for our model, and thus divided the real values into 4 bins to discretize it for features
+with more than four independent values assigned to any given entry. This was due in part to our findings, that it didn't seem to alter the performance
+of our model once the bin size was increased above 4, and also due to some limitations in our implementation. Creating more bins seems to bog down
+our model, and introduces a host of potential problem areas in our implementation that don't seem to be worth minimal performance improvements in the best case, and in practice no real noticeable difference. However, improving our ability to fine tune binning is a clear area for future work for subsequent implementations.
+ 
 \vskip 0.2in
 \bibliography{sample}
 
