@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex proj1"] 1599684341 "proj1.aux" "proj1.bbl" "proj1" 1599684342
+["bibtex proj1"] 1599686738 "proj1.aux" "proj1.bbl" "proj1" 1599686740
   "/usr/local/texlive/2019/texmf-dist/bibtex/bib/gloss/sample.bib" 1136766823 2721 b88105703bd616b4f9867992219afb8a ""
   "/usr/local/texlive/2019/texmf-dist/bibtex/bst/natbib/plainnat.bst" 1233624470 26816 ffe5423d2019860bad9f54bc402fac15 ""
-  "proj1.aux" 1599684342 334 1e7ab1370391404a6f7f0afa34e6fb93 "pdflatex"
+  "proj1.aux" 1599686739 804 ab946c037f2c48fc09cefe60a073785b "pdflatex"
   (generated)
-  "proj1.bbl"
   "proj1.blg"
-["pdflatex"] 1599684341 "proj1.tex" "proj1.pdf" "proj1" 1599684342
+  "proj1.bbl"
+["pdflatex"] 1599686738 "proj1.tex" "proj1.pdf" "proj1" 1599686740
   "/usr/local/texlive/2019/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -63,6 +63,9 @@
   "/usr/local/texlive/2019/texmf-dist/tex/latex/base/article.cls" 1544567569 19933 3097d1b31d3c45dc957096f554529032 ""
   "/usr/local/texlive/2019/texmf-dist/tex/latex/base/omscmr.fd" 1523050425 2472 aa08940f0a4dc6c24ae9f943b04ae0b9 ""
   "/usr/local/texlive/2019/texmf-dist/tex/latex/base/size11.clo" 1544567569 8310 3be7fb8fac17ab8f3f822aa0c9800815 ""
+  "/usr/local/texlive/2019/texmf-dist/tex/latex/caption/caption.sty" 1539032178 68576 86bbc6bd5a409b3c353fccc1a815fa5b ""
+  "/usr/local/texlive/2019/texmf-dist/tex/latex/caption/caption3.sty" 1538606650 68510 943558eecf41da4e76fc614fd7f5deff ""
+  "/usr/local/texlive/2019/texmf-dist/tex/latex/caption/subcaption.sty" 1528577929 4851 d029892ba4eeaa22f58796af60cf1631 ""
   "/usr/local/texlive/2019/texmf-dist/tex/latex/graphics-cfg/graphics.cfg" 1465944070 1224 978390e9c2234eab29404bc21b268d1e ""
   "/usr/local/texlive/2019/texmf-dist/tex/latex/graphics-def/pdftex.def" 1515537368 17334 520b9b85ad8a2a48eda3f643e27a5179 ""
   "/usr/local/texlive/2019/texmf-dist/tex/latex/graphics/epsfig.sty" 1523134385 3390 371f3edde417b3763d7e25ed5bb647ec ""
@@ -79,10 +82,20 @@
   "/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1557342064 3277517 23507ed665b4dd9046f0f2a94bbef2be ""
   "/usr/local/texlive/2019/texmf-var/web2c/pdftex/pdflatex.fmt" 1557342086 4259635 562fc36ec496993777a6c428d8bfb811 ""
   "/usr/local/texlive/2019/texmf.cnf" 1557341546 577 d150fef99ac436ad1156e86b0892f6ef ""
+  "images/BC(noise).pdf" 1599685419 22309 a25752de13458dc3ebebd99742ac2456 ""
+  "images/BC.pdf" 1599685368 20878 574924f37ad01830e504c553151805c0 ""
+  "images/Gl(noise).pdf" 1599685627 21776 c7a5191dceff0e7bf19dbd1d8a4f4bc9 ""
+  "images/Gl.pdf" 1599685524 19991 12104f5318090267ccbf40fffd13906b ""
+  "images/Iris(noise).pdf" 1599685697 21599 f349e365bddee288d6885f9efbd94e8b ""
+  "images/Iris.pdf" 1599685676 20500 d0ca5272dfcc1e65c3a8d9237a4648cc ""
+  "images/Soy(noise).pdf" 1599685796 21925 919248f27c4b89156bc1bef748720aac ""
+  "images/Soy.pdf" 1599685742 21142 142e5c78b5b3d2f7121ab312c17137a7 ""
+  "images/vote(noise).pdf" 1599684969 22918 fa4c6297f8446a1b4ae0182e28d86044 ""
+  "images/vote.pdf" 1599684868 20937 c99afee5ce60fd1459892cc8c2fde777 ""
   "jmlr2e.sty" 1599626961 13004 3f1a49a3c69963606c36dfda469d732b ""
-  "proj1.aux" 1599684342 334 1e7ab1370391404a6f7f0afa34e6fb93 "pdflatex"
-  "proj1.bbl" 1599684341 275 de5ffaf5b665b622658d80bed97ba2a5 "bibtex proj1"
-  "proj1.tex" 1599684338 10714 b55a838e53f6e6b6f451338b834c78e9 ""
+  "proj1.aux" 1599686739 804 ab946c037f2c48fc09cefe60a073785b "pdflatex"
+  "proj1.bbl" 1599686738 275 de5ffaf5b665b622658d80bed97ba2a5 "bibtex proj1"
+  "proj1.tex" 1599686735 12552 5564692cda8fd60b772cc5d9a355a1f1 ""
   (generated)
   "proj1.pdf"
   "proj1.aux"

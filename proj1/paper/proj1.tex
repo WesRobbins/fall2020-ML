@@ -10,6 +10,7 @@
 
 \usepackage{./jmlr2e}
 \usepackage{amsmath}
+\usepackage{subcaption}
 
 % Definitions of handy macros can go here
 
@@ -143,8 +144,8 @@ Again denoting the test set $T$, and letting the number of correct guesses made 
 
 Once our algorithm and loss functions had been fully implemented, we began tuning hyperparameters to optimize model performance. Ten fold cross validation proved to be a useful method of training and testing our data. This involved dividing the dataset into ten groups, with nine being used for training and one being used for testing, and rotating so that every group is eventually used for testing. The hyperparameter we were most interested in was the number of bins we used to discretize the real valued datasets. 
 Using cross-validation, we determined that 4 bins offered the best performance for our model, and thus divided the real values into 4 bins to discretize it for features
-with more than four independent values assigned to any given entry. This was due in part to our findings, that it didn't seem to alter the performance
-of our model once the bin size was increased above 4, and also due to some limitations in our implementation. Creating more bins seems to bog down
+with more than four independent values assigned to any given entry. This was due in part to our findings that the performance
+of our model didn't seem to be altered once the bin size was increased above 4, and also due to some limitations in our implementation. Creating more bins seems to bog down
 our model, and introduces a host of potential problem areas in our implementation that don't seem to be worth minimal performance improvements in the best case, and 
 in practice no real noticeable difference. However, improving our ability to fine tune binning is a clear area for future work for subsequent implementations. Yet, for this
 project, altering the number of bins seemed by observation to be around optimal with 4 bins for every feature in each dataset excluding the congressional voting data, 
@@ -152,8 +153,66 @@ which for practical purposes was also convenient in that it limited the number o
 
 \section{Results}
 
+\begin{figure}[h!]
+  \centering
+  \begin{subfigure}[b]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{images/vote.pdf}
+    \caption{Congressional Voting Data}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{images/vote(noise).pdf}
+    \caption{Perturbed Congressional Voting Data}
+  \end{subfigure}
+  
+   \begin{subfigure}[b]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{images/BC.pdf}
+    \caption{Breast Cancer Data}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{images/BC(noise).pdf}
+    \caption{Perturbed Breast Cancer Data}
+  \end{subfigure}
+  \caption{Log Loss vs 0/1 Loss for 1984 House of Representatives Voting Data.}
+  \label{fig:vote}
+\end{figure}
+  
+  
+\begin{figure}[h!]
+ \centering
+   \begin{subfigure}[b]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{images/Iris.pdf}
+    \caption{Iris Data}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{images/Iris(noise).pdf}
+    \caption{Perturbed Iris Data}
+  \end{subfigure}
+  
+  \begin{subfigure}[b]{0.45\linewidth}
+     \includegraphics[width=\linewidth]{images/Gl.pdf}
+    \caption{Glass Data}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{images/Gl(noise).pdf}
+    \caption{Perturbed Glass Data}
+  \end{subfigure}
+  
+   \begin{subfigure}[b]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{images/Soy.pdf}
+    \caption{Soybean Data}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\linewidth}
+    \includegraphics[width=\linewidth]{images/Soy(noise).pdf}
+    \caption{Perturbed Soybean Data}
+  \end{subfigure}
+  
+  \caption{Log Loss vs 0/1 Loss for 1984 House of Representatives Voting Data.}
+  \label{fig:vote}
+\end{figure}
 
- 
+
+
+
 \vskip 0.2in
 \bibliography{sample}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  9 SEP 2020 14:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  9 SEP 2020 15:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -135,33 +135,72 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 730.
 \mathdisplay@stack=\toks20
 LaTeX Info: Redefining \[ on input line 2844.
 LaTeX Info: Redefining \] on input line 2845.
-) (./proj1.aux)
+)
+(/usr/local/texlive/2019/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2018/05/01 v1.1-162 Sub-captions (AR)
+
+(/usr/local/texlive/2019/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2018/10/06 v3.3-154 Customizing captions (AR)
+
+(/usr/local/texlive/2019/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2018/09/12 v1.8c caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 64.
+\captionmargin=\dimen116
+\captionmargin@=\dimen117
+\captionwidth=\dimen118
+\caption@tempdima=\dimen119
+\caption@indent=\dimen120
+\caption@parindent=\dimen121
+\caption@hangindent=\dimen122
+Package caption Info: Unknown document class (or package),
+(caption)             standard defaults will be used.
+)
+
+Package caption Warning: Unsupported document class (or package) detected,
+(caption)                usage of the caption package is not recommended.
+See the caption package documentation for explanation.
+
+Package caption Info: \@makecaption = \long macro:#1#2-> \vskip 10pt \setbox \@
+tempboxa \hbox {#1: #2} \ifdim \wd \@tempboxa >\hsize \begin {list}{#1:}{ \sett
+owidth {\labelwidth }{#1:} \setlength {\leftmargin }{\labelwidth } \addtolength
+ {\leftmargin }{\labelsep } }\item #2 \end {list}\par \else \hbox to\hsize {\hf
+il \box \@tempboxa \hfil } \fi .
+\c@caption@flags=\count103
+\c@ContinuedFloat=\count104
+)
+\c@subfigure=\count105
+\c@subtable=\count106
+) (./proj1.aux
+
+LaTeX Warning: Label `fig:vote' multiply defined.
+
+)
 \openout1 = `proj1.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
  (/usr/local/texlive/2019/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count103
-\scratchdimen=\dimen116
+\scratchcounter=\count107
+\scratchdimen=\dimen123
 \scratchbox=\box29
-\nofMPsegments=\count104
-\nofMParguments=\count105
+\nofMPsegments=\count108
+\nofMParguments=\count109
 \everyMPshowfont=\toks21
-\MPscratchCnt=\count106
-\MPscratchDim=\dimen117
-\MPnumerator=\count107
-\makeMPintoPDFobject=\count108
+\MPscratchCnt=\count110
+\MPscratchDim=\dimen124
+\MPnumerator=\count111
+\makeMPintoPDFobject=\count112
 \everyMPtoPDFconversion=\toks22
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -214,57 +253,149 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+
 Underfull \vbox (badness 2932) has occurred while \output is active []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 83.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 84.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 83.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 84.
  [1{/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-LaTeX Font Info:    Try loading font information for U+msa on input line 109.
+LaTeX Font Info:    Try loading font information for U+msa on input line 110.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 109.
+LaTeX Font Info:    Try loading font information for U+msb on input line 110.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [2] [3]
+<images/vote.pdf, id=23, 602.25pt x 372.39125pt>
+File: images/vote.pdf Graphic file (type pdf)
+<use images/vote.pdf>
+Package pdftex.def Info: images/vote.pdf  used on input line 159.
+(pdftex.def)             Requested size: 195.12767pt x 120.65637pt.
+<images/vote(noise).pdf, id=24, 602.25pt x 372.39125pt>
+File: images/vote(noise).pdf Graphic file (type pdf)
+<use images/vote(noise).pdf>
+Package pdftex.def Info: images/vote(noise).pdf  used on input line 163.
+(pdftex.def)             Requested size: 195.12767pt x 120.65637pt.
+<images/BC.pdf, id=25, 602.25pt x 372.39125pt>
+File: images/BC.pdf Graphic file (type pdf)
+<use images/BC.pdf>
+Package pdftex.def Info: images/BC.pdf  used on input line 168.
+(pdftex.def)             Requested size: 195.12767pt x 120.65637pt.
+<images/BC(noise).pdf, id=26, 602.25pt x 372.39125pt>
+File: images/BC(noise).pdf Graphic file (type pdf)
+<use images/BC(noise).pdf>
+Package pdftex.def Info: images/BC(noise).pdf  used on input line 172.
+(pdftex.def)             Requested size: 195.12767pt x 120.65637pt.
+<images/Iris.pdf, id=27, 602.25pt x 372.39125pt>
+File: images/Iris.pdf Graphic file (type pdf)
+<use images/Iris.pdf>
+Package pdftex.def Info: images/Iris.pdf  used on input line 183.
+(pdftex.def)             Requested size: 195.12767pt x 120.65637pt.
+<images/Iris(noise).pdf, id=28, 602.25pt x 372.39125pt>
+File: images/Iris(noise).pdf Graphic file (type pdf)
+<use images/Iris(noise).pdf>
+Package pdftex.def Info: images/Iris(noise).pdf  used on input line 187.
+(pdftex.def)             Requested size: 195.12767pt x 120.65637pt.
+<images/Gl.pdf, id=29, 602.25pt x 372.39125pt>
+File: images/Gl.pdf Graphic file (type pdf)
+<use images/Gl.pdf>
+Package pdftex.def Info: images/Gl.pdf  used on input line 192.
+(pdftex.def)             Requested size: 195.12767pt x 120.65637pt.
+<images/Gl(noise).pdf, id=30, 602.25pt x 372.39125pt>
+File: images/Gl(noise).pdf Graphic file (type pdf)
+<use images/Gl(noise).pdf>
+Package pdftex.def Info: images/Gl(noise).pdf  used on input line 196.
+(pdftex.def)             Requested size: 195.12767pt x 120.65637pt.
+<images/Soy.pdf, id=31, 602.25pt x 372.39125pt>
+File: images/Soy.pdf Graphic file (type pdf)
+<use images/Soy.pdf>
+Package pdftex.def Info: images/Soy.pdf  used on input line 201.
+(pdftex.def)             Requested size: 195.12767pt x 120.65637pt.
+<images/Soy(noise).pdf, id=32, 602.25pt x 372.39125pt>
+File: images/Soy(noise).pdf Graphic file (type pdf)
+<use images/Soy(noise).pdf>
+Package pdftex.def Info: images/Soy(noise).pdf  used on input line 205.
+(pdftex.def)             Requested size: 195.12767pt x 120.65637pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 (./proj1.bbl
 
 Package natbib Warning: Empty `thebibliography' environment on input line 8.
 
-) [4] (./proj1.aux) ) 
+) [4 <./images/vote.pdf> <./images/vote(noise).pdf
+
+pdfTeX warning: pdflatex (file ./images/vote(noise).pdf): PDF inclusion: multip
+le pdfs with page group included in a single page
+> <./images/BC.pdf
+
+pdfTeX warning: pdflatex (file ./images/BC.pdf): PDF inclusion: multiple pdfs w
+ith page group included in a single page
+> <./images/BC(noise).pdf
+
+pdfTeX warning: pdflatex (file ./images/BC(noise).pdf): PDF inclusion: multiple
+ pdfs with page group included in a single page
+>] [5 <./images/Iris.pdf> <./images/Iris(noise).pdf
+
+pdfTeX warning: pdflatex (file ./images/Iris(noise).pdf): PDF inclusion: multip
+le pdfs with page group included in a single page
+> <./images/Gl.pdf
+
+pdfTeX warning: pdflatex (file ./images/Gl.pdf): PDF inclusion: multiple pdfs w
+ith page group included in a single page
+> <./images/Gl(noise).pdf
+
+pdfTeX warning: pdflatex (file ./images/Gl(noise).pdf): PDF inclusion: multiple
+ pdfs with page group included in a single page
+> <./images/Soy.pdf
+
+pdfTeX warning: pdflatex (file ./images/Soy.pdf): PDF inclusion: multiple pdfs 
+with page group included in a single page
+> <./images/Soy(noise).pdf
+
+pdfTeX warning: pdflatex (file ./images/Soy(noise).pdf): PDF inclusion: multipl
+e pdfs with page group included in a single page
+>] (./proj1.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
 Here is how much of TeX's memory you used:
- 2791 strings out of 492616
- 36353 string characters out of 6129482
- 106302 words of memory out of 5000000
- 6668 multiletter control sequences out of 15000+600000
+ 4006 strings out of 492616
+ 58519 string characters out of 6129482
+ 128102 words of memory out of 5000000
+ 7863 multiletter control sequences out of 15000+600000
  11406 words of font info for 43 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,12n,29p,530b,218s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2019/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmcsc10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-sy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cms
-y8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti1
-0.pfb>
-Output written on proj1.pdf (4 pages, 142491 bytes).
+ 42i,12n,40p,530b,441s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
+></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
+</usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb>
+</usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
+/usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
+usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></us
+r/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/
+local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/loc
+al/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/loca
+l/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/
+texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on proj1.pdf (5 pages, 344248 bytes).
 PDF statistics:
- 61 PDF objects out of 1000 (max. 8388607)
- 43 compressed objects within 1 object stream
+ 157 PDF objects out of 1000 (max. 8388607)
+ 107 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
 
