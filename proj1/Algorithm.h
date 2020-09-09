@@ -11,6 +11,9 @@
 #include "Classifier.h"
 #include "Evaluate.h"
 
+// the Algorithm class is given training data and testing data. It is responsible for developing a model form the training
+// data and then testing the performance of the algorithm on the test set using loss functions
+
 class Algorithm {
 public:
     vector<DataLine> train_set;
@@ -23,7 +26,7 @@ public:
     Classifier classifier;
 
     Algorithm();
-    void run_machine_learning(vector<vector<DataLine>> train_test_data, vector<int> bin_count);
+    vector<float> run_machine_learning(vector<vector<DataLine>> train_test_data, vector<int> bin_count);
 
     vector<Classifications> make_classes(vector<DataLine> train, vector<int> bins_count);
     vector<tuple<Classifications, float>> get_classified_data(vector<DataLine> test_data);

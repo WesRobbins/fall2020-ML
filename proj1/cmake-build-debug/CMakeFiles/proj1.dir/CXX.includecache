@@ -6,11 +6,33 @@
 
 #IncludeRegexTransform: 
 
-/home/benholmgren/Desktop/fall20/csci447/proj1/DataClass.cpp
-DataClass.h
-/home/benholmgren/Desktop/fall20/csci447/proj1/DataClass.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Algorithm.h
+algorithm
+-
+tuple
+-
+DataLine.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataLine.h
+Classifications.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifications.h
+Classifier.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifier.h
+Evaluate.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Evaluate.h
 
-/home/benholmgren/Desktop/fall20/csci447/proj1/DataClass.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifications.h
+iostream
+-
+DataLine.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataLine.h
+
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifier.h
+tuple
+-
+Classifications.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifications.h
+
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataClass.h
 vector
 -
 iostream
@@ -19,18 +41,36 @@ algorithm
 -
 random
 -
+stdlib.h
+-
 DataLine.h
-/home/benholmgren/Desktop/fall20/csci447/proj1/DataLine.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataLine.h
 Reader.h
-/home/benholmgren/Desktop/fall20/csci447/proj1/Reader.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Reader.h
 
-/home/benholmgren/Desktop/fall20/csci447/proj1/DataLine.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataLine.h
 vector
 -
 iostream
 -
 
-/home/benholmgren/Desktop/fall20/csci447/proj1/Reader.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Evaluate.h
+math.h
+-
+DataLine.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataLine.h
+Classifications.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifications.h
+
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/ML.h
+iostream
+-
+DataClass.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataClass.h
+Algorithm.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Algorithm.h
+
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Reader.h
 iostream
 -
 vector
@@ -44,5 +84,17 @@ string
 ctype.h
 -
 DataLine.h
-/home/benholmgren/Desktop/fall20/csci447/proj1/DataLine.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataLine.h
+
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/main.cpp
+iostream
+-
+fstream
+-
+string
+-
+ML.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/ML.h
+Reader.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Reader.h
 
