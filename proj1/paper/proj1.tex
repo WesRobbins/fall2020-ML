@@ -109,17 +109,19 @@ point if the point were initially smaller than the midpoint.
 Mathematically, letting $F_i$ be a feature in a dataset and $f _j\in F_i$ be an individual data point of $F_i$, a midpoint $m$ was computed by
 $m = (max(f \in F_i) + min(f \in F_i))/2$, and our permutations $f_j^*$ were then conducted by computing on the randomly selected $f_j$
 composing approximately 10\% of $F_i$:
+
 \[\begin{cases}
 	f_j^*=m-(f_j-m) \text{ if $f_j > m$}\\
 	f_j^*=m+(m-f_j) \text{ if $f_j < m$}
 	\end{cases}\]
+
 	
 Having accomplished the permutations, another step of preprocessing this data was discretizing real-valued data into categorical data. To do this, we used ``binning", 
 which is the processing of dividing values into a number of bins in order to convert it into a finite number of categories. Initially, we
 set the number of bins to 2 for every dataset before we would go back and fine tune hyperparameters once the algorithm was fully implemented.
 
 After fully preprocessing our data, we were able to begin implementation of the Na{\"i}ve Bayesian algorithm. After doing so, we needed a metric to determine how well 
-our algorithm performs on each dataset. For this task, we introduced two loss functions to measure performance, a 1-0 loss function, and a log based loss function. 
+our algorithm performs on each dataset. For this task, we introduced two loss functions to measure performance, a 0/1 loss function, and a log based loss function. 
 These loss functions provide an effective method of determining model performance when certain features of the model are changed. Explicitly, letting $c_i$ be the level 
 of certainty with which a guess was made in our model for the $i$th line of test data, logarithmic loss for each data point was computed as follows:
 \[\begin{cases}
@@ -129,11 +131,15 @@ of certainty with which a guess was made in our model for the $i$th line of test
 Letting the value $y_i$ be the value produced by the above equation for the $i$th line of test data, the logarithmic loss  for the entire test set $T$ is computed
 as:
 \begin{equation}
-$\frac{-1}{|T|}\sum_{t \in T}$.
+\frac{-1}{|T|}\sum_{t \in T}^{ } y_i
+\end{equation}
 
 %1-correct/total
-
- TODO:XXX INSERT LOGLOSS AND 0/1 FORMULAS
+The second loss function we introduced was the 0/1 loss function, which is the ratio of incorrect guesses to total guesses made on the testing data.
+Again denoting the test set $T$, and letting the number of correct guesses made on the test set by the model be denoted $g_c$, the 0/1 loss is computed with the simple ratio:
+\begin{equation}
+	1 - \frac{g_c}{|T|}
+\end{equation}
 
 Once our algorithm and loss functions had been fully implemented, we began tuning hyperparameters to optimize model performance. Ten fold cross validation proved to be a useful method of training and testing our data. This involved dividing the dataset into ten groups, with nine being used for training and one being used for testing, and rotating so that every group is eventually used for testing. The hyperparameter we were most interested in was the number of bins we used to discretize the real valued datasets. 
 Using cross-validation, we determined that 4 bins offered the best performance for our model, and thus divided the real values into 4 bins to discretize it for features
