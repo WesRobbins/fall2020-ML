@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Algorithm.cpp
+Algorithm.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Algorithm.h
+
 /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Algorithm.h
 algorithm
 -
@@ -25,6 +29,10 @@ iostream
 -
 DataLine.h
 /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataLine.h
+
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifier.cpp
+Classifier.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifier.h
 
 /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifier.h
 tuple
