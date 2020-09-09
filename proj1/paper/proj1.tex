@@ -8,7 +8,7 @@
 % natbib citation styles, see the natbib documentation, a copy of which
 % is archived at http://www.jmlr.org/format/natbib.pdf
 
-\usepackage{jmlr2e}
+\usepackage{./jmlr2e}
 
 % Definitions of handy macros can go here
 
@@ -28,7 +28,7 @@
 
 \title{Learning with Naive Bayes}
 
-\author{\name Ben Holmgren \email benjamin.holmgren1@student.montana.edu \\
+\author{\name Ben Holmgren\u{a} \email benjamin.holmgren1@student.montana.edu \\
        \addr School of Computing\\
        Montana State University\\
        Bozeman, MT, USA
@@ -60,17 +60,14 @@ level of statistical significance.
 \end{keywords}
 
 \section{Problem Statement}
-state problem and hypothesis
+Utilizing a variety of datasets, we implemented a Naive Bayesian based learning model in order to understand how certain features can have an impact on model performance. Each of the five datasets we are working with has a variable number of classes and either discrete or real valued attribute values. With this project, we were interested in how the different structures of these datasets could have an impact on how our model performed when trying to learn from them. In addition to that, we wanted to explore different methods of discretizing real valued data, such as using binning to separate similar values into categorical states. To test these, we implemented two different loss functions in order to measure the performance of our algorithm across multiple runs. Our main hypothesis was that if a dataset had a higher number of attributes, our model would have a statistically significant higher performance as evaluated by the result of the loss functions. Another hy
 
-\section{Description of approach}
+\section{Methods}
+In order to test our hypotheses, we ran our model on five different datasets, all with a varying number of attributes. We implemented a Naive Bayesian based model that we used to train and test our data. Due to missing attribute values in two of the datasets, we had to come up with a way to preprocess our data to account for missing values. One of our datasets had missing values that correspondeded to a "present" vote, or a refusal to take sides. For this, we assigned all missing values 0, which corresponds to a "no", since voting present usually indicates the voter is against the proposal. The other dataset with missing values was real-valued, so we simply assigned each missing value the average of all the values for that attribute. Another step of preprocessing this data was discretizing real-valued data into categorical data. To do this, we used "binning", which is the processing of dividing values into a number of bins in order to convert it into a finite number of categories. Using cross-validation, we determine XXXXX bins offered the best performance and thus divided the real values into XXXX bins to discretize it. 
 
-\section{Presentation of results}
-include graphs and stuff
+After fully preprocessing our data, we were able to begin implementation of the Naive Bayesian algorithm. Before beginning to tune hyperparameters, we introduced a way to add noise to our data in order to see how our model reacts. To do this, our model goes through a dataset, randomly selects ten percent of the attributes in a given dataset, and shuffles all of the values within that attribute. This allows us to see if our model is able to effectively filter out noise. Furthermore, we needed some kind of "measure" to determine how well our algorithm performs on each dataset. For this task, we introduced two log functions to measure performance, a 1-0 loss function, and a log based loss function. These loss functions provide an effective method of determining model performance when certain features of the model are changed.
 
-\section{discussion}
-
-\section{summary}
-
+After setting up our algorithm and implementing loss functions, we began tuning hyperparameters to optimize model performance. Ten fold cross validation proved to be a useful method of training and testing our data. This involved dividing the dataset into ten groups, with nine being used for training and one being used for testing, and rotating so that every group is eventually used for testing. The hyperparameter we were most interested in was the number of bins we used to discretize the real valued datasets. Using the cross validation test, we ran our model using different number of bins each time and eventually settling on the bin number with the best performance as evaluated by our loss functions. TODO: INCLUDE NUMBER OF BINS WE ACTUALLY SETTLE ON
 \vskip 0.2in
 \bibliography{sample}
 
