@@ -170,17 +170,29 @@ to 0/1 loss. The soybean data was the worst performing dataset for our model und
 model on each dataset under our chosen loss functions, we provide our results in the form of scatterplots whose y-axis is occupied by log loss values, and whose x-axis is occupied by 0/1 loss values.
 In doing so, we've provided the visualization that high performing datasets under our metrics will appear clustered in the bottom left corner of each scatterplot.
 
-Our experiment was conducted with 30 trials for each dataset using 10-fold cross validation for each trial, to provide the data presented in \ref{fig:good} and \ref{fig:ugly}. 
-The mean log loss and 0/1 loss values for each dataset after 30 trials can be found in the following table (where data with permutations is denoted by *):
+Our experiment was conducted with 30 trials for each dataset using 10-fold cross validation for each trial, to provide the data presented in figures \ref{fig:good} and \ref{fig:ugly}. 
+The mean log loss and 0/1 loss values for each dataset after 30 trials can be found in the following tables (where data with permutations is denoted by *):
 
 \begin{center}
- \begin{tabular}{|c c c c c c c c c c c|} 
+ \begin{tabular}{|c c c c c|} 
  \hline
- Loss Function & Vote & Vote* & Cancer & Cancer*& Glass & Glass* & Iris & Iris* & Soy & Soy*\\ [0.5ex] 
+ Loss Function & Vote & Vote* & Cancer & Cancer*\\ [0.5ex] 
  \hline\hline
- 0/1 Loss & 0.1041 & 0.1126 & 0.0348 & 0.0458  & 0.2206 & 0.4297 & 0.2654 & 0.2092 & 0.4300 & 0.4350\\ 
+ 0/1 Loss & 0.1041 & 0.1126 & 0.0348 & 0.0458\\ 
  \hline
- Log Loss & 0.5809 & 0.4401 & 0.1890 & 0.2116 & 0.5194 & 0.7116 & 0.3633 & 0.3840 & 1.6919 & 1.706\\  
+ Log Loss & 0.5809 & 0.4401 & 0.1890 & 0.2116\\  
+ \hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+ \begin{tabular}{|c c c c c c c|} 
+ \hline
+ Loss Function & Glass & Glass* & Iris & Iris* & Soy & Soy*\\ [0.5ex] 
+ \hline\hline
+ 0/1 Loss  & 0.2206 & 0.4297 & 0.2654 & 0.2092 & 0.4300 & 0.4350\\ 
+ \hline
+ Log Loss & 0.5194 & 0.7116 & 0.3633 & 0.3840 & 1.6919 & 1.706\\  
  \hline
 \end{tabular}
 \end{center}
