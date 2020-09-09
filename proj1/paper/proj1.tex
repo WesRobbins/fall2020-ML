@@ -91,8 +91,8 @@ votes identified in the Congressional Quarterly Almanac. All of these data were 
 corresponding to the House of representatives, which was in the form of strings indicating a vote ``y" for yes and ``n" for no.
 We converted these strings into real valued entries by assigning all yes votes to the value 1, and all no votes to the value 0.
 We also needed to handle missing attribute values in our data, which were existent in two of our datasets. In the congressional
- voting dataset, missing values corresponded with a "present" vote, or a refusal to take sides. For this, we assigned all missing 
- values 0, which corresponds to a "no", since voting present most likely would indicate that the voter is against the proposal. 
+ voting dataset, missing values corresponded with a ``present" vote, or a refusal to take sides. For this, we assigned all missing 
+ values 0, which corresponds to a ``no", since voting present most likely would indicate that the voter is against the proposal. 
  The breast cancer dataset also had missing values which actually corresponded to data which was unavailable. Because the dataset
   was already real valued on a range from 1 to 10, we decided to give all missing entries a value of 5 which corresponds to the midpoint
   of the range. We rationalized that in a medical setting, this should indicate that a queried cancerous bump shouldn't be negligently overlooked,
@@ -114,16 +114,39 @@ composing approximately 10\% of $F_i$:
 	f_j^*=m+(m-f_j) \text{ if $f_j < m$}
 	\end{cases}\]
 	
-Having accomplished the permutations, another step of preprocessing this data was discretizing real-valued data into categorical data. To do this, we used ``binning", which is the processing of dividing values into a number of bins in order to convert it into a finite number of categories. Initially, we
+Having accomplished the permutations, another step of preprocessing this data was discretizing real-valued data into categorical data. To do this, we used ``binning", 
+which is the processing of dividing values into a number of bins in order to convert it into a finite number of categories. Initially, we
 set the number of bins to 2 for every dataset before we would go back and fine tune hyperparameters once the algorithm was fully implemented.
 
-After fully preprocessing our data, we were able to begin implementation of the Na{\"i}ve Bayesian algorithm. After doing so, we needed a metric to determine how well our algorithm performs on each dataset. For this task, we introduced two loss functions to measure performance, a 1-0 loss function, and a log based loss function. These loss functions provide an effective method of determining model performance when certain features of the model are changed. TODO:XXX INSERT LOGLOSS AND 0/1 FORMULAS
+After fully preprocessing our data, we were able to begin implementation of the Na{\"i}ve Bayesian algorithm. After doing so, we needed a metric to determine how well 
+our algorithm performs on each dataset. For this task, we introduced two loss functions to measure performance, a 1-0 loss function, and a log based loss function. 
+These loss functions provide an effective method of determining model performance when certain features of the model are changed. Explicitly, letting $c_i$ be the level 
+of certainty with which a guess was made in our model for the $i$th line of test data, logarithmic loss for each data point was computed as follows:
+\[\begin{cases}
+	ln(c_i) \text{ if correct}\\
+	ln(1-c_i) \text{ if incorrect}\\
+\end{cases}\]
+Letting the value $y_i$ be the value produced by the above equation for the $i$th line of test data, the logarithmic loss  for the entire test set $T$ is computed
+as:
+\begin{equation}
+$\frac{-1}{|T|}\sum_{t \in T}$.
+
+%1-correct/total
+
+ TODO:XXX INSERT LOGLOSS AND 0/1 FORMULAS
 
 Once our algorithm and loss functions had been fully implemented, we began tuning hyperparameters to optimize model performance. Ten fold cross validation proved to be a useful method of training and testing our data. This involved dividing the dataset into ten groups, with nine being used for training and one being used for testing, and rotating so that every group is eventually used for testing. The hyperparameter we were most interested in was the number of bins we used to discretize the real valued datasets. 
 Using cross-validation, we determined that 4 bins offered the best performance for our model, and thus divided the real values into 4 bins to discretize it for features
 with more than four independent values assigned to any given entry. This was due in part to our findings, that it didn't seem to alter the performance
 of our model once the bin size was increased above 4, and also due to some limitations in our implementation. Creating more bins seems to bog down
-our model, and introduces a host of potential problem areas in our implementation that don't seem to be worth minimal performance improvements in the best case, and in practice no real noticeable difference. However, improving our ability to fine tune binning is a clear area for future work for subsequent implementations.
+our model, and introduces a host of potential problem areas in our implementation that don't seem to be worth minimal performance improvements in the best case, and 
+in practice no real noticeable difference. However, improving our ability to fine tune binning is a clear area for future work for subsequent implementations. Yet, for this
+project, altering the number of bins seemed by observation to be around optimal with 4 bins for every feature in each dataset excluding the congressional voting data, 
+which for practical purposes was also convenient in that it limited the number of areas where potential vulnerabilities could arise within our implementation.
+
+\section{Results}
+
+
  
 \vskip 0.2in
 \bibliography{sample}
