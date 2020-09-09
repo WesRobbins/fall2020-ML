@@ -8,6 +8,9 @@
 #include "DataLine.h"
 using namespace std;
 
+// this Class is for holding and calculating information regarding each possible classification
+// for each instance of this class there is a classification name and a likelihood feature vector
+
 class Classifications {
 public:
 

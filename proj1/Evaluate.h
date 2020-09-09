@@ -9,6 +9,8 @@
 #include "DataLine.h"
 #include "Classifications.h"
 
+// this class holds functions for evaluating performance
+// the methods of this class take in predicted results and the the test data which is referenced for ground truths
 
 class Evaluate {
 public:
@@ -18,8 +20,6 @@ public:
     float percent_accuracy(vector<DataLine> test_set_in, vector<tuple<Classifications, float>> predicted_in);
     float one_zero_loss(vector<DataLine> test_set_in, vector<tuple<Classifications, float>> predicted_in);
     float log_loss(vector<DataLine> test_set_in, vector<tuple<Classifications, float>> predicted_in);
-    //float precision(vector<DataLine> test_set_in, vector<tuple<Classifications, float>> predicted_in);
-    //float recall(vector<DataLine> test_set_in, vector<tuple<Classifications, float>> predicted_in);
 };
 
 

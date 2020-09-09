@@ -15,13 +15,14 @@
 
 using namespace std;
 
+// this class is instantiated by DataClass to read data in from file
+
 class Reader {
 public:
     string data_name;
     vector<vector<string>> string_data;
     Reader(string file_name);
     vector<vector<string>> file_to_vector(string file_name);
-    //vector<vector<String>> vector_to_vector(vector<vector<string>> string_vector);
     vector<vector<string>> get_data();
     void print_data();
 };
