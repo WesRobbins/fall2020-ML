@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  9 SEP 2020 07:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  9 SEP 2020 07:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -244,7 +244,7 @@ Package natbib Warning: Empty `thebibliography' environment on input line 8.
 Here is how much of TeX's memory you used:
  2791 strings out of 492616
  36353 string characters out of 6129482
- 106308 words of memory out of 5000000
+ 106302 words of memory out of 5000000
  6668 multiletter control sequences out of 15000+600000
  11406 words of font info for 43 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -261,7 +261,7 @@ cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm
 sy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cms
 y8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti1
 0.pfb>
-Output written on proj1.pdf (3 pages, 139167 bytes).
+Output written on proj1.pdf (3 pages, 138867 bytes).
 PDF statistics:
  58 PDF objects out of 1000 (max. 8388607)
  41 compressed objects within 1 object stream
