@@ -33,10 +33,9 @@ vector<DataLine> Classifications::make_class_data(vector<DataLine> full) {
 
 // this function calculates feature likelihood vector
 vector<vector<float>> Classifications::calculate_F_vector(vector<DataLine> c_data, vector<int> bins_count) {
-
     // count the amount of each bin in all of the class data
     int max_bins = *max_element(bins_count.begin(), bins_count.end());
-    vector<vector<int>> feature_counts{bins_count.size(), vector<int>{max_bins, 0}};
+    vector<vector<int>> feature_counts(bins_count.size(), vector<int>(max_bins, 0));
 
     for (int i = 0; i < feature_counts.size(); i++) {           // loop through all class data
         for (DataLine j : c_data) {                             // loop through bins of each vector

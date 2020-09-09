@@ -13,17 +13,17 @@ using namespace std;
 
 int main(void) {
 
-    //ML votes("data/house-votes-84.data", "off");
-    //ML glass("data/glass.data", "off");
-    //ML iris("data/iris.data", "off");
+    ML votes("data/house-votes-84.data", "off");
+    ML glass("data/glass.data", "off");
+    ML iris("data/iris.data", "off");
     ML breast_cancer("data/breast-cancer-wisconsin.data", "off");
-    //ML soybean("data/soybean-small.data", "off");
+    ML soybean("data/soybean-small.data", "off");
     //------------------------------------------------------
     // Shuffled data models
     //ML votes2("data/house-votes-84.data", "on");
     //ML glass2("data/glass.data", "on");
     //ML iris2("data/iris.data", "on");
-    ML breast_cancer2("data/breast-cancer-wisconsin.data", "on");
+    //ML breast_cancer2("data/breast-cancer-wisconsin.data", "on");
     //ML soybean2("data/soybean-small.data", "on");
 
 	return 0;
