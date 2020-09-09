@@ -142,7 +142,17 @@ Again denoting the test set $T$, and letting the number of correct guesses made 
 	1 - \frac{g_c}{|T|}
 \end{equation}
 
-Once our algorithm and loss functions had been fully implemented, we began tuning hyperparameters to optimize model performance. Ten fold cross validation proved to be a useful method of training and testing our data. This involved dividing the dataset into ten groups, with nine being used for training and one being used for testing, and rotating so that every group is eventually used for testing. The hyperparameter we were most interested in was the number of bins we used to discretize the real valued datasets. 
+We chose both of the above loss functions with the motivation that both are relatively simple to compute, as all of the terms are directly attainable from the output of our algorithm, and
+because they are metrics with importantly opposed qualities in the evaluation of a Bayesian model. Perhaps the most famous and immediately logical evaluation of loss is 0/1 loss, 
+which is a measurement of the ratio of incorrect guesses made in a test set. Importantly, this is indicative of the accuracy of our model, but is not particularly informative of overfitting.
+Logarithmic loss however is helpful when evaluating the performance of a model while also keeping in mind the potential of overfitting. By incorporating punishments for having a high degree
+of certainty in an incorrect decision, logarithmic loss is useful in capturing the performance of a model with greater depth than simply counting the number of correct solutions- 
+which in turn provides a weariness for overfitting.
+Both metrics are important to have an effective model, so both loss functions were chosen in the evaluation of our model on various data.
+
+Once our algorithm and loss functions had been fully implemented, we began tuning hyperparameters to optimize model performance. Ten fold cross validation proved to be a useful method of training and 
+testing our data. This involved dividing the dataset into ten groups, with nine being used for training and one being used for testing, and rotating so that every group is eventually used for testing. The 
+hyperparameter we were most interested in was the number of bins we used to discretize the real valued datasets. 
 Using cross-validation, we determined that 4 bins offered the best performance for our model, and thus divided the real values into 4 bins to discretize it for features
 with more than four independent values assigned to any given entry. This was due in part to our findings that the performance
 of our model didn't seem to be altered once the bin size was increased above 4, and also due to some limitations in our implementation. Creating more bins seems to bog down
@@ -152,6 +162,29 @@ project, altering the number of bins seemed by observation to be around optimal 
 which for practical purposes was also convenient in that it limited the number of areas where potential vulnerabilities could arise within our implementation.
 
 \section{Results}
+
+When running our learning algorithm on each of the datasets, we were able to quickly make observations as to which data our model was able to learn most effectively, and which sets of data
+our model had a more difficult time with. Using our chosen loss functions described above, we could notice that the datasets that our model was able to learn best were noticeably the house
+voting dataset and the breast cancer dataset, and their corresponding permutations. The Iris data and glass data retained relatively low log loss values, but were more dispersed with respect 
+to 0/1 loss. The soybean data was the worst performing dataset for our model under our chosen metrics with relatively scattered log loss and 0/1 loss values. To present the performance of our
+model on each dataset under our chosen loss functions, we provide our results in the form of scatterplots whose y-axis is occupied by log loss values, and whose x-axis is occupied by 0/1 loss values.
+In doing so, we've provided the visualization that high performing datasets under our metrics will appear clustered in the bottom left corner of each scatterplot.
+
+Our experiment was conducted with 30 trials for each dataset using 10-fold cross validation for each trial, to provide the data presented in \ref{fig:good} and \ref{fig:ugly}. 
+The mean log loss and 0/1 loss values for each dataset after 30 trials can be found in the following table (where data with permutations is denoted by *):
+
+\begin{center}
+ \begin{tabular}{|c c c c c c c c c c c|} 
+ \hline
+ Loss Function & Vote & Vote* & Cancer & Cancer*& Glass & Glass* & Iris & Iris* & Soy & Soy*\\ [0.5ex] 
+ \hline\hline
+ 0/1 Loss & 0.1041 & 0.1126 & 0.0348 & 0.0458  & 0.2206 & 0.4297 & 0.2654 & 0.2092 & 0.4300 & 0.4350\\ 
+ \hline
+ Log Loss & 0.5809 & 0.4401 & 0.1890 & 0.2116 & 0.5194 & 0.7116 & 0.3633 & 0.3840 & 1.6919 & 1.706\\  
+ \hline
+\end{tabular}
+\end{center}
+
 
 \begin{figure}[h!]
   \centering
@@ -172,8 +205,8 @@ which for practical purposes was also convenient in that it limited the number o
     \includegraphics[width=\linewidth]{images/BC(noise).pdf}
     \caption{Perturbed Breast Cancer Data}
   \end{subfigure}
-  \caption{Log Loss vs 0/1 Loss for 1984 House of Representatives Voting Data.}
-  \label{fig:vote}
+  \caption{Log Loss vs 0/1 Loss for 1984 House of Representatives Voting Data and Breast Cancer Data, which were our best performing datasets with low 0/1 and Log Loss. (Data is clustered in the bottom left of scatterplot)}
+  \label{fig:good}
 \end{figure}
   
   
@@ -206,8 +239,8 @@ which for practical purposes was also convenient in that it limited the number o
     \caption{Perturbed Soybean Data}
   \end{subfigure}
   
-  \caption{Log Loss vs 0/1 Loss for 1984 House of Representatives Voting Data.}
-  \label{fig:vote}
+  \caption{Log Loss vs 0/1 Loss for Iris, Glass, and Soybean data. These datasets did not perform quite as well as the four datasets in \ref{fig:good}. (Data is more dispersed throughout the scatterplot)}
+  \label{fig:ugly}
 \end{figure}
 
 

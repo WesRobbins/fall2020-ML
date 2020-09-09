@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex proj1"] 1599686738 "proj1.aux" "proj1.bbl" "proj1" 1599686740
+["bibtex proj1"] 1599691399 "proj1.aux" "proj1.bbl" "proj1" 1599691481
   "/usr/local/texlive/2019/texmf-dist/bibtex/bib/gloss/sample.bib" 1136766823 2721 b88105703bd616b4f9867992219afb8a ""
   "/usr/local/texlive/2019/texmf-dist/bibtex/bst/natbib/plainnat.bst" 1233624470 26816 ffe5423d2019860bad9f54bc402fac15 ""
-  "proj1.aux" 1599686739 804 ab946c037f2c48fc09cefe60a073785b "pdflatex"
+  "proj1.aux" 1599691481 1068 39d34a51f982ee8b29661e46fc87d34e "pdflatex"
   (generated)
   "proj1.blg"
   "proj1.bbl"
-["pdflatex"] 1599686738 "proj1.tex" "proj1.pdf" "proj1" 1599686740
+["pdflatex"] 1599691480 "proj1.tex" "proj1.pdf" "proj1" 1599691481
   "/usr/local/texlive/2019/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -93,10 +93,10 @@
   "images/vote(noise).pdf" 1599684969 22918 fa4c6297f8446a1b4ae0182e28d86044 ""
   "images/vote.pdf" 1599684868 20937 c99afee5ce60fd1459892cc8c2fde777 ""
   "jmlr2e.sty" 1599626961 13004 3f1a49a3c69963606c36dfda469d732b ""
-  "proj1.aux" 1599686739 804 ab946c037f2c48fc09cefe60a073785b "pdflatex"
-  "proj1.bbl" 1599686738 275 de5ffaf5b665b622658d80bed97ba2a5 "bibtex proj1"
-  "proj1.tex" 1599686735 12552 5564692cda8fd60b772cc5d9a355a1f1 ""
+  "proj1.aux" 1599691481 1068 39d34a51f982ee8b29661e46fc87d34e "pdflatex"
+  "proj1.bbl" 1599691399 275 de5ffaf5b665b622658d80bed97ba2a5 "bibtex proj1"
+  "proj1.tex" 1599691478 15838 a68c09818b40b451642ec6bd7e04e273 ""
   (generated)
-  "proj1.pdf"
-  "proj1.aux"
   "proj1.log"
+  "proj1.aux"
+  "proj1.pdf"
