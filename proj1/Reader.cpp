@@ -9,7 +9,6 @@
 
 Reader::Reader(string file_name){
     data_name = file_name.substr(5,5);
-    cout<<data_name<<endl;
     string_data = file_to_vector(file_name);                        // get data in form of 2d string vector
 
 }

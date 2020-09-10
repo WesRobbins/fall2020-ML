@@ -38,9 +38,9 @@ vector<float> Algorithm::run_machine_learning(vector<vector<DataLine>> train_tes
 
     //print_groundxpredicted(evaluater.test_set, evaluater.predicted);
     // show scores in output
-    cout<<"classification accuracy: "<<scores[0]<<"%"<<endl;
-    cout<<"1/0 loss value: "<<scores[1]<<endl;
-    cout<<"log loss value: "<<scores[2]<<endl;
+    //cout<<"classification accuracy: "<<scores[0]<<"%"<<endl;
+    //cout<<"1/0 loss value: "<<scores[1]<<endl;
+    //cout<<"log loss value: "<<scores[2]<<endl;
 
     return scores;
 
