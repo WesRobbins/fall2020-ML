@@ -7,6 +7,7 @@
 #include <tuple>
 #include "Classifications.h"
 
+// the Classifier class classifies data from the test set based on the trained model
 
 class Classifier {
 public:
