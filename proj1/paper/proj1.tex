@@ -197,6 +197,20 @@ The mean log loss and 0/1 loss values for each dataset after 30 trials can be fo
 \end{tabular}
 \end{center}
 
+\begin{figure}[h!]
+  \centering  
+   \begin{subfigure}[b]{0.6\linewidth}
+    \includegraphics[width=\linewidth]{images/sample1.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.6\linewidth}
+    \includegraphics[width=\linewidth]{images/sample2.png}
+  \end{subfigure}
+  \caption{A sample run of our implementation of the algorithm on the unperturbed house voting data}
+  \label{fig:good}
+\end{figure}
+
+
+
 
 \begin{figure}[h!]
   \centering
@@ -221,6 +235,8 @@ The mean log loss and 0/1 loss values for each dataset after 30 trials can be fo
   \label{fig:good}
 \end{figure}
   
+
+
   
 \begin{figure}[h!]
  \centering
@@ -277,7 +293,8 @@ highly correlative to its  respective class. Unearthing this kind of data might 
 work for a wide array of people throughout the machine learning community.
 
 Despite evidence pointing us towards the rejection of our first hypothesis, our second hypothesis that our model performed worse on perturbed data than on unperturbed data was generally upheld. In 
-the example run included in the table in section 3, we see that in general our hypothesis is indeed generally true, with the exception of the iris dataset under the 0/1 loss metric. While we 
+the example run included in the table in section 3, we see that in general our hypothesis is indeed generally true, with the exception of the iris dataset under the 0/1 loss metric. It is however worth noting
+that our model did perform quite well comparatively when introduced to noise, as the differences in performance were generally relatively insignificant for any dataset and its perturbed counterpart. While we 
 couldn't guarantee that the average values for any given dataset would hold this trend on 90\% or more repetitions of our experiment, it was certainly true for multiple datasets and was nearly true for others.
 Relaxing the percentage from 90\% might present an interesting avenue of future work as well, as it was nearly the case that our model performed better on every dataset without perturbations at least 90\% of
 the time.
