@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex proj1"] 1599691399 "proj1.aux" "proj1.bbl" "proj1" 1599692135
+["bibtex proj1"] 1599708842 "proj1.aux" "proj1.bbl" "proj1" 1599708844
   "/usr/local/texlive/2019/texmf-dist/bibtex/bib/gloss/sample.bib" 1136766823 2721 b88105703bd616b4f9867992219afb8a ""
   "/usr/local/texlive/2019/texmf-dist/bibtex/bst/natbib/plainnat.bst" 1233624470 26816 ffe5423d2019860bad9f54bc402fac15 ""
-  "proj1.aux" 1599692134 1068 39d34a51f982ee8b29661e46fc87d34e "pdflatex"
+  "proj1.aux" 1599708844 1525 6162da973c22686bb28755d629e488a2 "pdflatex"
   (generated)
   "proj1.blg"
   "proj1.bbl"
-["pdflatex"] 1599692133 "proj1.tex" "proj1.pdf" "proj1" 1599692135
+["pdflatex"] 1599708843 "proj1.tex" "proj1.pdf" "proj1" 1599708844
   "/usr/local/texlive/2019/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -90,13 +90,15 @@
   "images/Iris.pdf" 1599685676 20500 d0ca5272dfcc1e65c3a8d9237a4648cc ""
   "images/Soy(noise).pdf" 1599685796 21925 919248f27c4b89156bc1bef748720aac ""
   "images/Soy.pdf" 1599685742 21142 142e5c78b5b3d2f7121ab312c17137a7 ""
+  "images/sample1.png" 1599708316 154309 7c38515fec9c246c23ae3cd567d880a4 ""
+  "images/sample2.png" 1599708035 150614 df3128349d5ac0e011509a9926d2829c ""
   "images/vote(noise).pdf" 1599684969 22918 fa4c6297f8446a1b4ae0182e28d86044 ""
   "images/vote.pdf" 1599684868 20937 c99afee5ce60fd1459892cc8c2fde777 ""
   "jmlr2e.sty" 1599626961 13004 3f1a49a3c69963606c36dfda469d732b ""
-  "proj1.aux" 1599692134 1068 39d34a51f982ee8b29661e46fc87d34e "pdflatex"
-  "proj1.bbl" 1599691399 275 de5ffaf5b665b622658d80bed97ba2a5 "bibtex proj1"
-  "proj1.tex" 1599692132 16005 bac0d78e99d74fc54b5153460eeae914 ""
+  "proj1.aux" 1599708844 1525 6162da973c22686bb28755d629e488a2 "pdflatex"
+  "proj1.bbl" 1599708843 275 de5ffaf5b665b622658d80bed97ba2a5 "bibtex proj1"
+  "proj1.tex" 1599708839 22182 a47d140dee6f04aa4c9f613538652ee2 ""
   (generated)
-  "proj1.log"
-  "proj1.pdf"
   "proj1.aux"
+  "proj1.pdf"
+  "proj1.log"

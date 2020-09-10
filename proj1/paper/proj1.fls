@@ -113,6 +113,12 @@ INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
+INPUT images/sample1.png
+INPUT ./images/sample1.png
+INPUT ./images/sample1.png
+INPUT images/sample2.png
+INPUT ./images/sample2.png
+INPUT ./images/sample2.png
 INPUT images/vote.pdf
 INPUT ./images/vote.pdf
 INPUT ./images/vote.pdf
