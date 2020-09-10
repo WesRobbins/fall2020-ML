@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  9 SEP 2020 16:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  9 SEP 2020 21:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -332,11 +332,7 @@ Package pdftex.def Info: images/Soy(noise).pdf  used on input line 250.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-(./proj1.bbl
-
-Package natbib Warning: Empty `thebibliography' environment on input line 8.
-
-) [4] [5 <./images/vote.pdf> <./images/vote(noise).pdf
+[4] [5 <./images/vote.pdf> <./images/vote(noise).pdf
 
 pdfTeX warning: pdflatex (file ./images/vote(noise).pdf): PDF inclusion: multip
 le pdfs with page group included in a single page
@@ -348,7 +344,10 @@ ith page group included in a single page
 
 pdfTeX warning: pdflatex (file ./images/BC(noise).pdf): PDF inclusion: multiple
  pdfs with page group included in a single page
->] [6 <./images/Iris.pdf> <./images/Iris(noise).pdf
+>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [6 <./images/Iris.pdf> <./images/Iris(noise).pdf
 
 pdfTeX warning: pdflatex (file ./images/Iris(noise).pdf): PDF inclusion: multip
 le pdfs with page group included in a single page
@@ -368,31 +367,35 @@ with page group included in a single page
 
 pdfTeX warning: pdflatex (file ./images/Soy(noise).pdf): PDF inclusion: multipl
 e pdfs with page group included in a single page
->] (./proj1.aux) ) 
+>] (./proj1.bbl
+
+Package natbib Warning: Empty `thebibliography' environment on input line 8.
+
+) [7] (./proj1.aux) ) 
 Here is how much of TeX's memory you used:
  4007 strings out of 492616
  58529 string characters out of 6129482
- 132071 words of memory out of 5000000
+ 135071 words of memory out of 5000000
  7864 multiletter control sequences out of 15000+600000
  11406 words of font info for 43 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,12n,40p,352b,439s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmcsc10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-r8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
-0.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.
-pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.p
-fb>
-Output written on proj1.pdf (6 pages, 348392 bytes).
+ 42i,12n,40p,374b,439s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2019/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmcsc10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+sy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cms
+y8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti1
+0.pfb>
+Output written on proj1.pdf (7 pages, 352750 bytes).
 PDF statistics:
- 160 PDF objects out of 1000 (max. 8388607)
- 109 compressed objects within 2 object streams
+ 165 PDF objects out of 1000 (max. 8388607)
+ 113 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

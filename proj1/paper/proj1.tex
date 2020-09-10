@@ -73,7 +73,7 @@ Utilizing five datasets- each from unique and differing settings, we implemented
   and we sought to train our model in order to then guess the classification of a given set of feature data
   in the absence of a provided classification. Each of the five datasets we use in the project have a variable 
   number of classes and either discrete or real valued attribute values. We then provided an analysis of each
-  dataset with permutations on its feature values. We hypothesized that in general, more attributes would mean
+  dataset with perturbations on its feature values. We hypothesized that in general, more attributes would mean
   a better performance of our model, since more attribute data could be interpreted as gaining greater specificity in
   pinpointing revealing characteristics of a class. We presumed that this enhanced performance would be statistically
   significant, in that at least 90 percent of trials would show greater reliability of learning on datasets with more attribute data 
@@ -84,7 +84,7 @@ Utilizing five datasets- each from unique and differing settings, we implemented
 
 \section{Methods}
 In order to test our hypotheses, we ran our model on the five original given datasets and introduced noise into each dataset,
-comparing the results that our learning model was able to attain when comparing the original data to data with permutations.
+comparing the results that our learning model was able to attain when comparing the original data to data with perturbations.
 Initially, the datasets we used to test our model included breast cancer screening data, data referring to different properties of
 various kinds of glass, data on the properties of three different iris plant species, data referring to the properties of different 
 kinds of soybeans, and the 1984 voting data of each congressman in the U.S. house of representatives on the sixteen key 
@@ -102,13 +102,13 @@ We also needed to handle missing attribute values in our data, which were existe
 
 For each of these data sets, noise was introduced by permuting
 approximately 10\% of the feature data in any given set. More precisely, for each and every feature value, there was a randomized 10\%
-chance that permutation would occur. Permutation was conducted by computing the midpoint of values for every feature, and then
+chance that perturbation would occur. Perturbation was conducted by computing the midpoint of values for every feature, and then
 ``flipping" every selected data point over this midpoint by subtracting from the midpoint the distance between the midpoint and the data point
 if the data point were initially larger than the midpoint, and otherwise adding to the midpoint the distance between the midpoint and the data
 point if the point were initially smaller than the midpoint. 
 
 Mathematically, letting $F_i$ be a feature in a dataset and $f _j\in F_i$ be an individual data point of $F_i$, a midpoint $m$ was computed by
-$m = (max(f \in F_i) + min(f \in F_i))/2$, and our permutations $f_j^*$ were then conducted by computing on the randomly selected $f_j$
+$m = (max(f \in F_i) + min(f \in F_i))/2$, and our perturbations $f_j^*$ were then conducted by computing on the randomly selected $f_j$
 composing approximately 10\% of $F_i$:
 
 \[\begin{cases}
@@ -117,7 +117,7 @@ composing approximately 10\% of $F_i$:
 	\end{cases}\]
 
 	
-Having accomplished the permutations, another step of preprocessing this data was discretizing real-valued data into categorical data. To do this, we used ``binning", 
+Having accomplished the perturbations, another step of preprocessing this data was discretizing real-valued data into categorical data. To do this, we used ``binning", 
 which is the processing of dividing values into a number of bins in order to convert it into a finite number of categories. Initially, we
 set the number of bins to 2 for every dataset before we would go back and fine tune hyperparameters once the algorithm was fully implemented.
 
@@ -165,13 +165,13 @@ which for practical purposes was also convenient in that it limited the number o
 
 When running our learning algorithm on each of the datasets, we were able to quickly make observations as to which data our model was able to learn most effectively, and which sets of data
 our model had a more difficult time with. Using our chosen loss functions described above, we could notice that the datasets that our model was able to learn best were noticeably the house
-voting dataset and the breast cancer dataset, and their corresponding permutations. The Iris data and glass data retained relatively low log loss values, but were more dispersed with respect 
+voting dataset and the breast cancer dataset, and their corresponding perturbations. The Iris data and glass data retained relatively low log loss values, but were more dispersed with respect 
 to 0/1 loss. The soybean data was the worst performing dataset for our model under our chosen metrics with relatively scattered log loss and 0/1 loss values. To present the performance of our
 model on each dataset under our chosen loss functions, we provide our results in the form of scatterplots whose y-axis is occupied by log loss values, and whose x-axis is occupied by 0/1 loss values.
 In doing so, we've provided the visualization that high performing datasets under our metrics will appear clustered in the bottom left corner of each scatterplot.
 
 Our experiment was conducted with 30 trials for each dataset using 10-fold cross validation for each trial, to provide the data presented in figures \ref{fig:good} and \ref{fig:ugly}. 
-The mean log loss and 0/1 loss values for each dataset after 30 trials can be found in the following tables (where data with permutations is denoted by *):
+The mean log loss and 0/1 loss values for each dataset after 30 trials can be found in the following tables (where data with perturbation is denoted by *):
 
 \begin{center}
  \begin{tabular}{|c c c c c|} 
@@ -217,7 +217,7 @@ The mean log loss and 0/1 loss values for each dataset after 30 trials can be fo
     \includegraphics[width=\linewidth]{images/BC(noise).pdf}
     \caption{Perturbed Breast Cancer Data}
   \end{subfigure}
-  \caption{Log Loss vs 0/1 Loss for 1984 House of Representatives Voting Data and Breast Cancer Data, which were our best performing datasets with low 0/1 and Log Loss. (Data is clustered in the bottom left of scatterplot)}
+  \caption{Log Loss vs 0/1 Loss for 1984 House of Representatives Voting Data and Breast Cancer Data, which were our best performing datasets with low 0/1 and Log Loss. (Loss function evaluations are clustered in the bottom left of scatterplot)}
   \label{fig:good}
 \end{figure}
   
@@ -251,9 +251,38 @@ The mean log loss and 0/1 loss values for each dataset after 30 trials can be fo
     \caption{Perturbed Soybean Data}
   \end{subfigure}
   
-  \caption{Log Loss vs 0/1 Loss for Iris, Glass, and Soybean data. These datasets did not perform quite as well as the four datasets in \ref{fig:good}. (Data is more dispersed throughout the scatterplot)}
+  \caption{Log Loss vs 0/1 Loss for Iris, Glass, and Soybean data. These datasets did not perform quite as well as the four datasets in \ref{fig:good}. (Loss function evaluations are more dispersed throughout the scatterplot)}
   \label{fig:ugly}
 \end{figure}
+
+\section{Discussion}
+As mentioned briefly above, we found that under our model, the two best performing data sets were the 1984 house voting data and the breast cancer screening data. After this, the glass and iris
+data performed similarly, hovering around the high 70\% accuracy range, with the exception of the glass data under perturbation, which performed closer to 60\% accuracy. The worst performing dataset
+under both loss functions was the permuted soybean data, with an average log loss value of 1.706 and an average accuracy hovering around 56\% (meaning a 0/1 loss value of 0.4350). In contrast,
+the best performing dataset by both metrics was the breast cancer data without perturbation, which achieved a log loss value of 0.1890 and a 0/1 loss value of 0.0348; implying around an average 
+accuracy of 97.5\%. Perhaps for the starkest comparison, our initial hypothesis was certainly incorrect when analyzing the best and worst performing data sets. Recalling our initial hypothesis, we proposed
+that more feature variables could imply better performance under a na{\"i}ve Bayes approach by a statistically significant margin- which we hypothesized to be 90\% of the time. That is, we proposed that 
+a dataset with more feature variables would perform better under our two chosen loss functions than any datasets with fewer feature variables at least 90\% of the time. This certainly was not the case for our
+best and worst performing datasets, as our best performing data set had only 10 feature values per line, and our worst had 35 feature values per line of data. After running the above experiment 20 times, we 
+found that the breast cancer data was the best performing dataset on every run, and the soybean dataset was the worst performing dataset on every single run, directly contradicting our hypothesis. Not only 
+was the largest dataset in terms of feature variables incapable of performing better than the breast cancer dataset 90\% of the time, it couldn't even do so once.
+Even the smallest dataset, which contained iris data, had lower mean loss values in both metrics smaller than those of the soybean dataset on 19 in 20 runs, again directly contradicting our initial hypothesis. 
+As a result, we can feel somewhat comfortable in rejecting our hypothesis that more feature values mean better performance for our model by a statistically significant margin, because in practice
+the reverse was actually more often true.
+
+These findings led us to believe that the sheer number of feature variables on any given line of data, while a factor, are not the entire picture when it comes to correctly guessing a class on some test data.
+Perhaps more significant could be the number of classes in a dataset, as the two best performing datasets under our model (breast cancer and house voting datasets) were also the two with the least number of 
+classes (each containing two classes). Yet, perhaps unsurprisingly, this experiment drove home that the most important aspect for a dataset to perform well under our model seems to be feature data which is 
+highly correlative to its  respective class. Unearthing this kind of data might be rather tricky when considering specific, and relatively obvious aspects of a given set of data, and is certainly an ongoing area of 
+work for a wide array of people throughout the machine learning community.
+
+Despite evidence pointing us towards the rejection of our first hypothesis, our second hypothesis that our model performed worse on perturbed data than on unperturbed data was generally upheld. In 
+the example run included in the table in section 3, we see that in general our hypothesis is indeed generally true, with the exception of the iris dataset under the 0/1 loss metric. While we 
+couldn't guarantee that the average values for any given dataset would hold this trend on 90\% or more repetitions of our experiment, it was certainly true for multiple datasets and was nearly true for others.
+Relaxing the percentage from 90\% might present an interesting avenue of future work as well, as it was nearly the case that our model performed better on every dataset without perturbations at least 90\% of
+the time.
+
+
 
 
 
