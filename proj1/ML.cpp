@@ -24,6 +24,7 @@ ML::ML(string file_name, string noise)
     vector<vector<vector<DataLine>>> ten_fold = dataclass.ten_fold_cross_validation(dataclass.data);    //get data for 10-fold cross validation
     bins_count = dataclass.get_bins_count();                // get number of bins so hyper parameter testing can be performed
     run_all_sets(ten_fold);                                 // run each of the 10 train-test sets in cross validation and also measure performance
+    //algorithm.run_machine_learning(ten_fold[0], bins_count);
 }
 
 

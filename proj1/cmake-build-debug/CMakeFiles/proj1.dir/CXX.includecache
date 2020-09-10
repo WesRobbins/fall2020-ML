@@ -30,10 +30,6 @@ iostream
 DataLine.h
 /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataLine.h
 
-/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifier.cpp
-Classifier.h
-/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifier.h
-
 /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifier.h
 tuple
 -
@@ -69,6 +65,10 @@ DataLine.h
 /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/DataLine.h
 Classifications.h
 /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/Classifications.h
+
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/ML.cpp
+ML.h
+/Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/ML.h
 
 /Users/wesrobbins/CSProjects/CLionProjects/csci447_2/csci447/proj1/ML.h
 iostream
