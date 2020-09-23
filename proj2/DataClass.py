@@ -1,4 +1,5 @@
 from reader import *
+import pandas as pd
 
 """The data class is responsible for reading in, processing, storing, and manipulating data. An instance of the data
     class is passed into the algorithm so the algorithm has access to all data"""
@@ -8,7 +9,8 @@ class DataClass:
         self.k = data_splits[0]                                             # number of folds in k fold cross validation
         self.reader = Reader(file_name)                                     # instaniate reader class to read and process file
         self.df = self.reader.df
-        #self.normalize()
+        self.normalize()
+        pd.set_option("display.max_rows", None, "display.max_columns", None)
         print(self.df)
         self.tuning_set = self.df.iloc[0:int(data_splits[1] * self.df.shape[0]), :]                     #seperate tuning set from data
         self.train_test_set = self.df.iloc[int(data_splits[1] * self.df.shape[0]):self.df.shape[0], :]  # data not in tuning set is train_test data
@@ -24,6 +26,11 @@ class DataClass:
     def normalize_col(self, col):
         """Normalizes a column with z-score normalization, which is raw score - mean score
         divided by the standard deviation"""
+
+        #If there is only 1 value in the feature(constant), set all values to 0.
+        if len(self.df[col].unique()) == 1:
+            self.df[col] = 0
+            return
 
         col_mean = self.df[col].mean()
         df_std = self.df.std(axis=0)[col]
@@ -80,5 +87,4 @@ class DataClass:
 
                 #Appends the dataframe(one fold) to the list of folds
                 data_folds.append(new_dataframe)
-            pass
         return data_folds

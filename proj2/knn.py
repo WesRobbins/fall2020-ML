@@ -9,7 +9,6 @@ class KNN(Algorithm):
     def __init__(self, dataclass, classification_type, reduction_type):
         super(KNN, self).__init__(dataclass, classification_type)
         self.edited_data = dataclass.df     #this needs worked with
-        #print(self.dataclass.df.describe())
         self.construct_vdf()
         self.train(self.dataclass.df, reduction_type)
         self.hypertune()
@@ -23,7 +22,6 @@ class KNN(Algorithm):
         self.vdfs = []
         df = self.dataclass.df
         classes = df.iloc[:,-1].unique()
-        print(classes)
         for col in df.iloc[:,:-1]:
             if df.dtypes[col] != "float64" and df.dtypes[col] != "int64":
                 unique_values = df[col].unique()
@@ -112,13 +110,13 @@ class KNN(Algorithm):
         running_sum = 0     #Keeps a running sum of the distance as we loop through the attributes
         categorical_counter = 0
         for i in range(d):
-            if x.dtype == "float64" or x.dtype == "int64":
+            #Checks to see if feature is categorical or real-valued
+            if isinstance(x.iloc[i], int) or isinstance(x.iloc[i], float):
                 running_sum += (abs(x.iloc[i] - y.iloc[i]))**p  #Minkowski Metric
-            else:
+            else:   #If categorical, looks up the value in corresponding VDF
                 vdf_to_lookup = self.vdfs[categorical_counter]
                 categorical_counter += 1
                 running_sum += vdf_to_lookup.loc[x.iloc[i], y.iloc[i]]
-                #LOOKUP VALUE IN CORRESPONDING VDF
                 pass
 
         distance = running_sum**(1/p)
