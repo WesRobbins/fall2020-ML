@@ -34,7 +34,7 @@ class KNN(Algorithm):
         self.k = 3
 
     def classify(self, dataclass):
-        data_folds = dataclass.make_f_fold(self.edited_data, "off", dataclass.k)
+        data_folds = dataclass.make_f_fold(self.edited_data, "on", dataclass.k)
         for i in range(dataclass.k):  # This runs the cross validation, using each slice as the testing set
             print(f"Run Number {i + 1}:")
             testing_set = data_folds[i]  # Selects a slice for the testing set

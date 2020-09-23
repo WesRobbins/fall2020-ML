@@ -25,15 +25,43 @@ class DataClass:
 
     def make_f_fold(self, dataframe, stratification, k):
         data_folds = []
+        num_rows = dataframe.shape[0]
+        slice_size = int(num_rows / k)  # This determines what increment to slice the data in
         if stratification == "off":
             dataframe = dataframe.sample(frac=1)  # This shuffles the data in place
-            num_rows = dataframe.shape[0]
-            slice_size = int(num_rows / k)  # This determines what increment to slice the data in
             for i in range(k):
                 start = i * slice_size
                 end = (i + 1) * slice_size
                 data_folds.append(dataframe.iloc[start:end, :])
         elif stratification == "on":
-            # TODO
+            #Creates the folds by including the original frequency of each class within each fold
+
+            dataframe.sort_values(by="Class", inplace=True) #Sorts the examples by their class
+
+            #Grabs each class' relative frequency to use for later
+            class_proportions = dataframe["Class"].value_counts(normalize=True)
+
+            #Iterates through each fold
+            for i in range(self.k):
+                single_fold = []    #Creates an empty list to be populated
+
+                #Iterates through each class in the dataframe
+                for classification, frame in self.df.groupby(by="Class"):
+                    single_class_proportion = class_proportions[classification] #Grabs the class frequency
+
+                    #Determines how many examples to put in this fold, based on frequency and fold size
+                    examples_for_fold = single_class_proportion * slice_size
+
+                    #Creates the starting and ending indices
+                    start = int(i * examples_for_fold)
+                    end = int((i + 1) * examples_for_fold)
+
+                    #Appends x number of examples from this class into this fold
+                    single_fold.append(frame.iloc[start:end, :])
+                #Concatenates the list of dataframes together into one dataframe
+                new_dataframe = pd.concat(single_fold)
+
+                #Appends the dataframe(one fold) to the list of folds
+                data_folds.append(new_dataframe)
             pass
         return data_folds

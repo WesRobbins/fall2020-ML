@@ -33,4 +33,5 @@ class Reader:
             self.df["CLASS"] = temp_col
         else:
             self.df = pd.read_csv(file_path)
+        self.df.columns = [*self.df.columns[:-1], 'Class'] #Renames the last column class
 

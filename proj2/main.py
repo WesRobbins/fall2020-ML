@@ -6,12 +6,12 @@ from ML import *
      settings which are described more in depth below"""
 def main():
 
-    #ML("KNN", "classification", "off", [10, .1], 1, "./data/glass.data")
+    ML("KNN", "classification", "off", [10, .1], 1, "./data/glass.data")
     #ML("KNN", "regression", "off", [10, .1], 1, "./data/abalone.data")
     #ML("KNN", "regression", "off", [10, .1], 1, "./data/foresfires.data")
     #ML("KNN", "classification", "off", [10, .1], 1, "./data/house-votes-84.data")
     #ML("KNN", "regression", "off", [10, .1], 1, "./data/machine.data")
-    ML("KNN", "classification", "off", [5, .1], 1, "./data/segmentation.data")
+    #ML("KNN", "classification", "off", [5, .1], 1, "./data/segmentation.data")
 
     """ ML params in order:
      1. algorithm name -> options: KNN, KNNedited, KNNcondensed, KNNcluster
