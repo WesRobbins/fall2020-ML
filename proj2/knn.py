@@ -9,15 +9,59 @@ class KNN(Algorithm):
     def __init__(self, dataclass, classification_type, reduction_type):
         super(KNN, self).__init__(dataclass, classification_type)
         self.edited_data = dataclass.df     #this needs worked with
-        print(self.dataclass.df.describe())
-
+        #print(self.dataclass.df.describe())
+        self.construct_vdf()
         self.train(self.dataclass.df, reduction_type)
         self.hypertune()
         self.classify(self.dataclass)
 
 
 
+    def construct_vdf(self):
+        """Function to create value difference metrics for every column of categorical data."""
 
+        self.vdfs = []
+        df = self.dataclass.df
+        classes = df.iloc[:,-1].unique()
+        print(classes)
+        for col in df.iloc[:,:-1]:
+            if df.dtypes[col] != "float64" and df.dtypes[col] != "int64":
+                unique_values = df[col].unique()
+                vdf = pd.DataFrame(index=unique_values, columns=unique_values)
+                for i in unique_values:
+                    for j in unique_values:
+                        running_sum = 0
+                        for classification in classes:
+                            cia = self.c_i_a(col, i, classification)
+                            ci = self.c_i(col, i)
+                            cja = self.c_i_a(col, j, classification)
+                            cj = self.c_i(col, j)
+                            print(cia)
+                            sum = (abs(cia/ci) - (cja/cj))**1
+                            print(sum)
+                            running_sum += sum
+                        vdf.at[i,j] = running_sum
+                self.vdfs.append(vdf)
+
+    def c_i(self, col, feature_value):
+        """Helper function that counts the occurrences of a feature value within a column"""
+
+        df = self.dataclass.df
+        counts = df[col].value_counts()[feature_value]
+        return counts
+
+    def c_i_a(self, col, feature_value, classification):
+        """Helper function that counts the occurrences of a feature value
+        within a column that match a given class"""
+
+        df = self.dataclass.df
+        class_df = df[df['Class'] == classification] #Creates a new df of only examples that match the given class
+        counts = class_df[col].value_counts()[feature_value]
+        return counts
+
+
+
+            
 
     def train(self, dataframe, reduction_type):
         if reduction_type == "none":
@@ -66,8 +110,17 @@ class KNN(Algorithm):
         p = 2       #This uses euclidian distance
         d = x.shape[0] #This is the dimensionality of the data
         running_sum = 0     #Keeps a running sum of the distance as we loop through the attributes
+        categorical_counter = 0
         for i in range(d):
-            running_sum += (abs(x.iloc[i] - y.iloc[i]))**p  #Minkowski Metric
+            if x.dtype == "float64" or x.dtype == "int64":
+                running_sum += (abs(x.iloc[i] - y.iloc[i]))**p  #Minkowski Metric
+            else:
+                vdf_to_lookup = self.vdfs[categorical_counter]
+                categorical_counter += 1
+                running_sum += vdf_to_lookup.loc[x.iloc[i], y.iloc[i]]
+                #LOOKUP VALUE IN CORRESPONDING VDF
+                pass
+
         distance = running_sum**(1/p)
         return distance
 

@@ -8,15 +8,32 @@ class DataClass:
         self.k = data_splits[0]                                             # number of folds in k fold cross validation
         self.reader = Reader(file_name)                                     # instaniate reader class to read and process file
         self.df = self.reader.df
+        #self.normalize()
+        print(self.df)
         self.tuning_set = self.df.iloc[0:int(data_splits[1] * self.df.shape[0]), :]                     #seperate tuning set from data
         self.train_test_set = self.df.iloc[int(data_splits[1] * self.df.shape[0]):self.df.shape[0], :]  # data not in tuning set is train_test data
 
+
+    def normalize(self):
+        """Normalizes all real valued features in the dataset"""
+
+        for col in self.df.iloc[:,:-1]:
+            if self.df.dtypes[col] == "int64" or self.df.dtypes[col] == "float64":  #Checks to see if real valued
+                self.normalize_col(col)
+
+    def normalize_col(self, col):
+        """Normalizes a column with z-score normalization, which is raw score - mean score
+        divided by the standard deviation"""
+
+        col_mean = self.df[col].mean()
+        df_std = self.df.std(axis=0)[col]
+        self.df[col] = (self.df[col] - col_mean) / df_std
 
     def descretize(self, dataframe):
         # TODO
         pass
 
-    def real_valuize(self, dataframe):
+    def construct_vdf(self, dataframe):
         # TODO
         pass
 
