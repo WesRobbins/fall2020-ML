@@ -61,8 +61,12 @@ class KNN(Algorithm):
         within a column that match a given class"""
 
         class_df = self.df[self.df['Class'] == classification] #Creates a new df of only examples that match the given class
-        counts = class_df[col].value_counts()[feature_value]
-        return counts
+        counts = class_df[col].value_counts()
+
+        if feature_value not in counts: #If there are no values that correspond with the class
+            return 0
+        else:
+            return counts[feature_value]
 
 
 
