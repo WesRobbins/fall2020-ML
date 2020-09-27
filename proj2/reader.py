@@ -18,7 +18,7 @@ class Reader:
 
             self.df = pd.read_csv(file_path, header=None)
             last_col_index = self.df.columns[-1]
-            self.df.replace("?", "n", inplace=True)
+            #self.df.replace("?", "n", inplace=True)
             temp_col = self.df.pop(0)
             self.df[last_col_index+1] = temp_col
         elif "machine" in file_path:

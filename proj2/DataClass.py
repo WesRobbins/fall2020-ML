@@ -10,8 +10,6 @@ class DataClass:
         self.reader = Reader(file_name)                                     # instaniate reader class to read and process file
         self.df = self.reader.df
         self.normalize()
-        pd.set_option("display.max_rows", None, "display.max_columns", None)
-        print(self.df)
         self.tuning_set = self.df.iloc[0:int(data_splits[1] * self.df.shape[0]), :]                     #seperate tuning set from data
         self.train_test_set = self.df.iloc[int(data_splits[1] * self.df.shape[0]):self.df.shape[0], :]  # data not in tuning set is train_test data
 
@@ -48,6 +46,10 @@ class DataClass:
         # stratification is either on or off
 
     def make_f_fold(self, dataframe, stratification, k):
+        """Using the dataframe, this method returns a list of k-length, where each element of the list
+        is a dataframe. Basically creates the folds for k-fold cross validation, either through
+        stratified sampling, where class frequency is preserved or random sampling."""
+
         data_folds = []
         num_rows = dataframe.shape[0]
         slice_size = int(num_rows / k)  # This determines what increment to slice the data in
@@ -59,7 +61,6 @@ class DataClass:
                 data_folds.append(dataframe.iloc[start:end, :])
         elif stratification == "on":
             #Creates the folds by including the original frequency of each class within each fold
-
             dataframe.sort_values(by="Class", inplace=True) #Sorts the examples by their class
 
             #Grabs each class' relative frequency to use for later

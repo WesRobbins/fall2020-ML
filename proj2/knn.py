@@ -8,52 +8,59 @@ from Algorithm import *
 class KNN(Algorithm):
     def __init__(self, dataclass, classification_type, reduction_type):
         super(KNN, self).__init__(dataclass, classification_type)
+        self.df = self.dataclass.df
         self.edited_data = dataclass.df     #this needs worked with
-        self.construct_vdf()
+        self.construct_vdm()
         self.train(self.dataclass.df, reduction_type)
         self.hypertune()
         self.classify(self.dataclass)
 
 
 
-    def construct_vdf(self):
-        """Function to create value difference metrics for every column of categorical data."""
 
-        self.vdfs = []
+    def construct_vdm(self):
+        """Function to create value difference metrics (vdm) for every column of categorical data."""
+
+        self.vdms = {}          #Create a dictionary that will hold a vdm for each attribute
         df = self.dataclass.df
-        classes = df.iloc[:,-1].unique()
-        for col in df.iloc[:,:-1]:
+        classes = df.iloc[:,-1].unique()        #Gets a list of all the classes
+
+        for col in df.iloc[:,:-1]:              #Iterates through each attribute
+            #If the current column is not real-valued, construct a vdm for that column
             if df.dtypes[col] != "float64" and df.dtypes[col] != "int64":
-                unique_values = df[col].unique()
-                vdf = pd.DataFrame(index=unique_values, columns=unique_values)
-                for i in unique_values:
+                unique_values = df[col].unique()    #Stores all unique feature values
+                #Creates a vdm with dimensions of each unique value
+                vdm = pd.DataFrame(index=unique_values, columns=unique_values)
+
+                for i in unique_values: #Iterates through the i and j of the vdm
                     for j in unique_values:
                         running_sum = 0
-                        for classification in classes:
+                        for classification in classes:  #Iterates through each class
+                            #Computes values for vdm equation
                             cia = self.c_i_a(col, i, classification)
                             ci = self.c_i(col, i)
                             cja = self.c_i_a(col, j, classification)
                             cj = self.c_i(col, j)
-                            print(cia)
-                            sum = (abs(cia/ci) - (cja/cj))**1
-                            print(sum)
+
+                            #Computes value for given class
+                            sum = (abs((cia/ci) - (cja/cj)))**1
                             running_sum += sum
-                        vdf.at[i,j] = running_sum
-                self.vdfs.append(vdf)
+                        #Sets the given cell in the vdm to the sum of all classes for a pair (i, j)
+                        #of unique, categorical feature vales
+                        vdm.at[i,j] = running_sum
+                self.vdms[col] = vdm
 
     def c_i(self, col, feature_value):
         """Helper function that counts the occurrences of a feature value within a column"""
 
-        df = self.dataclass.df
-        counts = df[col].value_counts()[feature_value]
+        counts = self.df[col].value_counts()[feature_value]
         return counts
 
     def c_i_a(self, col, feature_value, classification):
         """Helper function that counts the occurrences of a feature value
         within a column that match a given class"""
 
-        df = self.dataclass.df
-        class_df = df[df['Class'] == classification] #Creates a new df of only examples that match the given class
+        class_df = self.df[self.df['Class'] == classification] #Creates a new df of only examples that match the given class
         counts = class_df[col].value_counts()[feature_value]
         return counts
 
@@ -108,16 +115,15 @@ class KNN(Algorithm):
         p = 2       #This uses euclidian distance
         d = x.shape[0] #This is the dimensionality of the data
         running_sum = 0     #Keeps a running sum of the distance as we loop through the attributes
-        categorical_counter = 0
         for i in range(d):
             #Checks to see if feature is categorical or real-valued
             if isinstance(x.iloc[i], int) or isinstance(x.iloc[i], float):
                 running_sum += (abs(x.iloc[i] - y.iloc[i]))**p  #Minkowski Metric
-            else:   #If categorical, looks up the value in corresponding VDF
-                vdf_to_lookup = self.vdfs[categorical_counter]
-                categorical_counter += 1
-                running_sum += vdf_to_lookup.loc[x.iloc[i], y.iloc[i]]
-                pass
+            else:   #If categorical, looks up the value in corresponding vdm
+                col = self.df.columns[i]    #Selects the feature that we are currently looking at
+                vdm = self.vdms[col]        #Grabs the vdm for the selected feature
+                #Locates the value in the vdm, and adds it to the total distance
+                running_sum += vdm.loc[x.iloc[i], y.iloc[i]]
 
         distance = running_sum**(1/p)
         return distance
