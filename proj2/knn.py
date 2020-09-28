@@ -1,6 +1,7 @@
 import sys
 import pandas as pd
 import operator
+import math
 from data_line import *
 from evaluator import *
 from Algorithm import *
@@ -132,44 +133,68 @@ class KNN(Algorithm):
         distance = running_sum**(1/p)
         return distance
 
+    def get_k_neighbors(self, example, training_set):
+        """Helper function that returns the k nearest neighbors of a given
+        example."""
+
+        distances = []
+        neighbors = []  #List to hold the nearest neighbors
+        # Computes distance between each example in the training set and the example from the testing set
+        for index, row in training_set.iterrows():
+            x = DataLine(row)
+            distance = self.compute_distance(x.feature_vector, example)
+            distances.append((index, distance))  # Stores these distances in the distance list
+
+        distances.sort(key=lambda elem: elem[1])  # Sorts the distances in ascending order
+
+        for distance in distances[:self.k]: #Iterates through the k nearest neighbors and their ids
+            id = distance[0]    #Grabs the id that corresponds with the example
+            #Creates a DataLine of the nearest neighbor and appends it to the neighbors list
+            neighbors.append(DataLine(training_set.loc[id,:]))
+
+        return neighbors
+
+
     def classify_example(self, example, training_set, classification_type):
         """This computes the distances between a given example and every
         element in the training set and classifies it based on its k-nearest neighbors"""
 
-        distances = []
-        #Computes distance between each example in the training set and the example from the testing set
-        for index, row in training_set.iterrows():
-            x = DataLine(row)
-            distance = self.compute_distance(x.feature_vector, example)
-            distances.append((index, distance)) #Stores these distances in the distance list
-
-        distances.sort(key=lambda elem: elem[1])    #Sorts the distances in ascending order
-        k_nearest_neighbors = distances[:self.k]    #Selects the first k examples from the distances list
-
+        #Grabs the k nearest_neighbors of the example
+        k_nearest_neighbors = self.get_k_neighbors(example, training_set)
         if classification_type == "classification":
             classes={}
 
             #This for loop counts the instances of each class within the k-nearest neighbors
             for neighbor in k_nearest_neighbors:
-                id = neighbor[0]
-                neighbor_row= DataLine(training_set.loc[id,:]) #Grabs the row from the training set by id
 
                 #Adds counts to a dictionary containing the classes
-                if neighbor_row.classification in classes:
-                    classes[neighbor_row.classification] += 1
+                if neighbor.classification in classes:
+                    classes[neighbor.classification] += 1
                 else:
-                    classes[neighbor_row.classification] = 1
+                    classes[neighbor.classification] = 1
 
             #Returns the class with the most counts
             predicted_class = max(classes.items(), key=operator.itemgetter(1))[0]
 
         elif classification_type == "regression":
-            # TODO add implentation for regression
-            pass
+            #TODO FINISH
+            bandwidth = 5       #Gaussian Kernel Bandwidth to be tuned
+            dimension = length(example)
+            running_numerator_sum = 0
+            running_denominator_sum = 0
+            for neighbor in k_nearest_neighbors:
+                distance = self.compute_distance(neighbor.feature_vector, example)
+                kernel_result = self.kernel_smoother((distance / bandwidth), dimension)
+
 
 
         return predicted_class
 
+    def kernel_smoother(self, u, dimension):
+        #TODO FINISH FUNCTION
+        result = (1 / (2* math.pi)**.5)**dimension
+        result = result * e**(5)
+        return 0
     def classify_all(self, training_set, testing_set, classification_type):
         """Iterates through the testing set, classifying each example and then calculating
         percent accuracy per testing set"""
@@ -185,9 +210,6 @@ class KNN(Algorithm):
             predicted_values.append(predicted_class)
 
         self.evaluater.evaluate(true_values, predicted_values)
-
-
-
 
 
 
