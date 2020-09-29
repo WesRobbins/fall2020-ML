@@ -7,6 +7,11 @@ from evaluator import *
 from Algorithm import *
 
 class KNN(Algorithm):
+
+    df = pd.DataFrame()
+    # CHECK THAT THIS IS OK!!!!!
+    k = 1
+
     def __init__(self, dataclass, classification_type, reduction_type):
         super(KNN, self).__init__(dataclass, classification_type)
         self.df = self.dataclass.df
@@ -71,7 +76,7 @@ class KNN(Algorithm):
 
 
 
-            
+
 
     def train(self, dataframe, reduction_type):
         if reduction_type == "none":
@@ -100,7 +105,26 @@ class KNN(Algorithm):
 
 
     def edited_knn(self, dataframe):
-        # TODO
+        delete = pd.DataFrame()
+        for index, row in dataframe.iterrows():
+            training_set = dataframe.drop(index)
+            example = DataLine(row)
+            predicted_class = self.classify_example(example.feature_vector, training_set, "classification")
+            if predicted_class != example.classification:
+                delete.append(row)
+                print(row)
+                print("Predicted class")
+                print(predicted_class)
+                print("GT")
+                print(example.classification)
+                pass
+            pass
+        pass
+        # conduct deletions in a batch after testing each entry on the rest
+        # of the data
+        for i,j in delete:
+            self.dataframe = dataframe.drop(i)
+            pass
         pass
 
     def condensed_knn(self, dataframe):
@@ -210,8 +234,3 @@ class KNN(Algorithm):
             predicted_values.append(predicted_class)
 
         self.evaluater.evaluate(true_values, predicted_values)
-
-
-
-
-
