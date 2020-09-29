@@ -113,7 +113,8 @@ class KNN(Algorithm):
         for index, row in dataframe.iterrows():
             training_set = dataframe.drop(index)
             example = DataLine(row)
-            predicted_class = self.classify_example(example.feature_vector, training_set, "classification")
+            #print(type(example))
+            predicted_class = self.classify_example(example, training_set, "classification")
             if predicted_class != example.classification:
                 delete.append(row)
                 print(row)
