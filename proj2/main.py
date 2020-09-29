@@ -7,7 +7,7 @@ from ML import *
 def main():
 
     #ML("KNN", "classification", "off", [10, .1], 1, "./data/glass.data")
-    #ML("KNN", "regression", "off", [10, .1], 1, "./data/abalone.data")
+    #ML("KNN", "classification", "off", [10, .1], 1, "./data/abalone.data")
     #ML("KNN", "regression", "off", [10, .1], 1, "./data/foresfires.data")
     ML("KNN", "classification", "off", [10, .1], 1, "./data/house-votes-84.data")
     #ML("KNN", "regression", "off", [10, .1], 1, "./data/machine.data")

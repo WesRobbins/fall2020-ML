@@ -5,6 +5,7 @@ import math
 from data_line import *
 from evaluator import *
 from Algorithm import *
+import time
 
 class KNN(Algorithm):
     def __init__(self, dataclass, classification_type, reduction_type):
@@ -35,6 +36,9 @@ class KNN(Algorithm):
 
                 for i in unique_values: #Iterates through the i and j of the vdm
                     for j in unique_values:
+                        if i == j:
+                            vdm.at[i, j] = 0
+                            continue
                         running_sum = 0
                         for classification in classes:  #Iterates through each class
                             #Computes values for vdm equation
@@ -160,7 +164,10 @@ class KNN(Algorithm):
         element in the training set and classifies it based on its k-nearest neighbors"""
 
         #Grabs the k nearest_neighbors of the example
-        k_nearest_neighbors = self.get_k_neighbors(example, training_set)
+        #start_time = time.time()
+        k_nearest_neighbors = self.get_k_neighbors(example.feature_vector, training_set)
+        #end_time = time.time()
+        #print(f"get_k_neighbors = {end_time - start_time}")
         if classification_type == "classification":
             classes={}
 
@@ -179,12 +186,16 @@ class KNN(Algorithm):
         elif classification_type == "regression":
             #TODO FINISH
             bandwidth = 5       #Gaussian Kernel Bandwidth to be tuned
-            dimension = length(example)
+            dimension = len(example.feature_vector)
             running_numerator_sum = 0
             running_denominator_sum = 0
             for neighbor in k_nearest_neighbors:
-                distance = self.compute_distance(neighbor.feature_vector, example)
+                distance = self.compute_distance(neighbor.feature_vector, example.feature_vector)
                 kernel_result = self.kernel_smoother((distance / bandwidth), dimension)
+                running_numerator_sum += kernel_result * example.classification
+                running_denominator_sum += self.kernel_smoother((distance / bandwidth), dimension)
+
+            predicted_class = running_numerator_sum / running_denominator_sum
 
 
 
@@ -193,8 +204,9 @@ class KNN(Algorithm):
     def kernel_smoother(self, u, dimension):
         #TODO FINISH FUNCTION
         result = (1 / (2* math.pi)**.5)**dimension
-        result = result * e**(5)
-        return 0
+        result = result * math.exp((-1/2) * (u)**2)
+        return result
+
     def classify_all(self, training_set, testing_set, classification_type):
         """Iterates through the testing set, classifying each example and then calculating
         percent accuracy per testing set"""
@@ -206,7 +218,7 @@ class KNN(Algorithm):
         for index, row in testing_set.iterrows():
             example = DataLine(row)
             true_values.append(example)
-            predicted_class = self.classify_example(example.feature_vector, training_set, classification_type)
+            predicted_class = self.classify_example(example, training_set, classification_type)
             predicted_values.append(predicted_class)
 
         self.evaluater.evaluate(true_values, predicted_values)
