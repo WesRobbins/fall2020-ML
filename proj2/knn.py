@@ -6,17 +6,20 @@ from data_line import *
 from evaluator import *
 from Algorithm import *
 import time
+from os import path
 
 class KNN(Algorithm):
-    def __init__(self, dataclass, classification_type, reduction_type):
+    def __init__(self, dataclass, classification_type, reduction_type, file_name):
         super(KNN, self).__init__(dataclass, classification_type)
         self.df = self.dataclass.df     #Dataframe that the algorithm will use
         self.vdms = self.dataclass.vdms #List of Value Difference Metrics for each feature
+        self.file_name = file_name.split(".")[1]
         #Creates a matrix of the distances between every pairs of values
         start = time.time()
         self.distance_matrix = self.build_distance_matrix()
         end = time.time()
-        print(f"{end - start}")
+        #print(f"{end - start}")
+        print(self.distance_matrix)
 
         self.edited_data = dataclass.df     #this needs worked with
         self.train(self.dataclass.df, reduction_type)
@@ -41,24 +44,35 @@ class KNN(Algorithm):
         """Builds a two dimensional matrix containing the distance between every
         pair of examples"""
 
-        indexes = self.df.index #stores the ids of every example in the dataset
-        #Creates an n by n matrix, where n is the number of examples in the dataset
-        distance_matrix = pd.DataFrame(index=indexes, columns=indexes, dtype="float64")
+        #String that states where the distance matrix can be found/to be created at
+        distance_matrix_path = f".{self.file_name}_distance_matrix.data"
+        #If the distance matrix has already been created
+        if path.isfile(distance_matrix_path):
+            #Reads in the distance matrix from the csv
+            distance_matrix = pd.read_csv(distance_matrix_path, index_col=0)
+            #Converts the column headers from strings to ints
+            distance_matrix.columns = distance_matrix.columns.astype(int)
+            return distance_matrix
+        else:
+            indexes = self.df.index #stores the ids of every example in the dataset
+            #Creates an n by n matrix, where n is the number of examples in the dataset
+            distance_matrix = pd.DataFrame(index=indexes, columns=indexes, dtype="float64")
 
-        for index, row in self.df.iterrows():   #Iterates through every row in the dataset
-            #The start_index variable is to avoid calculating the same pair of distances twice
-            start_index = index + 1
-            #Iterates through every row, after the current one we are looking at, to calculate pair distances
-            print(index)
-            for index2, row2 in self.df.loc[start_index:,:].iterrows():
-                #Computes the distance between the two examples
-                distance = self.compute_distance(row.iloc[:-1], row2.iloc[:-1])
-                #Populates the distance matrix with the distance
-                distance_matrix.at[index, index2] = distance
+            for index, row in self.df.iterrows():   #Iterates through every row in the dataset
+                #The start_index variable is to avoid calculating the same pair of distances twice
+                start_index = index + 1
+                #Iterates through every row, after the current one we are looking at, to calculate pair distances
+                for index2, row2 in self.df.loc[start_index:,:].iterrows():
+                    #Computes the distance between the two examples
+                    distance = self.compute_distance(row.iloc[:-1], row2.iloc[:-1])
+                    #Populates the distance matrix with the distance
+                    distance_matrix.at[index, index2] = distance
 
-        #Transposes and copies the value over the main top left to bottom right diagonal to fill the NaN values
-        distance_matrix = distance_matrix.fillna(distance_matrix.transpose(copy=True))
-        return distance_matrix
+            #Transposes and copies the value over the main top left to bottom right diagonal to fill the NaN values
+            distance_matrix = distance_matrix.fillna(distance_matrix.transpose(copy=True))
+
+            distance_matrix.to_csv(distance_matrix_path)  #Creates a csv of the distance matrix
+            return distance_matrix
 
     def classify(self, dataclass):
         data_folds = dataclass.make_f_fold(self.edited_data, "on", dataclass.k)
