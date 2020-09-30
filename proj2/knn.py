@@ -8,79 +8,22 @@ from Algorithm import *
 import time
 
 class KNN(Algorithm):
-
-    df = pd.DataFrame()
-    # CHECK THAT THIS IS OK!!!!!
-    k = 1
-
     def __init__(self, dataclass, classification_type, reduction_type):
         super(KNN, self).__init__(dataclass, classification_type)
-        self.df = self.dataclass.df
+        self.df = self.dataclass.df     #Dataframe that the algorithm will use
+        self.vdms = self.dataclass.vdms #List of Value Difference Metrics for each feature
+        start = time.time()
+        self.distance_matrix = self.build_distance_matrix()
+        end = time.time()
+        print(self.distance_matrix)
+        print(f"MATRIX TIME: {end-start}")
         self.edited_data = dataclass.df     #this needs worked with
-        self.construct_vdm()
         self.train(self.dataclass.df, reduction_type)
         self.hypertune()
+        start = time.time()
         self.classify(self.dataclass)
-
-
-
-
-    def construct_vdm(self):
-        """Function to create value difference metrics (vdm) for every column of categorical data."""
-
-        self.vdms = {}          #Create a dictionary that will hold a vdm for each attribute
-        df = self.dataclass.df
-        classes = df.iloc[:,-1].unique()        #Gets a list of all the classes
-
-        for col in df.iloc[:,:-1]:              #Iterates through each attribute
-            #If the current column is not real-valued, construct a vdm for that column
-            if df.dtypes[col] != "float64" and df.dtypes[col] != "int64":
-                unique_values = df[col].unique()    #Stores all unique feature values
-                #Creates a vdm with dimensions of each unique value
-                vdm = pd.DataFrame(index=unique_values, columns=unique_values)
-
-                for i in unique_values: #Iterates through the i and j of the vdm
-                    for j in unique_values:
-                        if i == j:
-                            vdm.at[i, j] = 0
-                            continue
-                        running_sum = 0
-                        for classification in classes:  #Iterates through each class
-                            #Computes values for vdm equation
-                            cia = self.c_i_a(col, i, classification)
-                            ci = self.c_i(col, i)
-                            cja = self.c_i_a(col, j, classification)
-                            cj = self.c_i(col, j)
-
-                            #Computes value for given class
-                            sum = (abs((cia/ci) - (cja/cj)))**1
-                            running_sum += sum
-                        #Sets the given cell in the vdm to the sum of all classes for a pair (i, j)
-                        #of unique, categorical feature vales
-                        vdm.at[i,j] = running_sum
-                self.vdms[col] = vdm
-
-    def c_i(self, col, feature_value):
-        """Helper function that counts the occurrences of a feature value within a column"""
-
-        counts = self.df[col].value_counts()[feature_value]
-        return counts
-
-    def c_i_a(self, col, feature_value, classification):
-        """Helper function that counts the occurrences of a feature value
-        within a column that match a given class"""
-
-        class_df = self.df[self.df['Class'] == classification] #Creates a new df of only examples that match the given class
-        counts = class_df[col].value_counts()
-
-        if feature_value not in counts: #If there are no values that correspond with the class
-            return 0
-        else:
-            return counts[feature_value]
-
-
-
-
+        end = time.time()
+        print(f"CLASSIFY TIME: {end - start}")
 
     def train(self, dataframe, reduction_type):
         if reduction_type == "none":
@@ -95,6 +38,21 @@ class KNN(Algorithm):
     def hypertune(self):
         # TODO
         self.k = 3
+
+    def build_distance_matrix(self):
+        indexes = self.df.index
+        print(indexes)
+        distance_matrix = pd.DataFrame(index=indexes, columns=indexes)
+        for index, row in self.df.iterrows():
+            start_index = index + 1
+            for index2, row2 in self.df.loc[start_index:,:].iterrows():
+                if index == index2:
+                    distance_matrix.at[index, index2] = 0
+                    continue
+                else:
+                    distance = self.compute_distance(row.iloc[:-1], row2.iloc[:-1])
+                    distance_matrix.at[index, index2] = distance
+        return distance_matrix
 
     def classify(self, dataclass):
         data_folds = dataclass.make_f_fold(self.edited_data, "on", dataclass.k)
@@ -209,7 +167,7 @@ class KNN(Algorithm):
             predicted_class = max(classes.items(), key=operator.itemgetter(1))[0]
 
         elif classification_type == "regression":
-            #TODO FINISH
+
             bandwidth = 5       #Gaussian Kernel Bandwidth to be tuned
             dimension = len(example.feature_vector)
             running_numerator_sum = 0
@@ -222,12 +180,10 @@ class KNN(Algorithm):
 
             predicted_class = running_numerator_sum / running_denominator_sum
 
-
-
         return predicted_class
 
     def kernel_smoother(self, u, dimension):
-        #TODO FINISH FUNCTION
+
         result = (1 / (2* math.pi)**.5)**dimension
         result = result * math.exp((-1/2) * (u)**2)
         return result
@@ -238,8 +194,6 @@ class KNN(Algorithm):
 
         true_values = []
         predicted_values = []
-        total_examples = testing_set.shape[0]
-        correct = 0
         for index, row in testing_set.iterrows():
             example = DataLine(row)
             true_values.append(example)
