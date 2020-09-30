@@ -15,12 +15,7 @@ class KNN(Algorithm):
         self.vdms = self.dataclass.vdms #List of Value Difference Metrics for each feature
         self.file_name = file_name.split(".")[1]
         #Creates a matrix of the distances between every pairs of values
-        start = time.time()
         self.distance_matrix = self.build_distance_matrix()
-        end = time.time()
-        #print(f"{end - start}")
-        print(self.distance_matrix)
-
         self.edited_data = dataclass.df     #this needs worked with
         self.train(self.dataclass.df, reduction_type)
         self.hypertune()
@@ -75,7 +70,7 @@ class KNN(Algorithm):
             return distance_matrix
 
     def classify(self, dataclass):
-        data_folds = dataclass.make_f_fold(self.edited_data, "on", dataclass.k)
+        data_folds = dataclass.make_f_fold(self.edited_data, "off", dataclass.k)
         for i in range(dataclass.k):  # This runs the cross validation, using each slice as the testing set
             print(f"Run Number {i + 1}:")
             testing_set = data_folds[i]  # Selects a slice for the testing set
