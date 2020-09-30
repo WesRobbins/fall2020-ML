@@ -42,7 +42,7 @@ class KNN(Algorithm):
     def build_distance_matrix(self):
         indexes = self.df.index
         print(indexes)
-        distance_matrix = pd.DataFrame(index=indexes, columns=indexes)
+        distance_matrix = pd.DataFrame(index=indexes, columns=indexes, dtype="float64")
         for index, row in self.df.iterrows():
             start_index = index + 1
             for index2, row2 in self.df.loc[start_index:,:].iterrows():
@@ -52,6 +52,7 @@ class KNN(Algorithm):
                 else:
                     distance = self.compute_distance(row.iloc[:-1], row2.iloc[:-1])
                     distance_matrix.at[index, index2] = distance
+                    distance_matrix.at[index2, index] = distance
         return distance_matrix
 
     def classify(self, dataclass):
@@ -120,16 +121,17 @@ class KNN(Algorithm):
         distance = running_sum**(1/p)
         return distance
 
-    def get_k_neighbors(self, example, training_set):
+    def get_k_neighbors(self, example_id, training_set):
         """Helper function that returns the k nearest neighbors of a given
         example."""
 
         distances = []
         neighbors = []  #List to hold the nearest neighbors
+        #print(self.distance_matrix.nsmallest(self.k, example_id))
         # Computes distance between each example in the training set and the example from the testing set
         for index, row in training_set.iterrows():
-            x = DataLine(row)
-            distance = self.compute_distance(x.feature_vector, example)
+            #Locates the distance between the example point and each point in the training_set
+            distance = self.distance_matrix.at[example_id, index]
             distances.append((index, distance))  # Stores these distances in the distance list
 
         distances.sort(key=lambda elem: elem[1])  # Sorts the distances in ascending order
@@ -147,10 +149,7 @@ class KNN(Algorithm):
         element in the training set and classifies it based on its k-nearest neighbors"""
 
         #Grabs the k nearest_neighbors of the example
-        #start_time = time.time()
-        k_nearest_neighbors = self.get_k_neighbors(example.feature_vector, training_set)
-        #end_time = time.time()
-        #print(f"get_k_neighbors = {end_time - start_time}")
+        k_nearest_neighbors = self.get_k_neighbors(example.feature_vector.name, training_set)
         if classification_type == "classification":
             classes={}
 
