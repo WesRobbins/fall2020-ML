@@ -16,5 +16,5 @@ class ML:
             return KNN(self.dataclass, classification_type, "edited", self.file_name)
         elif algorithm_name == "KNNcondensed":
             return KNN(self.dataclass, classification_type, "condensed", self.file_name)
-        elif algorithm_name == "KNNcluster":
-            return KNN(self.dataclass, classification_type, "cluster", self.file_name)
+        elif algorithm_name == "KNN_Cluster_Medoids":
+            return KNN(self.dataclass, classification_type, "k_medoids", self.file_name)

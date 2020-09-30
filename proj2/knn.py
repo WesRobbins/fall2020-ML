@@ -16,9 +16,10 @@ class KNN(Algorithm):
         self.file_name = file_name.split(".")[1]
         #Creates a matrix of the distances between every pairs of values
         self.distance_matrix = self.build_distance_matrix()
-        self.edited_data = dataclass.df     #this needs worked with
-        self.train(self.dataclass.df, reduction_type)
+        self.edited_data = dataclass.df     #this needs worked
         self.hypertune()
+        self.train(self.dataclass.df, reduction_type)
+
         self.classify(self.dataclass)
 
     def train(self, dataframe, reduction_type):
@@ -28,12 +29,13 @@ class KNN(Algorithm):
             self.edited_data = self.edited_knn(dataframe)
         elif reduction_type ==  "condensed":
             self.edited_data = self.condensed_knn(dataframe)
-        elif reduction_type == "cluster":
-            self.edited_data = self.cluster(dataframe)
+        elif reduction_type == "k_medoids":
+            self.k_medoids()
 
     def hypertune(self):
         # TODO
-        self.k = 3
+        self.k = 3  #For k-nearest-neighbor
+        self.n = 3  #For k-medoids
 
     def build_distance_matrix(self):
         """Builds a two dimensional matrix containing the distance between every
@@ -109,9 +111,33 @@ class KNN(Algorithm):
         # TODO
         pass
 
-    def cluster(self, dataframe):
-        # TODO
-        pass
+    def k_medoids(self):
+        medoids = self.select_start_medoids()
+        self.build_cluster_matrix(medoids)
+
+    def select_start_medoids(self):
+        """Selects n random samples from dataset for the starting medoids"""
+
+        return self.df.sample(n=self.n)
+
+    def build_cluster_matrix(self, medoids):
+
+        cluster_matrix = pd.DataFrame(index=self.df.index, columns=medoids.index, dtype="float64")
+        print(cluster_matrix)
+        for index, row in self.df.iterrows():
+            for index2, row2 in medoids.iterrows():
+                if index == index2:
+                    continue
+                else:
+                    cluster_matrix.at[index, index2] = self.distance_matrix.loc[index, index2]
+
+        print(cluster_matrix)
+        self.assign_cluster_labels(cluster_matrix)
+
+    def assign_cluster_labels(self, cluster_matrix):
+        x = cluster_matrix.idxmin(axis=1)
+        print(x)
+
 
 
 
