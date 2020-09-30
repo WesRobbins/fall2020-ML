@@ -8,7 +8,7 @@ class Evaluator:
     def evaluate(self, test_set, predicted_values):
         if self.classification_type == "classification":
             self.classification_evaluation(test_set, predicted_values)
-        elif self.classification == "regression":
+        elif self.classification_type == "regression":
             self.regression_evaluation(test_set, predicted_values)
 
     def classification_evaluation(self, test_set, predicted_values):

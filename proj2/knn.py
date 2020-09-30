@@ -12,18 +12,16 @@ class KNN(Algorithm):
         super(KNN, self).__init__(dataclass, classification_type)
         self.df = self.dataclass.df     #Dataframe that the algorithm will use
         self.vdms = self.dataclass.vdms #List of Value Difference Metrics for each feature
+        #Creates a matrix of the distances between every pairs of values
         start = time.time()
         self.distance_matrix = self.build_distance_matrix()
         end = time.time()
-        print(self.distance_matrix)
-        print(f"MATRIX TIME: {end-start}")
+        print(f"{end - start}")
+
         self.edited_data = dataclass.df     #this needs worked with
         self.train(self.dataclass.df, reduction_type)
         self.hypertune()
-        start = time.time()
         self.classify(self.dataclass)
-        end = time.time()
-        print(f"CLASSIFY TIME: {end - start}")
 
     def train(self, dataframe, reduction_type):
         if reduction_type == "none":
@@ -40,19 +38,26 @@ class KNN(Algorithm):
         self.k = 3
 
     def build_distance_matrix(self):
-        indexes = self.df.index
-        print(indexes)
+        """Builds a two dimensional matrix containing the distance between every
+        pair of examples"""
+
+        indexes = self.df.index #stores the ids of every example in the dataset
+        #Creates an n by n matrix, where n is the number of examples in the dataset
         distance_matrix = pd.DataFrame(index=indexes, columns=indexes, dtype="float64")
-        for index, row in self.df.iterrows():
+
+        for index, row in self.df.iterrows():   #Iterates through every row in the dataset
+            #The start_index variable is to avoid calculating the same pair of distances twice
             start_index = index + 1
+            #Iterates through every row, after the current one we are looking at, to calculate pair distances
+            print(index)
             for index2, row2 in self.df.loc[start_index:,:].iterrows():
-                if index == index2:
-                    distance_matrix.at[index, index2] = 0
-                    continue
-                else:
-                    distance = self.compute_distance(row.iloc[:-1], row2.iloc[:-1])
-                    distance_matrix.at[index, index2] = distance
-                    distance_matrix.at[index2, index] = distance
+                #Computes the distance between the two examples
+                distance = self.compute_distance(row.iloc[:-1], row2.iloc[:-1])
+                #Populates the distance matrix with the distance
+                distance_matrix.at[index, index2] = distance
+
+        #Transposes and copies the value over the main top left to bottom right diagonal to fill the NaN values
+        distance_matrix = distance_matrix.fillna(distance_matrix.transpose(copy=True))
         return distance_matrix
 
     def classify(self, dataclass):
@@ -125,19 +130,13 @@ class KNN(Algorithm):
         """Helper function that returns the k nearest neighbors of a given
         example."""
 
-        distances = []
         neighbors = []  #List to hold the nearest neighbors
-        #print(self.distance_matrix.nsmallest(self.k, example_id))
-        # Computes distance between each example in the training set and the example from the testing set
-        for index, row in training_set.iterrows():
-            #Locates the distance between the example point and each point in the training_set
-            distance = self.distance_matrix.at[example_id, index]
-            distances.append((index, distance))  # Stores these distances in the distance list
+        #Selects only examples from the training set to be included in the edited matrix
+        edited_distance_matrix = self.distance_matrix[self.distance_matrix.index.isin(training_set.index)]
 
-        distances.sort(key=lambda elem: elem[1])  # Sorts the distances in ascending order
-
-        for distance in distances[:self.k]: #Iterates through the k nearest neighbors and their ids
-            id = distance[0]    #Grabs the id that corresponds with the example
+        #Selects the k smallest distances from the edited distance matrix
+        neighbor_ids = edited_distance_matrix.nsmallest(self.k, example_id).index
+        for id in neighbor_ids: #Iterates through the id of the k nearest neighbors
             #Creates a DataLine of the nearest neighbor and appends it to the neighbors list
             neighbors.append(DataLine(training_set.loc[id,:]))
 
@@ -148,8 +147,10 @@ class KNN(Algorithm):
         """This computes the distances between a given example and every
         element in the training set and classifies it based on its k-nearest neighbors"""
 
-        #Grabs the k nearest_neighbors of the example
-        k_nearest_neighbors = self.get_k_neighbors(example.feature_vector.name, training_set)
+
+        example_id = example.feature_vector.name   #The id of the example
+        k_nearest_neighbors = self.get_k_neighbors(example_id, training_set) #Returns k nearest neighbors of example
+
         if classification_type == "classification":
             classes={}
 
@@ -164,17 +165,22 @@ class KNN(Algorithm):
 
             #Returns the class with the most counts
             predicted_class = max(classes.items(), key=operator.itemgetter(1))[0]
-
+        #If performing regression, return a real-valued prediction of the target variable
         elif classification_type == "regression":
 
             bandwidth = 5       #Gaussian Kernel Bandwidth to be tuned
-            dimension = len(example.feature_vector)
-            running_numerator_sum = 0
+            dimension = len(example.feature_vector) #Dimensionality of the data
+            running_numerator_sum = 0               #Values to hold summation of numerator and denominator
             running_denominator_sum = 0
-            for neighbor in k_nearest_neighbors:
-                distance = self.compute_distance(neighbor.feature_vector, example.feature_vector)
+
+            for neighbor in k_nearest_neighbors:    #Iterates through the nearest neighbor
+                neighbor_id = neighbor.feature_vector.name #Id of the neighbor
+                #Looks up the distance between the example and it's neighbor
+                distance = self.distance_matrix.loc[example_id, neighbor_id]
+                #Calculates a weight by inputting the distance into the kerneling function
                 kernel_result = self.kernel_smoother((distance / bandwidth), dimension)
-                running_numerator_sum += kernel_result * example.classification
+                #Multiplies the weight by the response variable of the neighbor and adds it to numerator sum
+                running_numerator_sum += kernel_result * neighbor.classification
                 running_denominator_sum += self.kernel_smoother((distance / bandwidth), dimension)
 
             predicted_class = running_numerator_sum / running_denominator_sum
@@ -182,6 +188,7 @@ class KNN(Algorithm):
         return predicted_class
 
     def kernel_smoother(self, u, dimension):
+        """Kernel smoother function"""
 
         result = (1 / (2* math.pi)**.5)**dimension
         result = result * math.exp((-1/2) * (u)**2)
