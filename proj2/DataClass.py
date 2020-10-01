@@ -58,6 +58,13 @@ class DataClass:
                             vdm.at[i, j] = 0
                             continue
                         running_sum = 0
+                        #If classification type is regression, just compute raw difference in frequencies
+                        if self.classification_type == "regression":
+                            #Calculates the counts divided by total rows to get frequency
+                            ci = self.c_i(col, i) / self.df.shape[0]
+                            cj = self.c_i(col, j) / self.df.shape[0]
+                            vdm.at[i, j] = (abs(ci - cj))
+                            continue
                         for classification in classes:  # Iterates through each class
                             # Computes values for vdm equation
                             cia = self.c_i_a(col, i, classification)
@@ -66,12 +73,13 @@ class DataClass:
                             cj = self.c_i(col, j)
 
                             # Computes value for given class
-                            sum = (abs((cia / ci) - (cja / cj))) ** 1
+                            sum = (abs((cia / ci) - (cja / cj)))
                             running_sum += sum
                         # Sets the given cell in the vdm to the sum of all classes for a pair (i, j)
                         # of unique, categorical feature vales
                         vdm.at[i, j] = running_sum
                 vdms[col] = vdm
+                print(vdm)
         return vdms
 
     def c_i(self, col, feature_value):
