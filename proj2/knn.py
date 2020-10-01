@@ -7,6 +7,8 @@ from evaluator import *
 from Algorithm import *
 import time
 from os import path
+import copy
+import numpy as np
 
 class KNN(Algorithm):
     def __init__(self, dataclass, classification_type, reduction_type, file_name):
@@ -35,7 +37,7 @@ class KNN(Algorithm):
     def hypertune(self):
         # TODO
         self.k = 3  #For k-nearest-neighbor
-        self.n = 3  #For k-medoids
+        self.n = 7  #For k-medoids
 
     def build_distance_matrix(self):
         """Builds a two dimensional matrix containing the distance between every
@@ -112,31 +114,76 @@ class KNN(Algorithm):
         pass
 
     def k_medoids(self):
-        medoids = self.select_start_medoids()
-        self.build_cluster_matrix(medoids)
+        """Using the dataframe, this method begins by selecting k random medoids, and
+        changing the position of the medoids until distortion is minimized and medoids
+        converge"""
 
-    def select_start_medoids(self):
-        """Selects n random samples from dataset for the starting medoids"""
+        #Selects k random medoids from the dataset and converts their indexes into a list
+        medoids = list(self.df.sample(n=self.n).index)
+        converged = False   #Initialize boolean as False for the while loop
+        #While the medoids have not converged, continue to update them
+        while not converged:
+            #Copy of medoids to check whether the old medoids and the new ones are different
+            old_medoids = copy.deepcopy(medoids)
+            # Builds a matrix of the distance from each medoid to every other point
+            cluster_matrix = self.build_cluster_matrix(medoids)
+            # For every point, assigns the medoid it is closest to
+            labels = cluster_matrix.idxmin(axis=1)
+            #Swaps the medoids out with other datapoints to reduce distortion
+            medoids = self.swap_medoids(medoids, labels)
+            #If the old medoids and medoids are the same, then the medoids have converged
+            converged = old_medoids == medoids
 
-        return self.df.sample(n=self.n)
+        #Shitty code to test how well the clustering is working
+        sum = 0
+        for index, row in labels.iteritems():
+            predicted_data = DataLine(self.df.loc[row]).classification
+            true_data = DataLine(self.df.loc[index])
+            if predicted_data == true_data.classification:
+                sum += 1
+        print(f"PERCENT ACCURACY: {sum / labels.shape[0] * 100}%")
 
     def build_cluster_matrix(self, medoids):
+        """Builds a distance matrix with the k medoid points and their distances to
+        every other point in the dataset"""
 
-        cluster_matrix = pd.DataFrame(index=self.df.index, columns=medoids.index, dtype="float64")
-        print(cluster_matrix)
-        for index, row in self.df.iterrows():
-            for index2, row2 in medoids.iterrows():
+        #Initializes a dataframe of dataset x medoid length
+        cluster_matrix = pd.DataFrame(index=self.df.index, columns=medoids, dtype="float64")
+        for index in self.df.index:
+            for index2 in medoids:
                 if index == index2:
                     continue
                 else:
                     cluster_matrix.at[index, index2] = self.distance_matrix.loc[index, index2]
+        return cluster_matrix
 
-        print(cluster_matrix)
-        self.assign_cluster_labels(cluster_matrix)
+    def swap_medoids(self, medoids, labels):
+        old_medoids = copy.deepcopy(medoids)
+        for i in range(len(old_medoids)):
+            index = old_medoids[i]
+            cluster_points = labels.loc[labels == index]
+            cluster_matrix = self.build_cluster_matrix([index])
+            print(cluster_matrix)
+            old_distortion = self.k_medoids_single_cluster_distortion(cluster_matrix)
+            for data_point in cluster_points.index:
+                if data_point in medoids:
+                    continue
+                new_cluster_matrix = self.build_cluster_matrix([data_point])
+                new_distortion = self.k_medoids_single_cluster_distortion(new_cluster_matrix)
+                if new_distortion < old_distortion:
+                    old_distortion = new_distortion
+                    medoids[i] = data_point
+        return medoids
 
-    def assign_cluster_labels(self, cluster_matrix):
-        x = cluster_matrix.idxmin(axis=1)
-        print(x)
+    def k_medoids_single_cluster_distortion (self, single_cluster_matrix):
+        """Calculates the distortion of points around a single medoid"""
+
+        return np.square(single_cluster_matrix).fillna(0).values.sum()
+
+
+
+
+
 
 
 
