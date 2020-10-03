@@ -7,9 +7,9 @@ from ML import *
 def main():
 
     #ML("KNN", "classification", "off", [10, .1], 1, "./data/glass.data")
-    ML("KNN", "regression", "off", [10, .1], 1, "./data/abalone.data")
+    #ML("KNN", "regression", "off", [3, .1], 1, "./data/abalone.data")
     #ML("KNN", "regression", "off", [10, .1], 1, "./data/forestfires.data")
-    #ML("KNN", "classification", "off", [10, .1], 1, "./data/house-votes-84.data")
+    ML("KNN", "classification", "on", [3, .1], 1, "./data/house-votes-84.data")
     #ML("KNN", "regression", "off", [10, .1], 1, "./data/machine.data")
     #ML("KNN", "classification", "off", [10, .1], 1, "./data/segmentation.data")
 
@@ -21,7 +21,7 @@ def main():
      1. algorithm name -> options: KNN, KNNedited, KNNcondensed, KNNcluster
      2. classification type -> "classification" or "regression"
      3. data split options ->  [int k, float tuning_set %]
-     4. hypertuning on or off(TODO) -> "on" or "off"
+     4. hypertuning on or off -> "on" or "off"
      4. display option (TODO)-> 0 = k-fold-average only  1 = print all k-folds 2 = also show hypertuning
                                 3 = also print data
      5. file name

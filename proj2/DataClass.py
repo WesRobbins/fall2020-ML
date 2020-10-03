@@ -79,7 +79,7 @@ class DataClass:
                         # of unique, categorical feature vales
                         vdm.at[i, j] = running_sum
                 vdms[col] = vdm
-                print(vdm)
+
         return vdms
 
     def c_i(self, col, feature_value):
