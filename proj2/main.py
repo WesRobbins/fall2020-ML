@@ -6,19 +6,18 @@ from ML import *
      settings which are described more in depth below"""
 def main():
 
-    #ML("KNN", "classification", "off", [10, .1], 1, "./data/glass.data")
-    #ML("KNN", "regression", "off", [3, .1], 1, "./data/abalone.data")
-    #ML("KNN", "regression", "off", [10, .1], 1, "./data/forestfires.data")
-    ML("KNN", "classification", "on", [3, .1], 1, "./data/house-votes-84.data")
-    #ML("KNN", "regression", "off", [10, .1], 1, "./data/machine.data")
-    #ML("KNN", "classification", "off", [10, .1], 1, "./data/segmentation.data")
+    # ML("KNN", "classification", "off", [10, .1], 1, "./data/glass.data")
+    # ML("KNN", "regression", "off", [3, .1], 1, "./data/abalone.data")
+    # ML("KNN", "regression", "off", [10, .1], 1, "./data/forestfires.data")
+    # ML("KNN", "classification", "on", [3, .1], 1, "./data/house-votes-84.data")
+    # ML("KNN", "regression", "off", [10, .1], 1, "./data/machine.data")
+    # ML("KNN", "classification", "off", [10, .1], 1, "./data/segmentation.data")
 
-    #ML("KNNedited", "classification", "off", [10, .1], 1, "./data/house-votes-84.data")
-    #ML("KNN_Cluster_Medoids", "classification", "off", [10, .1], 1, "./data/house-votes-84.data")
-
+    # ML("KNNedited", "classification", "off", [10, .1], 1, "./data/house-votes-84.data")
+    # ML("KNN_Cluster_Medoids", "classification", "on", [10, .1], 1, "./data/house-votes-84.data")
 
     """ ML params in order:
-     1. algorithm name -> options: KNN, KNNedited, KNNcondensed, KNNcluster
+     1. algorithm name -> options: KNN, KNNedited, KNNcondensed, KNNcluster, KNN_Cluster_Medoids, KNNmenas
      2. classification type -> "classification" or "regression"
      3. data split options ->  [int k, float tuning_set %]
      4. hypertuning on or off -> "on" or "off"

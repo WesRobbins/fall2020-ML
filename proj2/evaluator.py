@@ -8,6 +8,7 @@ class Evaluator:
         self.classification_type = classification_type
         self.performance = 0
 
+
     def evaluate(self, test_set, predicted_values, certainty):
         if self.classification_type == "classification":
             self.classification_evaluation(test_set, predicted_values, certainty)
@@ -73,6 +74,7 @@ class Evaluator:
         running_sum = running_sum / len(test_set)
         self.performance = running_sum
         return running_sum
+
     def mean_square_error(self, test_set, predicted_values):
         """Returns the mean square error for a given test set and their predicted values"""
 

@@ -18,3 +18,5 @@ class ML:
             return KNN(self.dataclass, classification_type, "condensed", self.file_name, tuning)
         elif algorithm_name == "KNN_Cluster_Medoids":
             return KNN(self.dataclass, classification_type, "k_medoids", self.file_name, tuning)
+        elif algorithm_name == "KNNmeans":
+            return KNN(self.dataclass, classification_type, "k_means", self.file_name, tuning)
