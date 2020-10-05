@@ -7,6 +7,7 @@ class Evaluator:
     def __init__(self, classification_type):
         self.classification_type = classification_type
         self.performance = 0
+        self.num_performances = 0
 
 
     def evaluate(self, test_set, predicted_values, certainty):
@@ -47,7 +48,8 @@ class Evaluator:
         for i in range(len(test_set)):
             if test_set[i].classification != predicted_values[i]:
                 incorrect += 1
-        self.performance = incorrect / len(test_set)
+        self.performance += incorrect / len(test_set)
+        self.num_performances += 1
         return incorrect / len(test_set)
 
     def log_loss(self, test_set, predicted_values, certainty):
@@ -72,7 +74,8 @@ class Evaluator:
             running_sum += abs(test_set[i].classification - predicted_values[i])
 
         running_sum = running_sum / len(test_set)
-        self.performance = running_sum
+        self.performance += running_sum
+        self.num_performances += 1
         return running_sum
 
     def mean_square_error(self, test_set, predicted_values):

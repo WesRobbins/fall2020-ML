@@ -112,15 +112,13 @@ class DataClass:
         data_folds = []
         num_rows = dataframe.shape[0]
         slice_size = int(num_rows / k)  # This determines what increment to slice the data in
+        dataframe.sort_values(by="Class", inplace=True)  # Sorts the examples by their class
         if stratification == "off":
-            dataframe = dataframe.sample(frac=1)  # This shuffles the data in place
             for i in range(k):
-                start = i * slice_size
-                end = (i + 1) * slice_size
-                data_folds.append(dataframe.iloc[start:end, :])
+                data_folds.append(dataframe.iloc[i::self.k,:])
         elif stratification == "on":
             # Creates the folds by including the original frequency of each class within each fold
-            dataframe.sort_values(by="Class", inplace=True) # Sorts the examples by their class
+
 
             # Grabs each class' relative frequency to use for later
             class_proportions = dataframe["Class"].value_counts(normalize=True)

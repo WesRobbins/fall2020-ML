@@ -48,8 +48,9 @@ class KNN(Algorithm):
                 k = i*2+3
                 self.k = k
                 self.classify(self.dataclass)
-                self.performances.append(self.evaluater.performance)
-                print("\n Loss score for k = ", self.k, " is ", self.evaluater.performance)
+                avg_performance = self.evaluater.performance / self.evaluater.num_performances
+                self.performances.append(avg_performance)
+                print("\n Loss score for k = ", self.k, " is ", avg_performance)
            index = self.performances.index(min(self.performances))
            self.k = index*2+3
            print("\nThe optimal k is ", self.k, "\n\n")
@@ -288,7 +289,7 @@ class KNN(Algorithm):
         # If performing regression, return a real-valued prediction of the target variable
         elif classification_type == "regression":
 
-            bandwidth = 5       # Gaussian Kernel Bandwidth to be tuned
+            bandwidth = 1       # Gaussian Kernel Bandwidth to be tuned
             dimension = len(example.feature_vector) # Dimensionality of the data
             running_numerator_sum = 0               # Values to hold summation of numerator and denominator
             running_denominator_sum = 0
@@ -301,7 +302,7 @@ class KNN(Algorithm):
                 kernel_result = self.kernel_smoother((distance / bandwidth), dimension)
                 # Multiplies the weight by the response variable of the neighbor and adds it to numerator sum
                 running_numerator_sum += kernel_result * neighbor.classification
-                running_denominator_sum += self.kernel_smoother((distance / bandwidth), dimension)
+                running_denominator_sum += kernel_result
 
             predicted_class = running_numerator_sum / running_denominator_sum
 
@@ -310,7 +311,7 @@ class KNN(Algorithm):
     def kernel_smoother(self, u, dimension):
         """Kernel smoother function"""
 
-        result = (1 / (2* math.pi)**.5)**dimension
+        result = (1 / math.sqrt(2 * math.pi)) ** dimension
         result = result * math.exp((-1/2) * (u)**2)
         return result
 
