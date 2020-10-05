@@ -125,7 +125,7 @@ class KNN(Algorithm):
         print("DELETE:\n", delete_df)
         out_dataframe = dataframe
         for i, j in delete_df.iterrows():
-            out_dataframe = dataframe.drop(i)
+            out_dataframe = out_dataframe.drop(i)
         # print final dataframe after deletions
         print(out_dataframe)
         return out_dataframe
