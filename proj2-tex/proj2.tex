@@ -1,0 +1,159 @@
+\documentclass[twoside,11pt]{article}
+
+% Any additional packages needed should be included after jmlr2e.
+% Note that jmlr2e.sty includes epsfig, amssymb, natbib and graphicx,
+% and defines many common macros, such as 'proof' and 'example'.
+%
+% It also sets the bibliographystyle to plainnat; for more information on
+% natbib citation styles, see the natbib documentation, a copy of which
+% is archived at http://www.jmlr.org/format/natbib.pdf
+
+\usepackage{./jmlr2e}
+\usepackage{amsmath}
+\usepackage{subcaption}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+% Definitions of handy macros can go here
+
+\newcommand{\dataset}{{\cal D}}
+\newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
+
+% Heading arguments are {volume}{year}{pages}{submitted}{published}{author-full-names}
+
+\jmlrheading{1}{2020}{1-48}{4/00}{10/00}{Seth Bassetti, Ben Holmgren, and Wes Robbins}
+
+% Short headings should be running head and authors last names
+
+\ShortHeadings{Performance and Data Reduction For the K-Nearest-Neighbor Algorithm}{Bassetti, Holmgren, and Robbins}
+\firstpageno{1}
+
+\begin{document}
+
+\title{Performance and Data Reduction For the K-Nearest-Neighbor Algorithm}
+
+\author{\name Seth Bassetti \email seth.bassetti@student.montana.edu \\
+       \addr School of Computing\\
+       Montana State University\\
+       Bozeman, MT, USA
+	\AND
+	\name Ben Holmgren \email benjamin.holmgren1@student.montana.edu \\
+       \addr School of Computing\\
+       Montana State University\\
+       Bozeman, MT, USA
+       \AND
+       \name Wes Robbins \email wesley.robbins@student.montana.edu \\
+       \addr School of Computing\\
+       Montana State University\\
+       Bozeman, MT, USA}
+\editor{Seth Bassett, Ben Holmgren, and Wes Robbins}
+
+\maketitle
+
+\begin{abstract}%   <- trailing '%' for backward compatibility of .sty file
+This paper describes our group's findings when utilizing various implementations
+of the k-nearest-neighbor (KNN) algorithm for learning on various sets of data. 
+ More specifically, we show how KNN performs on
+ each set of data without any extra considerations, and after extra considerations
+ following the edited nearest neighbor, condensed nearest neighbor, k-means, 
+ and k-medoids. The performance of each of these respective models
+ is evaluated in the context of both classification and regression. For datasets where
+ classification was performed, the performance of each model was evaluated in terms of
+ 0/1 loss and logarithmic loss. For datasets where regression was performed,
+ mean squared error and mean percent error were the chosen metrics to evaluate
+ our implemented models. Prior to the project's completion, we hypothesized
+that for every dataset, edited nearest neighbor, condensed nearest neighbor, and the two
+clustering methods would cause at the very least a slight decrease in performance 
+when compared with the performance of k-nearest-neighbor on only the underlying dataset.
+ Namely, we expected to find
+the largest runtime improvements on the largest datasets, and we also expected the
+largest datasets to have the smallest decreases in performance as a result of 
+utilizing these modifications to the data. Explicitly, we hypothesized that out of the data 
+on which we performed classification, the house vote data (435 entries) would see the
+largest runtime improvements with the lowest decrease in performance when
+using the data modification methods mentioned above. Comparatively, the 
+glass data and image segmentation data were
+expected to perform without statistically significant differences when compared to
+the house voting data. In terms of the data on which we performed regression, we
+expected to find that the abalone data saw the greatest runtime
+improvements from data modification and the lowest decrease in performance. 
+We expected the forest fire data to observe statistically smaller runtime
+improvements and statistically larger decreases in performance than the abalone data.
+We expected the machine data to find runtime improvements which were
+significantly smaller statistically than the other two regression datasets, with similarly
+statistically significant reductions in the performance of the k-nearest-neighbor algorithm
+after data reduction had occurred. In practice, we found a rather astonishing result that
+data reduction at large didn't reduce the performance of any of the data sets with statistical
+significance, and in general our hypothesis that larger datasets would perform better in the KNN
+model was upheld.
+\end{abstract}
+
+
+\begin{keywords}
+  K Nearest Neighbor, Edited Nearest Neighbor, Condensed Nearest Neighbor, K-Means, K-Medoids
+\end{keywords}
+
+\section{Problem Statement}
+Utilizing six datasets- each from unique and differing settings, we implemented the k-nearest-neighbor
+algorithm in our learning model as an attempt to provide insights into the correlation 
+ of features within each set of data. More rigorously, we utilized k-nearest-neighbor to conduct supervised
+ learning in two different forms for our data. In particular, three of the datasets are used to perform regression (Abalone, Computer
+ Hardware, and Forest Fires),
+  and three are used to perform classification (Glass, Vote, Image Segmentation). Each of the five datasets we use in the project have a variable 
+  number of classes and either discrete or real valued attribute values. We hypothesized that in general, more data points would mean
+  a better performance for our model, since more data could be interpreted as gaining greater specificity in spatially separating the classes, which
+  is meaningful for the performance of k-nearest-neighbor. Further still, we hypothesized that the largest data sets in terms of the overall number of
+  points would also find the best performance when it came to the performance of KNN following any kind of data reduction. Explicitly, this means that
+  we would find for the classification data that the house vote data (with 435 entries) would perform the best on at least 90\% of runs, with and without
+  data reduction. The glass and image segmentation data, with 214 and 215 entries respectively, we expected to find no statistically significant difference
+  in performance. That is, neither data set would perform better than the other on at least 90\% of runs. Performance in this context was measurable by
+  0/1 loss and logarithmic loss, with lower values in each corresponding to better performance of the model. For the regression data, we wanted to
+  test the same hypothesis, which led us to believe that our best performing data would be the Abalone data set with 4,177 entries, and the Forest
+  Fire data set with 518 points would perform worse than the Abalone data, but better than the Machine data with only 209 entries on 90\% of runs.
+  Lastly, the Machine data would be the worst performer out of the regression data by our hypothesis, with and without reducing the size of the data.
+  Performance in the context of regression was measurable by mean percent error and mean square error, both of which imply better performance with
+  lower values.
+
+\section{Methods}
+In order to test our hypotheses, we ran our model using classification on the Glass, House Votes, and Image Segmentation data sets, and 
+we ran our model using regression on the Abalone, Forest Fire, and Machine data. In order to successfully interpret the data, all feature values
+which were not originally real valued were converted to real number values. The only data set with missing attribute values was the House Vote
+data set, which included ``present" votes. We assigned all present votes equivalently to a ``no" vote, with the rationalization that a house member
+would not abstain from voting for a motion if they were in favor of passing it. After all of the datasets had been preprocessed, we implemented the
+KNN algorithm, which on a high level is as follows:
+\begin{algorithm}
+\begin{algorithmic}
+\caption{\textsc{K-Nearest-Neighbor}}
+\STATE \textbf{Input:} A set of vectors $X \subset \mathbb{R}^n$, each with a corresponding classification, an integer $k$, and a query point $\mathbb{X}_q$ whose class is unknown
+\STATE \textbf{Output:} The estimated classification of $\mathbb{X}_q$, denoted $Class(\mathbb{X}_q)$
+\STATE $\mathbb{K} \gets$ $k$ nearest neighbors to $\mathbb{X}_q$
+\STATE $Class(\mathbb{X}_q) \gets \argmax{Classes(K)}$ 
+\STATE \RETURN $Class(\mathbb{X}_q)$
+\end{algorithmic}
+\end{algorithm}
+
+The implementation of \textsc{K-Nearest-Neighbor} then raises a number of questions in its implementation. Perhaps first and foremost, how is
+distance computed? For our purposes, the Minkowski metric was utilized with a $p$ value set to $2$- i.e. the Euclidean distance was
+what we chose for our KNN model. Letting $\mathbb{X}_i, \mathbb{X}_j$ denote two points and $d$ denote the dimension of the vector space,
+the Minkoswki distance is computed with the following:
+\begin{equation}
+D(\mathbb{X}_i, \mathbb{X}_j) = (\sum_{l = 1}^{d} |\mathbb{X}_{il} - \mathbb{X}_{jl}|^p)^\frac{1}{p}
+\end{equation}
+
+Furthermore, in light of this distance metric, we also needed to construct a value difference metric \textit{(vdm)} to correctly process every column of
+categorical data in order to actually use the Minkowski metric. To do this, for regression data, 
+
+
+\section{Results}
+Todo
+
+\section{Discussion}
+Todo
+
+
+\section{Summary}
+Todo
+
+\end{document}
