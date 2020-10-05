@@ -8,6 +8,7 @@ from Algorithm import *
 import time
 from os import path
 import copy
+import random as rd
 import numpy as np
 
 class KNN(Algorithm):
@@ -39,6 +40,8 @@ class KNN(Algorithm):
             self.edited_data = self.condensed_knn(dataframe)
         elif reduction_type == "k_medoids":
             self.edited_testing_set = self.k_medoids()
+        elif reduction_type == "k_means":
+            self.edited_testing_set = self.k_means()
 
     def hypertune(self):
         if self.tuning == "off":
@@ -132,6 +135,7 @@ class KNN(Algorithm):
     def condensed_knn(self, dataframe):
         #initialize the set Z which will eventually become the
         # condensed dataframe output
+        print(dataframe)
         Z = []
         # scan all elements of dataframe, adding any
         # values whose nearest neighbor have a different class to Z
@@ -163,7 +167,7 @@ class KNN(Algorithm):
             not_done = False
         df_Z = pd.DataFrame(Z)
         # to show reduced dataset, Z
-        #print(df_Z)
+        print(df_Z)
         return df_Z
 
     def k_means(self):
