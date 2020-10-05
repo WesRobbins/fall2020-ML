@@ -19,14 +19,13 @@ class KNN(Algorithm):
         self.k = 5
         self.tuning = tuning
         self.df = self.dataclass.df     # Dataframe that the algorithm will use
-        self.edited_data = dataclass.df
         self.vdms = self.dataclass.vdms # List of Value Difference Metrics for each feature
         self.file_name = file_name.split(".")[1]
         # Creates a matrix of the distances between every pairs of values
         self.distance_matrix = self.build_distance_matrix()
         self.hypertune()
         self.train(self.dataclass.df, reduction_type)
-
+        self.edited_data = dataclass.df
         self.classify(self.dataclass)
 
 
@@ -104,20 +103,28 @@ class KNN(Algorithm):
 
 
     def edited_knn(self, dataframe):
+        # FOR VIDEO print initial dataframe
+        #print(dataframe)
         # init list of items to delete
-        delete = pd.DataFrame()
+        delete = []
         # Go through every item, if we predict the incorrect class, delete.
         for index, row in dataframe.iterrows():
             training_set = dataframe.drop(index)
             example = DataLine(row)
             predicted_class = self.classify_example(example, training_set, "classification")
-            if predicted_class != example.classification:
+
+            if str(predicted_class[0]) != str(example.classification):
                 delete.append(row)
         # conduct deletions in a batch after testing each entry on the rest
         # of the data
+        delete_df = pd.DataFrame(delete)
+        #FOR VIDEO print dataframe which will be deleted
+        print("DELETE:\n", delete_df)
         out_dataframe = dataframe
-        for i, j in delete:
+        for i, j in delete_df.iterrows():
             out_dataframe = dataframe.drop(i)
+        # print final dataframe after deletions
+        print(out_dataframe)
         return out_dataframe
 
 
