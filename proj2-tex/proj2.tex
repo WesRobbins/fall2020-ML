@@ -202,6 +202,39 @@ computed as follows:
 MPE = \frac{100}{n} \sum_{t=1}{n} \frac{a_t - f_t}{a_t}
 \end{equation}
 
+It is important to note that $KNN$ on a large dataset can be expensive in terms of runtime. To combat this, our group implemented a matrix to store all of the values of the distances
+as defined above between each of the points in every dataset. In doing so, we were able to much more effectively test the success of our implementation of various algorithms, and to
+gauge the overall performance of our model. While it is almost certain that faster implementations exist, we found that creating a matrix for each dataset to be the most effective
+way to go forward throughout the project. The matrix autogenerates if it isn't already installed on a local machine, and generally takes around 20 minutes to a half an hour to install
+for each dataset. It is also available on our github repository, and can be uploaded to a local machine by using \textit{git-lfs}. 
+
+As a result, it can become important to reduce the size of data in some way in order to achieve k-nearest-neighbor with more reasonable time complexity. To reduce our data, we used
+four different methods. The first two come down to choosing a direct subset smaller than the overall size of our dataset. These methods are the edited nearest neighbor and condensed
+nearest neighbor algorithms. Intuitively, our implementation of the edited nearest neighbor algorithm comes in the form of simply deleting any entries which we guess incorrectly on the
+first pass of $KNN$. As long as entries lead to incorrect guesses, we delete them, until the performance of the model stops improving or we stop making incorrect guesses.
+In practice, we found that the vast majority of deletions (>95\%) in our model generally occurred in the first pass of the loop, and continually running the loop was found to be quite expensive in terms of runtime.
+So for practical purposes, our experimentation on edited nearest neighbor was a result of just the first pass of the loop.
+Algorithmically, edited nearest neighbor is as follows:
+\begin{algorithm}
+\begin{algorithmic}
+\caption{\textsc{Edited Nearest Neighbor}}
+\STATE \textbf{Input:} A set $\mathbb{X}$ of raw data
+\STATE \textbf{Output:} A set $\mathbb{X}'$ of edited data
+\STATE $\mathbb{X}^* \gets \emptyset$
+\STATE $\mathbb{X}' \gets \emptyset$
+\WHILE{$(|\mathbb{X}'|< |\mathbb{X}|)$ \textit{and} Performance does not degrade}
+\FOR{$\mathbb{X}_i \in \mathbb{X}$}
+\STATE $predicted \gets classify(\mathbb{X}_i)$
+\IF{$predicted \not= \mathbb{X}_i.class$}
+\STATE $\mathbb{X^*}_i \gets \mathbb{X}_i$
+\ENDIF
+\ENDFOR
+\STATE $\mathbb{X'} \gets \mathbb{X}/\mathbb{X^*}$
+\ENDWHILE
+\end{algorithmic}
+\end{algorithm}
+
+
 
 \section{Results}
 Todo
