@@ -102,33 +102,183 @@ class KNN(Algorithm):
 
 
     def edited_knn(self, dataframe):
+        # init list of items to delete
         delete = pd.DataFrame()
+        # Go through every item, if we predict the incorrect class, delete.
         for index, row in dataframe.iterrows():
             training_set = dataframe.drop(index)
             example = DataLine(row)
-            # print(type(example))
             predicted_class = self.classify_example(example, training_set, "classification")
             if predicted_class != example.classification:
                 delete.append(row)
-                print(row)
-                print("Predicted class")
-                print(predicted_class)
-                print("GT")
-                print(example.classification)
-                pass
-            pass
-        pass
-        #  conduct deletions in a batch after testing each entry on the rest
-        #  of the data
-        for i,j in delete:
-            self.dataframe = dataframe.drop(i)
-            pass
-        pass
+        # conduct deletions in a batch after testing each entry on the rest
+        # of the data
+        out_dataframe = dataframe
+        for i, j in delete:
+            out_dataframe = dataframe.drop(i)
+        return out_dataframe
+
+
 
     def condensed_knn(self, dataframe):
-        #  TODO
-        pass
+        #initialize the set Z which will eventually become the
+        # condensed dataframe output
+        Z = []
+        # scan all elements of dataframe, adding any
+        # values whose nearest neighbor have a different class to Z
+        not_done = True
+        while not_done:
+            z_len = len(Z)
+            for index, row in dataframe.iterrows():
+                # find distances to random row in dist matrix
+                distances_to_r = self.distance_matrix.iloc[index]
+                dist_list = list(distances_to_r)
+                min_dist = float('inf')
+                min_df = pd.DataFrame()
+                # find all elements that satisfy the shortest distance to random x
+                # who also aren't in the same class as X
+                i = 0
+                for dist in dist_list:
+                    if dist < min_dist:
+                        min_dist = dist
+                        min_df = dataframe.iloc[i]
+                    i += 1
 
+                # if the classes aren't the same, add closest neighbor
+                if str(min_df.iloc[-1]) != str(row.iloc[-1]):
+                    Z.append(min_df)
+            # reduce dataframe to everything that wasn't included earlier
+            for index in range(len(Z)):
+                dataframe = dataframe.drop(index)
+            # No new changes have occurred
+            not_done = False
+        df_Z = pd.DataFrame(Z)
+        # to show reduced dataset, Z
+        #print(df_Z)
+        return df_Z
+
+    def k_means(self):
+        """Using the dataframe, this method selects k random points in our
+        vector space and then assigns each point to its nearest centroid,
+        and takes the mean of each cluster (the set of points assigned
+        to each centroid. This mean is the new centroid for each cluster.
+        Repeat until convergence."""
+
+        # init k random points
+        possible_vals = []
+        # hard code k to be used
+        means_K = 20
+        # find a window of max and min values in the vector space
+        max_vect = []
+        for i in range(len(self.df.columns)-1):
+            column = self.df[i+1]
+            # keep track also of all possible values in the vector space, for computing snap-means
+            [possible_vals.append(x) for x in column if x not in possible_vals]
+            cur_max = column.max()
+            max_vect.append(cur_max)
+
+        # also compute the mins in the vector space
+        min_vect = []
+        for i in range(len(self.df.columns)-1):
+            column = self.df[i + 1]
+            cur_min = column.min()
+            min_vect.append(cur_min)
+
+        # initialize all of the centroids with random values in the vector space on the first
+        # iteration
+        centroids = []
+        for i in range(means_K):
+            centroid = []
+            for j in range(len(max_vect)+1):
+                # give each value a random value out of possible values in original set
+                rand_val = rd.randint(0, len(possible_vals)-1)
+                centroid.append(possible_vals[rand_val])
+            centroids.append(centroid)
+        df_centroids = pd.DataFrame(centroids)
+        init_df = df_centroids
+
+        cntrd_count = 0
+
+        # after setting up centroids, loop until convergence
+        converged = False
+        while not converged:
+            for index, row in self.df.iterrows():
+                example = DataLine(row)
+                min_dist = float('inf')
+                closest_centroid = pd.DataFrame()
+                # find closest centroid for an example
+                for index2, row2 in df_centroids.loc[0:, :].iterrows():
+                    # Computes the distance between the current point and each centroid
+                    cur_dist = self.compute_distance(row.iloc[:-1], row2.iloc[0:])
+                    if cur_dist < min_dist:
+                        min_dist = cur_dist
+                        closest_centroid = row2
+            # update means of these clusters
+            new_mean = []
+            for index, row in self.df.iterrows():
+                # if example is closest to current centroid, add it to contribute to new mean
+                for index2, row2 in df_centroids.loc[0:, :].iterrows():
+                    if row2.equals(closest_centroid):
+                        off = 0
+                        for item in row2:
+                            for thing in row:
+                                if item != thing:
+                                    off += 1
+                        if off > (len(row2) / 2):
+                            cur_dist = self.compute_distance(row.iloc[:-1], row2.iloc[0:])
+                            new_mean.append([row, cur_dist])
+            # find new mean for each centroid
+            sum = 0
+            idx = 0
+            for item in new_mean:
+                sum += item[1]
+                idx += 1
+            mean_dist = sum / idx
+
+            # update new centroids
+            final_vals = []
+            cntrds_out = []
+            # for each of the new means we've computed, find the point
+            # in the dataframe closest to the mean. (Tried just real valued
+            # points in the vector space for this and it didn't work for categorical data,
+            # so our model snaps to previous points seen in the space already)
+            for item in new_mean:
+                item[1] = abs(item[1] - mean_dist)
+                final_vals.append(item[1])
+            final_vals.sort()
+            for i in range(means_K):
+                for item in new_mean:
+                    if item[1] == final_vals[0]:
+                        cntrds_out.append(item[0])
+                        final_vals.pop(0)
+            df_centroids = pd.DataFrame(cntrds_out)
+            for index, row in df_centroids.tail(df_centroids.size - means_K).iterrows():
+                df_centroids = df_centroids.drop(index)
+
+
+            # setup classes for each entry (just so that output is compatible)
+            possible_classes = []
+            class_column = self.df['Class']
+            [possible_classes.append(x) for x in class_column if x not in possible_classes]
+            rand_classes = []
+            for i in range(means_K):
+                if i < len(possible_classes):
+                    rand_classes.append(possible_classes[i])
+                else:
+                    rand_val = rd.randint(0, len(possible_classes)-1)
+                    rand_classes.append(possible_classes[rand_val])
+
+            df_centroids['Class'] = rand_classes
+
+            # in case of long lasting runs, 3 iterations is normally close enough to the mean
+            if (df_centroids.equals(init_df))or(cntrd_count < 3):
+                converged = True
+            else:
+                cntrd_count += 1
+                init_df = df_centroids
+
+            return df_centroids
+            
     def k_medoids(self):
         """Using the dataframe, this method begins by selecting k random medoids, and
         changing the position of the medoids until distortion is minimized and medoids
