@@ -146,7 +146,18 @@ Furthermore, in light of this distance metric, we also needed to construct a val
 categorical data in order to actually use the Minkowski metric. To do this, for regression data, we computed the raw difference in frequencies
 of each entry of categorical data, and used this as the numeric value to base distance from before inserting values into the vdm equation.
  For classification data, we simply insert values into the vdm equation. 
- TODO Ask what we're doin here.
+ TODO Ask sef what we're doin here.
+ 
+ When computing distances between points, we also made use of a kernel function to smooth the densities of points and allow for weights to be
+ considered in classification based on hw close other points are to a given query point. To do so, we computed a smooth kernel function using the following
+ formula:
+ \begin{equation}
+ weight = (\frac{1}{\sqrt{2\pi}})^d * e(\frac{-1}{2} (\frac{dist}{band})^2)
+ \end{equation}
+ Here, we compute a continuous weight function to add a dimension to our data in order to smoothly incorporate density. In the equation we denote the dimension
+ of an entry $d$, the distance between this query entry and its neighbor $dist$, and the tunable bandwidth parameter $band$. For our purposes, we chose to set
+ $b=1$ after conducting some basic tests on our model, because it didn't seem to have any noticeable effect on our findings and meant that we would have one less
+ variable to think about and justify throughout the rest of the project.
  
  Once a reliable distance metric was attained, we could compute $KNN$ for each of our 6 datasets. Lastly, there is the final remaining step of evaluating 
  the efficacy of KNN on each set of data. For classification data, we computed the logarithmic loss and 0/1 loss when our model attempted to guess
@@ -177,6 +188,19 @@ Logarithmic loss however is helpful when evaluating the performance of a model w
 of certainty in an incorrect decision, logarithmic loss is useful in capturing the performance of a model with greater depth than simply counting the number of correct solutions- 
 which in turn provides a weariness for overfitting.
 Both metrics are important to have an effective model, so both loss functions were chosen in the evaluation of our model on various data.
+
+For regression data, we evaluated the performance of our model using mean percent error and mean squared error. Mean squared error is computed by
+simply finding the mean of the squares of the errors. Mathematically, letting $Y$ be the vector of $n$ observed values and $\hat{Y}$ be the vector of $n$ predicted
+values, mean squared error $MSE$ is computed as:
+\begin{equation}
+MSE = \frac{1}{n} \sum_{i=1}^{n} (Y_i - \hat{Y_i})^2
+\end{equation}
+Similarly, mean percent error $MPE$ is computed by finding the average percentage errors by which the forecasts of a model differ from the ground truth. Letting $a_t$ be the 
+ground truth value of a prediction, $f_t$ be the actual value of the prediction, and $n$ being the number of different times a forecast is made, this is rigorously
+computed as follows:
+\begin{equation}
+MPE = \frac{100}{n} \sum_{t=1}{n} \frac{a_t - f_t}{a_t}
+\end{equation}
 
 
 \section{Results}
