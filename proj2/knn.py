@@ -23,11 +23,12 @@ class KNN(Algorithm):
         self.file_name = file_name.split(".")[1]
         # Creates a matrix of the distances between every pairs of values
         self.distance_matrix = self.build_distance_matrix()
-        self.edited_data = dataclass.df
         self.hypertune()
         self.train(self.dataclass.df, reduction_type)
-
+        self.edited_data = dataclass.df
         self.classify(self.dataclass)
+
+
 
     def train(self, dataframe, reduction_type):
         if reduction_type == "none":
