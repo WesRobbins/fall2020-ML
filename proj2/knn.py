@@ -160,10 +160,11 @@ class KNN(Algorithm):
 
     def k_means(self):
         """Using the dataframe, this method selects k random points in our
-        vector space and then assigns each point to its nearest centroid,
-        and takes the mean of each cluster (the set of points assigned
-        to each centroid. This mean is the new centroid for each cluster.
-        Repeat until convergence."""
+        vector space to be initial centroids, and then assigns each point
+        to its nearest centroid. Each of these assignments forms a set of clusters.
+        We then take the mean of each cluster, calling each mean a new centroid.
+        Repeat until convergence. (Or for practical purposes, too many iterations
+        have passed and we're close enough)"""
 
         # init k random points
         possible_vals = []
@@ -218,6 +219,7 @@ class KNN(Algorithm):
             new_mean = []
             for index, row in self.df.iterrows():
                 # if example is closest to current centroid, add it to contribute to new mean
+                # for this currently considered centroid
                 for index2, row2 in df_centroids.loc[0:, :].iterrows():
                     if row2.equals(closest_centroid):
                         off = 0
