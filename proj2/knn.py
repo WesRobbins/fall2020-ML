@@ -19,13 +19,14 @@ class KNN(Algorithm):
         self.k = 5
         self.tuning = tuning
         self.df = self.dataclass.df     # Dataframe that the algorithm will use
+        self.edited_data = dataclass.df
         self.vdms = self.dataclass.vdms # List of Value Difference Metrics for each feature
         self.file_name = file_name.split(".")[1]
         # Creates a matrix of the distances between every pairs of values
         self.distance_matrix = self.build_distance_matrix()
         self.hypertune()
         self.train(self.dataclass.df, reduction_type)
-        self.edited_data = dataclass.df
+
         self.classify(self.dataclass)
 
 
@@ -380,15 +381,14 @@ class KNN(Algorithm):
         """Helper function that returns the k nearest neighbors of a given
         example."""
 
-        neighbors = []  # List to hold the nearest neighbors
         # Selects only examples from the training set to be included in the edited matrix
         edited_distance_matrix = self.distance_matrix[self.distance_matrix.index.isin(training_set.index)]
 
         # Selects the k smallest distances from the edited distance matrix
         neighbor_ids = edited_distance_matrix.nsmallest(self.k, example_id).index
-        for id in neighbor_ids: # Iterates through the id of the k nearest neighbors
-            # Creates a DataLine of the nearest neighbor and appends it to the neighbors list
-            neighbors.append(DataLine(training_set.loc[id,:]))
+
+        #Creates a list of the k neighbors for the given example
+        neighbors = [DataLine(training_set.loc[id, :]) for id in neighbor_ids]
 
         return neighbors
 
