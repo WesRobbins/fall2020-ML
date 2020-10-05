@@ -27,7 +27,6 @@ class Evaluator:
     def regression_evaluation(self, test_set, predicted_values):
         MAE = self.mean_absolute_error(test_set, predicted_values)
         MSE = self.mean_square_error(test_set, predicted_values)
-        self.quantile_error(test_set, predicted_values)
         print(f"Mean Percent Error:\t{MAE:.2f}")
         print(f"Mean Square Error:\t{MSE:.2f}")
 
@@ -86,7 +85,3 @@ class Evaluator:
             running_sum += (test_set[i].classification - predicted_values[i])**2
         running_sum = running_sum / len(test_set)
         return running_sum
-
-    def quantile_error(self, test_set, predicted_values):
-        # TODO
-        pass

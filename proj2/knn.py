@@ -159,31 +159,13 @@ class KNN(Algorithm):
                 sum += 1
         print(f"PERCENT ACCURACY: {sum / labels.shape[0] * 100}%")
 
-        rows = []   # Empty list to hold the row for each medoid
-        for medoid in medoids:
-            row = self.df.loc[medoid, :]    # Grab the row in the dataset for that medoid
-            rows.append(row)
-        # Create a dataframe consisting of only the k medoids
-        edited_data = pd.concat(rows, axis=1).transpose()
-        return edited_data
+        return self.df.loc[medoids]
 
     def build_cluster_matrix(self, medoids):
         """Builds a distance matrix with the k medoid points and their distances to
         every other point in the dataset"""
 
-        # Initializes a dataframe of dataset x medoid length
-        cluster_matrix = pd.DataFrame(index=self.df.index, columns=medoids, dtype="float64")
-        # Iterate through every point in the dataset
-        for index in self.df.index:
-        # Iterate through each of the k-medoids
-            for index2 in medoids:
-                # If the indexes are the same, continue since the distance will be 0
-                if index == index2:
-                    continue
-                # Otherwise look up the distance in the distance matrix and populate the cluster matrix
-                else:
-                    cluster_matrix.at[index, index2] = self.distance_matrix.loc[index, index2]
-        return cluster_matrix
+        return self.distance_matrix[medoids]
 
     def swap_medoids(self, medoids, labels):
         """Iteratively swaps medoids and random datapoints, keeping a datapoint as the new medoid
