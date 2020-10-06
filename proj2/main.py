@@ -13,7 +13,16 @@ def main():
     #ML("KNN", "regression", "on", [10, .1], 1, "./data/machine.data")
     #ML("KNN", "classification", "on", [10, .1], 1, "./data/segmentation.data")
 
-    ML("KNNedited", "classification", "off", [10, .1], 1, "./data/house-votes-84.data")
+    #ML("KNN", "classification", "off", [5, .1], 1, "./data/house-votes-84.data")
+    #ML("KNNedited", "classification", "off", [5, .1], 1, "./data/house-votes-84.data")
+    ML("KNNcondensed", "classification", "off", [10, .1], 1, "./data/house-votes-84.data")
+
+    #ML("KNNedited", "classification", "off", [10, .1], 1, "./data/house-votes-84.data")
+    #ML("KNNcondensed", "classification", "off", [10, .1], 1, "./data/house-votes-84.data")
+    #ML("KNN", "regression", "on", [10, .1], 1, "./data/machine.data")
+    #ML("KNNedited", "regression", "on", [10, .1], 1, "./data/machine.data")
+    #ML("KNNcondensed", "regression", "on", [10, .1], 1, "./data/machine.data")
+
     #ML("KNN_Cluster_Medoids", "classification", "on", [10, .1], 1, "./data/glass.data")
 
     """ ML params in order:

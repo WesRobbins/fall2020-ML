@@ -166,6 +166,7 @@ class KNN(Algorithm):
             # No new changes have occurred
             not_done = False
         df_Z = pd.DataFrame(Z)
+        df_Z = df_Z.drop(324)
         # to show reduced dataset, Z
         print(df_Z)
         return df_Z
@@ -388,6 +389,7 @@ class KNN(Algorithm):
                 running_sum += vdm.loc[x.iloc[i], y.iloc[i]]
 
         distance = running_sum**(1/p)
+
         return distance
 
     def get_k_neighbors(self, example_id, training_set):
