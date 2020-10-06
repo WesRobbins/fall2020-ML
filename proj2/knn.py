@@ -138,12 +138,12 @@ class KNN(Algorithm):
         # of the data
         delete_df = pd.DataFrame(delete)
         #FOR VIDEO print dataframe which will be deleted
-        print("DELETE:\n", delete_df)
+        #print("DELETE:\n", delete_df)
         out_dataframe = dataframe
         for i, j in delete_df.iterrows():
             out_dataframe = out_dataframe.drop(i)
         # print final dataframe after deletions
-        print(out_dataframe)
+        #print(out_dataframe)
         return out_dataframe
 
 
