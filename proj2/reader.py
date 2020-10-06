@@ -6,6 +6,9 @@ class Reader:
     """Creates a dataframe containing the dataset, with changes for each dataset depending on what they need"""
 
     def __init__(self, file_path):
+        """Depending on the dataset chosen, performs dataset specific preprocessing before returning
+        the edited dataset to be used by our model"""
+
         if "abalone" in file_path:
             self.df = pd.read_csv(file_path, header=None)
 

@@ -5,18 +5,23 @@ class Evaluator:
     evaluate performance of our model"""
 
     def __init__(self, classification_type):
+        """Initializes the evaluator object with the classification type and performance attributes"""
         self.classification_type = classification_type
         self.performance = 0
         self.num_performances = 0
 
 
     def evaluate(self, test_set, predicted_values, certainty):
+        """Runs different loss functions depending on if it is classifying or regressing"""
+
         if self.classification_type == "classification":
             self.classification_evaluation(test_set, predicted_values, certainty)
         elif self.classification_type == "regression":
             self.regression_evaluation(test_set, predicted_values)
 
     def classification_evaluation(self, test_set, predicted_values, certainty):
+        """Runs all the classification log functions and prints out their results"""
+
         percent_accuracy = self.percent_accuracy(test_set, predicted_values)
         one_zero = self.one_zero_loss(test_set, predicted_values)
         log_loss = self.log_loss(test_set, predicted_values, certainty)
@@ -25,6 +30,8 @@ class Evaluator:
         print("Log Loss: ", log_loss)
 
     def regression_evaluation(self, test_set, predicted_values):
+        """Runs all of the regression loss functions and prints out their results"""
+
         MAE = self.mean_absolute_error(test_set, predicted_values)
         MSE = self.mean_square_error(test_set, predicted_values)
         print(f"Mean Percent Error:\t{MAE:.2f}")
@@ -52,6 +59,8 @@ class Evaluator:
         return incorrect / len(test_set)
 
     def log_loss(self, test_set, predicted_values, certainty):
+        """Basic function that calculates log loss of a test set using a specific certainty value"""
+
         total = 0;
         for i in range(len(test_set)):
             if test_set[i].classification == predicted_values[i]:

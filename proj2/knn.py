@@ -12,12 +12,22 @@ import random as rd
 import numpy as np
 
 class KNN(Algorithm):
+    """Class that performs all operations involving K-Nearest Neighbor. Using the other classes, this
+    class contains methods to perform classification and regression using either KNN or edited/condensed
+    KNN. Additionally, has methods to perform k-means and k-medoids clustering and use either the centroids
+    or medoids as a reduced dataset for KNN"""
+
     def __init__(self, dataclass, classification_type, reduction_type, file_name, tuning):
+        """Initializes the dataframe, creates a distance matrix, then hypertunes, reduces the data
+        if using edited/condensed, and finally runs a stratified cross validation experiment using the
+        hypertuned values"""
+
         super(KNN, self).__init__(dataclass, classification_type)
         self.dataclass = dataclass
         self.performances = []
         self.n = 5
         self.k = 5
+        self.edited_data = dataclass.df
         self.tuning = tuning
         self.df = self.dataclass.df     # Dataframe that the algorithm will use
         self.vdms = self.dataclass.vdms # List of Value Difference Metrics for each feature
@@ -26,12 +36,14 @@ class KNN(Algorithm):
         self.distance_matrix = self.build_distance_matrix()
         self.hypertune()
         self.train(self.dataclass.df, reduction_type)
-        self.edited_data = dataclass.df
+
         self.classify(self.dataclass)
 
 
 
     def train(self, dataframe, reduction_type):
+        """Reduced the dataset using one of many algorithms listed below"""
+
         if reduction_type == "none":
             pass
         elif reduction_type == "edited":
@@ -44,6 +56,8 @@ class KNN(Algorithm):
             self.edited_testing_set = self.k_means()
 
     def hypertune(self):
+        """Runs a number of experiments, optimizing k, using the average loss value of the experiments"""
+
         if self.tuning == "off":
             self.k = 5
         else:
@@ -51,11 +65,11 @@ class KNN(Algorithm):
            for i in range(5):
                 k = i*2+3
                 self.k = k
-                self.classify(self.dataclass)
+                self.classify(self.dataclass)   #Runs the experiment with set k
                 avg_performance = self.evaluater.performance / self.evaluater.num_performances
                 self.performances.append(avg_performance)
                 print("\n Loss score for k = ", self.k, " is ", avg_performance)
-           index = self.performances.index(min(self.performances))
+           index = self.performances.index(min(self.performances))  #Gets the best performance
            self.k = index*2+3
            print("\nThe optimal k is ", self.k, "\n\n")
 
@@ -94,6 +108,8 @@ class KNN(Algorithm):
             return distance_matrix
 
     def classify(self, dataclass):
+        """Splits the data up into training and testing, then runs k-fold cross validation"""
+
         data_folds = dataclass.make_f_fold(self.edited_data, "off", dataclass.k)
         for i in range(dataclass.k):  #  This runs the cross validation, using each slice as the testing set
             print(f"Run Number {i + 1}:")
@@ -106,8 +122,8 @@ class KNN(Algorithm):
 
 
     def edited_knn(self, dataframe):
-        # FOR VIDEO print initial dataframe
-        #print(dataframe)
+        """Goes through and deletes rows that are classified incorrectly, returning a reduced dataset"""
+
         # init list of items to delete
         delete = []
         # Go through every item, if we predict the incorrect class, delete.
@@ -133,9 +149,11 @@ class KNN(Algorithm):
 
 
     def condensed_knn(self, dataframe):
+        """Iterates through dataset, adding rows to a new dataset until performance drops, returning
+        the new dataset (Z) as a reduced dataset for KNN"""
+
         #initialize the set Z which will eventually become the
         # condensed dataframe output
-        print(dataframe)
         Z = []
         # scan all elements of dataframe, adding any
         # values whose nearest neighbor have a different class to Z
@@ -165,10 +183,8 @@ class KNN(Algorithm):
                 dataframe = dataframe.drop(index)
             # No new changes have occurred
             not_done = False
-        df_Z = pd.DataFrame(Z)
-        df_Z = df_Z.drop(324)
-        # to show reduced dataset, Z
-        print(df_Z)
+        df_Z = pd.DataFrame(Z).drop_duplicates()
+
         return df_Z
 
     def k_means(self):

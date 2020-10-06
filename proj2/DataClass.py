@@ -1,17 +1,20 @@
 from reader import *
 import pandas as pd
 
-"""The data class is responsible for reading in, processing, storing, and manipulating data. An instance of the data
-    class is passed into the algorithm so the algorithm has access to all data"""
-
 
 class DataClass:
+    """The data class is responsible for reading in, processing, storing, and manipulating data. An instance of the data
+        class is passed into the algorithm so the algorithm has access to all data"""
     def __init__(self, file_name, data_splits, classification_type):
+        """Initialization method that normalizes all real values and creates value difference
+        metrics for the categorical features as well as splitting data into tuning and train/test
+        sets."""
+
         self.classification_type = classification_type                      #  store classification type (i.e classification or regression)
         self.k = data_splits[0]                                             #  number of folds in k fold cross validation
         self.reader = Reader(file_name)                                     #  instaniate reader class to read and process file
         self.df = self.reader.df
-        self.normalize()
+        self.normalize()    #Normalizes all columns
         self.vdms = self.construct_vdm()
         self.tuning_set = self.df.iloc[0:int(data_splits[1] * self.df.shape[0]), :]                     # seperate tuning set from data
         self.train_test_set = self.df.iloc[int(data_splits[1] * self.df.shape[0]):self.df.shape[0], :]  #  data not in tuning set is train_test data
@@ -35,10 +38,6 @@ class DataClass:
         col_mean = self.df[col].mean()
         df_std = self.df.std(axis=0)[col]
         self.df[col] = (self.df[col] - col_mean) / df_std
-
-    def descretize(self, dataframe):
-        #  TODO
-        pass
 
     def construct_vdm(self):
         """Function to create value difference metrics (vdm) for every column of categorical data."""
