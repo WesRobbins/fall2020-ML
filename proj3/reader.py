@@ -25,6 +25,7 @@ class Reader:
         the edited dataset to be used by our model"""
         self.df = self.initialize_dataframe(file_path)
         self.remove_constant_features()
+        self.reset_indices()
 
     def initialize_dataframe(self, file_path):
         df = pd.read_csv(file_path, header=None)
@@ -49,8 +50,13 @@ class Reader:
         return df
 
     def remove_constant_features(self):
+        """Removes all features from the dataset that only have one distinct value"""
         for col in self.df.columns:
             if len(self.df[col].unique()) == 1:
                 self.df.drop(col, inplace=True, axis=1)
+
+    def reset_indices(self):
+        """Standardizes column headers and indices across each dataframe"""
+        self.df.index = np.arange(len(self.df.index))
         self.df.columns = np.arange(len(self.df.columns))
         self.df.columns = [*self.df.columns[:-1], 'Class']  # Renames the last column class
