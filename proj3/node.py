@@ -22,9 +22,11 @@ class Node:
         self.output = self.activate(output)
 
     def activate(self, x):
-        """Uses logistic function as activation function"""
-        return 1 / (1 + math.exp(x))
+        """Uses hyperbolic tangent function as activation function"""
+        return math.tanh(x)
 
+    def derivative(self, output):
+        return 1 - math.tanh(output) ** 2
     def __repr__(self):
         """Magic method to override string representation in a list"""
         return str(self.weights)

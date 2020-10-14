@@ -6,10 +6,10 @@ class MLP:
     def __init__(self, dataclass, classification_type):
         self.df = dataclass.df
         self.num_input_nodes = len(self.df.columns[:-1])
-        self.num_hidden = 1
+        self.num_hidden = 0
         self.num_outputs = 4
         input_row = DataLine(self.df.iloc[1]).feature_vector
-        self.NN = self.initialize_network(self.num_input_nodes, self.num_hidden, 1,self.num_outputs)
+        self.NN = self.initialize_network(self.num_input_nodes, self.num_hidden, 0,self.num_outputs)
         outputs = self.feed_forward(input_row)
         print(outputs)
 
