@@ -9,17 +9,17 @@ class Node:
     def __init__(self, n_inputs):
         """Initializes a random set of weights for each input"""
         self.weights = [random() for _ in range(n_inputs)]
+        self.output = 0
 
     def process_input(self, inputs):
         """Processes inputs for a node and returns a sum of weights by inputs, utilizing
         the activation function"""
-
         #Starts by assuming bias node is last weight in weight list
-        running_sum = self.weights[-1]
+        output = self.weights[-1]
         #Iterates through each weight up to the bias node
         for i in range(len(self.weights) - 1):
-            running_sum += self.weights[i] * inputs[i]
-        return self.activate(running_sum)
+            output += self.weights[i] * inputs[i]
+        self.output = self.activate(output)
 
     def activate(self, x):
         """Uses logistic function as activation function"""
