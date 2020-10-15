@@ -10,7 +10,7 @@ class Node:
         """Initializes a random set of weights for each input"""
         self.weights = [random() for _ in range(n_inputs)]
         self.output = 0
-        self.change = 0
+        self.delta_weight = 0
 
     def process_input(self, inputs):
         """Processes inputs for a node and returns a sum of weights by inputs, utilizing
@@ -31,7 +31,8 @@ class Node:
 
     def __repr__(self):
         """Magic method to override string representation in a list"""
-        return str(self.weights)
+        repr = f"Weights: {self.weights}\nOutput: {self.output}\nDelta: {self.delta_weight}\n"
+        return repr
 
     def __len__(self):
         """Magic method to describe the length of the node"""
