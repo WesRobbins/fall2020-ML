@@ -1,4 +1,4 @@
-from random import *
+import random
 import math
 
 class Node:
@@ -8,7 +8,7 @@ class Node:
 
     def __init__(self, n_inputs):
         """Initializes a random set of weights for each input"""
-        self.weights = [random() for _ in range(n_inputs)]
+        self.weights = [random.uniform(-.01, .01) for _ in range(n_inputs)]
         self.output = 0
         self.delta_weight = 0
 
@@ -39,4 +39,5 @@ class Node:
         return len(self.weights)
 
     def __getitem__(self, key):
+        """Magic method to make nodes iterable by their weights"""
         return self.weights[key]

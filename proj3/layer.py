@@ -17,11 +17,14 @@ class Layer:
         return len(self.nodes)
 
     def __getitem__(self, key):
+        """Magic method to make layers iterable by their layers"""
         return self.nodes[key]
 
     def __iter__(self):
+        """Magic method to support iteration"""
         return self
     def __next__(self):
+        """Defines the next method for iteration"""
         self.index += 1
         if self.index >= len(self):
             self.index = -1
