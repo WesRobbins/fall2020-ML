@@ -16,6 +16,9 @@ class Layer:
         """Magic method to represent length of layer"""
         return len(self.nodes)
 
+    def __getitem__(self, key):
+        return self.nodes[key]
+
     def __iter__(self):
         return self
     def __next__(self):

@@ -1,8 +1,6 @@
 #Reads in file path as input and returns preprocessed dataframe
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-#plt.close('all')
 
 month_dict = {"jan" : 1,
                   "feb" : 2,
@@ -44,7 +42,8 @@ class Reader:
             last_col_index = df.columns[-1]
             df.pop(last_col_index)
         elif "breast-cancer-wisconsin" in file_path:
-            df.fillna(df.mean(axis=0), inplace=True)
+            df[6] = pd.to_numeric(df[6], errors="coerce")
+            df.fillna(df.mean(axis=0))
             df.pop(0)
 
         return df

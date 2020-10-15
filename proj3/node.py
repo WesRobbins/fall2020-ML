@@ -10,6 +10,7 @@ class Node:
         """Initializes a random set of weights for each input"""
         self.weights = [random() for _ in range(n_inputs)]
         self.output = 0
+        self.change = 0
 
     def process_input(self, inputs):
         """Processes inputs for a node and returns a sum of weights by inputs, utilizing
@@ -25,8 +26,9 @@ class Node:
         """Uses hyperbolic tangent function as activation function"""
         return math.tanh(x)
 
-    def derivative(self, output):
-        return 1 - math.tanh(output) ** 2
+    def derivative(self):
+        return 1 - math.tanh(self.output) ** 2
+
     def __repr__(self):
         """Magic method to override string representation in a list"""
         return str(self.weights)
@@ -34,3 +36,6 @@ class Node:
     def __len__(self):
         """Magic method to describe the length of the node"""
         return len(self.weights)
+
+    def __getitem__(self, key):
+        return self.weights[key]
