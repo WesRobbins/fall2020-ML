@@ -12,7 +12,7 @@ class Node:
         self.weights = [random.uniform(-.01, .01) for _ in range(n_inputs)]
         self.output = 0
         self.type = type
-        self.raw_output = 0
+        self.momentum = 0
         self.delta_weight = 0
         self.activate = self.hyperbolic_tangent
         self.derivative = self.hyperbolic_tangent_derivative

@@ -29,6 +29,9 @@ class Reader:
         df = pd.read_csv(file_path, header=None)
         if "glass" in file_path:
             df.pop(0)
+            df.pop(6)
+            df.pop(7)
+
         elif "forestfires" in file_path:
             df = pd.read_csv(file_path, header=0)
             df.month = df.month.replace(month_dict)
