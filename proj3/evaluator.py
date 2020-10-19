@@ -1,4 +1,5 @@
 import math
+import numpy as np
 
 class Evaluator:
     """A class containing loss functions and percent accuracy function to
@@ -8,6 +9,7 @@ class Evaluator:
         """Initializes the evaluator object with the classification type and performance attributes"""
         self.classification_type = classification_type
         self.performance = 0
+        self.correct = 0
         self.num_performances = 0
 
 
@@ -16,6 +18,7 @@ class Evaluator:
 
         if self.classification_type == "classification":
             print(f"Average cross entropy:\t{self.performance / self.num_performances}")
+            print(f"Average percent accuracy:\t{self.correct / self.num_performances}")
         elif self.classification_type == "regression":
             self.regression_evaluation(test_set, predicted_values)
 
@@ -54,3 +57,8 @@ class Evaluator:
         self.performance += x
         self.num_performances += 1
         return x
+    def percent_accuracy(self, truth_labels, predicted_labels):
+        predicted_index = np.argmax(predicted_labels)
+
+        if truth_labels[predicted_index] == 1:
+            self.correct += 1

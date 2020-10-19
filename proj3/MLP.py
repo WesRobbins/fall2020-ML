@@ -7,6 +7,9 @@ from evaluator import *
 import sys
 
 class MLP:
+    """A class that represents a multi layer perceptron network with a tunable number
+    of hidden nodes/ nodes per layer that is capable of binary classification, multi-class
+    classification and regression"""
 
     def __init__(self, dataclass, classification_type):
         self.classification_type = classification_type
@@ -19,8 +22,8 @@ class MLP:
         """Initializes a set of parameters for the neural network"""
 
         self.n_inputs = len(self.df.columns[:-1])
-        self.n_hidden_per_layer = 1
-        self.n_hidden = 1
+        self.n_hidden_per_layer = 2
+        self.n_hidden = 0
         self.n_outputs = len(self.df.Class.unique())
         self.learning_rate = 1
         self.epochs = 20
@@ -42,9 +45,11 @@ class MLP:
 
         network = []
         #Creates hidden layers
+        num_inputs = self.n_inputs
         for layer in range(self.n_hidden):
-            hidden_layer = Layer(1, self.n_inputs, )
+            hidden_layer = Layer(self.n_hidden_per_layer, num_inputs)
             network.append(hidden_layer)
+            num_inputs = len(hidden_layer)
         if self.n_hidden == 0:
             self.output_layer = Layer(self.n_outputs, self.n_inputs, "output")
         else:
@@ -112,23 +117,26 @@ class MLP:
                 node.weights[-1] += self.learning_rate * node.delta_weight
 
     def train(self, training_set):
-        predicted_values = []
-        true_values = []
-        eval = Evaluator(self.classification_type)
         for _, _ in training_set.iterrows():
             input_row = DataLine(self.df.sample(1).iloc[0])
             expected = [0 for _ in range(self.n_outputs)]
             expected[int(input_row.classification)] = 1
-            true_values.append(expected)
             outputs = self.feed_forward(input_row.feature_vector)
-            eval.cross_entropy(expected, outputs)
             self.backpropagate(expected)
             self.update_node_weights(input_row.feature_vector)
-        eval.evaluate()
 
 
     def test(self, testing_set):
-        pass
+        eval = Evaluator(self.classification_type)
+        for index, row in testing_set.iterrows():
+            input_row = DataLine(row)
+            expected = [0] * self.n_outputs
+            expected[int(input_row.classification)] = 1
+            outputs = self.feed_forward(input_row.feature_vector)
+            eval.cross_entropy(expected, outputs)
+            eval.percent_accuracy(expected, outputs)
+        eval.evaluate()
+
     def classify_all(self, training_set, testing_set):
         self.NN = self.initialize_network()
         self.train(training_set)
