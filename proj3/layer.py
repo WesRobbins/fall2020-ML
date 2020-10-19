@@ -3,9 +3,10 @@ from node import *
 class Layer:
     """Class that represents a layer of nodes in a neural network"""
 
-    def __init__(self, n_nodes, n_inputs):
+    def __init__(self, n_nodes, n_inputs, type="hidden"):
         """Initializes a list of n_nodes, that have n_inputs going into those nodes"""
-        self.nodes = [Node(n_inputs+1) for _ in range(n_nodes)]
+
+        self.nodes = [Node(n_inputs+1, type) for _ in range(n_nodes)]
         self.index = -1
 
     def __repr__(self):

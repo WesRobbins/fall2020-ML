@@ -1,31 +1,19 @@
 from layer import *
 from data_line import *
+import numpy as np
+import random
+import pandas as pd
+from evaluator import *
+import sys
 
 class MLP:
 
     def __init__(self, dataclass, classification_type):
+        self.classification_type = classification_type
+        self.dataclass = dataclass
         self.df = dataclass.df  #Initializes the dataset
         self.initialize_parameters()    #Sets initial parameters
-        #Grabs a row from the dataset for testing
-        input_row = DataLine(self.df.iloc[1]).feature_vector
-        #Initializes layers and nodes in network
-        self.NN = self.initialize_network()
-        #First pass of inputs through network
-        outputs = self.feed_forward(input_row)
-        print(f"Expected: [0, 1]")
-        print(f"Actual: {outputs}")
-        self.backpropagate([0, 1])  #Backpropagates weights with expected values
-        self.update_node_weights(input_row)
-        #Second pass of inputs through network
-        outputs = self.feed_forward(input_row)
-        print(f"Expected: [0, 1]")
-        print(f"Actual: {outputs}")
-        self.backpropagate([0, 1])
-        self.update_node_weights(input_row)
-        #Third pass of inputs through network
-        outputs = self.feed_forward(input_row)
-        print(f"Expected: [0, 1]")
-        print(f"Actual: {outputs}")
+        self.classify()
 
     def initialize_parameters(self):
         """Initializes a set of parameters for the neural network"""
@@ -35,6 +23,19 @@ class MLP:
         self.n_hidden = 1
         self.n_outputs = len(self.df.Class.unique())
         self.learning_rate = 1
+        self.epochs = 20
+
+    def classify(self):
+        """Splits the data up into training and testing, then runs k-fold cross validation"""
+
+        data_folds = self.dataclass.make_f_fold("off")
+        for i in range(self.dataclass.k):  # This runs the cross validation, using each slice as the testing set
+            print(f"Run Number {i + 1}:")
+            testing_set = data_folds[i]  # Selects a slice for the testing set
+
+            #  Concatenates all slices other than the testing set into the training set
+            training_set = pd.concat(data_folds[:i] + data_folds[i + 1:])
+            self.classify_all(training_set, testing_set)
 
     def initialize_network(self):
         """Initializes a neural network with an input layer, hidden layers, and output layers"""
@@ -42,12 +43,14 @@ class MLP:
         network = []
         #Creates hidden layers
         for layer in range(self.n_hidden):
-            hidden_layer = Layer(1, self.n_inputs)
+            hidden_layer = Layer(1, self.n_inputs, )
             network.append(hidden_layer)
-        self.output_layer = Layer(self.n_outputs, self.n_hidden_per_layer)
+        if self.n_hidden == 0:
+            self.output_layer = Layer(self.n_outputs, self.n_inputs, "output")
+        else:
+            self.output_layer = Layer(self.n_outputs, self.n_hidden_per_layer, "output")
         network.append(self.output_layer)
         return network
-
 
     def feed_forward(self, row):
         """Begins with inputs from the training set, runs it through the neural network and
@@ -60,6 +63,15 @@ class MLP:
                 node.process_input(inputs)
                 new_inputs.append(node.output)
             inputs = new_inputs
+        softmax_outputs = self.softmax(inputs)
+        new_inputs = []
+        if self.classification_type == "classification":
+            for i in range(len(self.output_layer)):
+                node = self.output_layer[i]
+                node.output = softmax_outputs[i]
+                new_inputs.append(node.output)
+
+        inputs = new_inputs
         return inputs
 
     def backpropagate(self, expected):
@@ -69,12 +81,10 @@ class MLP:
         #Assigns delta values to each node in the output layer
         for i in range(len(self.output_layer)):
             node = self.output_layer[i]
-            node.delta_weight = expected[i] - node.output * node.derivative()
-            #print(node.delta_weight)
+            node.delta_weight = (expected[i] - node.output)
 
         #Backpropagates errors through hidden layers
         for i in reversed(range(len(self.NN[:-1]))):
-            errors = []
             layer = self.NN[i]
             #Iterates through each node in a layer
             for j in range(len(layer)):
@@ -101,6 +111,31 @@ class MLP:
                     node.weights[j] += self.learning_rate * node.delta_weight * inputs[j]
                 node.weights[-1] += self.learning_rate * node.delta_weight
 
+    def train(self, training_set):
+        predicted_values = []
+        true_values = []
+        eval = Evaluator(self.classification_type)
+        for _, _ in training_set.iterrows():
+            input_row = DataLine(self.df.sample(1).iloc[0])
+            expected = [0 for _ in range(self.n_outputs)]
+            expected[int(input_row.classification)] = 1
+            true_values.append(expected)
+            outputs = self.feed_forward(input_row.feature_vector)
+            eval.cross_entropy(expected, outputs)
+            self.backpropagate(expected)
+            self.update_node_weights(input_row.feature_vector)
+        eval.evaluate()
 
+
+    def test(self, testing_set):
+        pass
+    def classify_all(self, training_set, testing_set):
+        self.NN = self.initialize_network()
+        self.train(training_set)
+        self.test(testing_set)
+
+    def softmax(self, output_vector):
+        exp_vector = np.exp(output_vector)
+        return exp_vector / exp_vector.sum()
 
 

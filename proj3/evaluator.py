@@ -11,11 +11,11 @@ class Evaluator:
         self.num_performances = 0
 
 
-    def evaluate(self, test_set, predicted_values, certainty):
+    def evaluate(self):
         """Runs different loss functions depending on if it is classifying or regressing"""
 
         if self.classification_type == "classification":
-            self.classification_evaluation(test_set, predicted_values, certainty)
+            print(f"Average cross entropy:\t{self.performance / self.num_performances}")
         elif self.classification_type == "regression":
             self.regression_evaluation(test_set, predicted_values)
 
@@ -37,55 +37,6 @@ class Evaluator:
         print(f"Mean Percent Error:\t{MAE:.2f}")
         print(f"Mean Square Error:\t{MSE:.2f}")
 
-    def percent_accuracy(self, test_set, predicted_values):
-        """Returns percent accuracy given true and predicted values"""
-
-        correct = 0
-        for i in range(len(test_set)):
-            if test_set[i].classification == predicted_values[i]:
-                correct += 1
-        return correct / len(test_set)
-
-    # classification loss functions
-    def one_zero_loss(self, test_set, predicted_values):
-        """Returns one-zero loss score given true and predicted values"""
-
-        incorrect=0
-        for i in range(len(test_set)):
-            if test_set[i].classification != predicted_values[i]:
-                incorrect += 1
-        self.performance += incorrect / len(test_set)
-        self.num_performances += 1
-        return incorrect / len(test_set)
-
-    def log_loss(self, test_set, predicted_values, certainty):
-        """Basic function that calculates log loss of a test set using a specific certainty value"""
-
-        total = 0;
-        for i in range(len(test_set)):
-            if test_set[i].classification == predicted_values[i]:
-                total += math.log(certainty[i])
-            if test_set[i].classification != predicted_values[i]:
-                if certainty[i] > .95:
-                    certainty[i] = .95
-                total += math.log(1-certainty[i])
-
-        log_loss = -1*total/len(test_set)
-        return log_loss
-
-    # regression loss functions
-    def mean_absolute_error(self, test_set, predicted_values):
-        """Returns the mean absolute error for a given test set and their predicted values"""
-
-        running_sum = 0
-        for i in range(len(test_set)):
-            running_sum += abs(test_set[i].classification - predicted_values[i])
-
-        running_sum = running_sum / len(test_set)
-        self.performance += running_sum
-        self.num_performances += 1
-        return running_sum
-
     def mean_square_error(self, test_set, predicted_values):
         """Returns the mean square error for a given test set and their predicted values"""
 
@@ -94,3 +45,12 @@ class Evaluator:
             running_sum += (test_set[i].classification - predicted_values[i])**2
         running_sum = running_sum / len(test_set)
         return running_sum
+
+    def cross_entropy(self, truth_labels, predicted_labels):
+        #print(f"Truth: {truth_labels}")
+        #print(f"Predicted: {predicted_labels}")
+
+        x = sum([(truth_labels[i] * math.log(predicted_labels[i])) for i in range(len(truth_labels))])
+        self.performance += x
+        self.num_performances += 1
+        return x

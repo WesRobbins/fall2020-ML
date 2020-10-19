@@ -43,9 +43,8 @@ class Reader:
             df.pop(last_col_index)
         elif "breast-cancer-wisconsin" in file_path:
             df[6] = pd.to_numeric(df[6], errors="coerce")
-            df.fillna(df.mean(axis=0))
+            df.fillna(df.mean(axis=0), inplace=True)
             df.pop(0)
-
         return df
 
     def remove_constant_features(self):
