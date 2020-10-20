@@ -22,17 +22,20 @@ class MLP:
         """Initializes a set of parameters for the neural network"""
 
         self.n_inputs = len(self.df.columns[:-1])
-        self.n_hidden_per_layer = 5
-        self.n_hidden = 1
-        self.n_outputs = len(self.df.Class.unique())
-        self.learning_rate = .7
-        self.epochs = 20
+        self.n_hidden_per_layer = 1
+        self.n_hidden = 2
+        if self.classification_type == "classification":
+            self.n_outputs = len(self.df.Class.unique())
+        elif self.classification_type == "regression":
+            self.n_outputs = 1
+        self.learning_rate = .3
+        self.epochs = 3
         self.momentum = .5
 
     def classify(self):
         """Splits the data up into training and testing, then runs k-fold cross validation"""
 
-        data_folds = self.dataclass.make_f_fold("on")
+        data_folds = self.dataclass.make_f_fold("off")
         for i in range(self.dataclass.k):  # This runs the cross validation, using each slice as the testing set
             print(f"Run Number {i + 1}:")
             testing_set = data_folds[i]  # Selects a slice for the testing set
@@ -69,9 +72,11 @@ class MLP:
                 node.process_input(inputs)
                 new_inputs.append(node.output)
             inputs = new_inputs
-        softmax_outputs = self.softmax(inputs)
-        new_inputs = []
+
+
         if self.classification_type == "classification":
+            softmax_outputs = self.softmax(inputs)
+            new_inputs = []
             for i in range(len(self.output_layer)):
                 node = self.output_layer[i]
                 node.output = softmax_outputs[i]
@@ -88,7 +93,10 @@ class MLP:
         for i in range(len(self.output_layer)):
             node = self.output_layer[i]
             node.momentum = self.momentum * node.delta_weight
-            node.delta_weight = (expected[i] - node.output)
+            if self.classification_type == "classification":
+                node.delta_weight = (expected[i] - node.output)
+            else:
+                node.delta_weight = expected - node.output
 
         #Backpropagates errors through hidden layers
         for i in reversed(range(len(self.NN[:-1]))):
@@ -99,6 +107,7 @@ class MLP:
                 cur_node = layer[j]
                 #Iterates through each node in the next layer up
                 for node in self.NN[i+1]:
+
                     error += node.weights[j] * node.delta_weight
                 cur_node.momentum = self.momentum * node.delta_weight
                 cur_node.delta_weight = error * cur_node.derivative()
@@ -121,13 +130,16 @@ class MLP:
 
     def train(self, training_set):
         for epoch in range(self.epochs):
-            for _, _ in training_set.iterrows():
-                input_row = DataLine(self.df.sample(1).iloc[0])
-                expected = [0 for _ in range(self.n_outputs)]
-                expected[int(input_row.classification)] = 1
-                #print(expected)
+            eval = Evaluator(self.classification_type)
+            for index, row in training_set.sample(frac=1).iterrows():
+                input_row = DataLine(row)
+                if self.classification_type == "classification":
+                    expected = [0 for _ in range(self.n_outputs)]
+                    expected[int(input_row.classification)] = 1
+                else:
+                    expected = input_row.classification
                 outputs = self.feed_forward(input_row.feature_vector)
-                #print(outputs)
+                eval.MSE(expected, outputs[0])
                 self.backpropagate(expected)
                 self.update_node_weights(input_row.feature_vector)
 
@@ -136,11 +148,17 @@ class MLP:
         eval = Evaluator(self.classification_type)
         for index, row in testing_set.iterrows():
             input_row = DataLine(row)
-            expected = [0] * self.n_outputs
-            expected[int(input_row.classification)] = 1
+            if self.classification_type == "classification":
+                expected = [0] * self.n_outputs
+                expected[int(input_row.classification)] = 1
+            else:
+                expected = input_row.classification
             outputs = self.feed_forward(input_row.feature_vector)
-            eval.cross_entropy(expected, outputs)
-            eval.percent_accuracy(expected, outputs)
+            if self.classification_type == "classification":
+                eval.cross_entropy(expected, outputs)
+                eval.percent_accuracy(expected, outputs)
+            else:
+                eval.MSE(expected, outputs[0])
         eval.evaluate()
 
     def classify_all(self, training_set, testing_set):

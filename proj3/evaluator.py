@@ -10,6 +10,7 @@ class Evaluator:
         self.classification_type = classification_type
         self.performance = 0
         self.correct = 0
+        self.mses = 0
         self.num_performances = 0
 
 
@@ -18,9 +19,9 @@ class Evaluator:
 
         if self.classification_type == "classification":
             print(f"Average cross entropy:\t{self.performance / self.num_performances}")
-            print(f"Average percent accuracy:\t{self.correct / self.num_performances}")
+            print(f"Average percent accuracy:\t{self.correct / self.num_performances * 100}%")
         elif self.classification_type == "regression":
-            self.regression_evaluation(test_set, predicted_values)
+            print(f"Average MSE:\t{self.mses / self.num_performances}")
 
     def classification_evaluation(self, test_set, predicted_values, certainty):
         """Runs all the classification log functions and prints out their results"""
@@ -62,3 +63,8 @@ class Evaluator:
 
         if truth_labels[predicted_index] == 1:
             self.correct += 1
+
+    def MSE(self, expected, true):
+        x = (expected - true) ** 2
+        self.mses += x
+        self.num_performances += 1

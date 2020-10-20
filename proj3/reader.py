@@ -48,6 +48,8 @@ class Reader:
             df[6] = pd.to_numeric(df[6], errors="coerce")
             df.fillna(df.mean(axis=0), inplace=True)
             df.pop(0)
+        elif "abalone" in file_path:
+            df.pop(0)
         return df
 
     def remove_constant_features(self):
