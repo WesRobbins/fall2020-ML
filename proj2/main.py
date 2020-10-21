@@ -13,18 +13,18 @@ def main():
     #sys.stdout = f
 
 
-    print("\n\nKNN Classification\n")
-    ML("KNN", "classification", "off", [10, .1], 1, "./data/house-votes-84.data")
-    print("\n\nKNN Edited Classification\n")
-    ML("KNNedited", "classification", "off", [10, .1], 1, "./data/house-votes-84.data")
-    print("\n\nKNN Condensed Classification\n")
-    ML("KNNcondensed", "classification", "off", [10, .1], 1, "./data/house-votes-84.data")
-    print("\n\nKNN Regression\n")
-    ML("KNN", "regression", "off", [10, .1], 1, "./data/machine.data")
-    print("\n\nKNN Edited Regression")
-    ML("KNNedited", "regression", "off", [10, .1], 1, "./data/machine.data")
-    print("\n\nKNN Condensed Regression")
-    ML("KNNcondensed", "regression", "off", [10, .1], 1, "./data/machine.data")
+    # print("\n\nKNN Classification\n")
+    # ML("KNN", "classification", "off", [10, .1], 1, "./data/house-votes-84.data")
+    # print("\n\nKNN Edited Classification\n")
+    # ML("KNNedited", "classification", "off", [10, .1], 1, "./data/house-votes-84.data")
+    # print("\n\nKNN Condensed Classification\n")
+    # ML("KNNcondensed", "classification", "off", [10, .1], 1, "./data/house-votes-84.data")
+    # print("\n\nKNN Regression\n")
+    ML("KNN", "regression", "off", [10, .1], 1, "./data/abalone.data")
+    # print("\n\nKNN Edited Regression")
+    # ML("KNNedited", "regression", "off", [10, .1], 1, "./data/machine.data")
+    # print("\n\nKNN Condensed Regression")
+    # ML("KNNcondensed", "regression", "off", [10, .1], 1, "./data/machine.data")
 
     #f.close()
 

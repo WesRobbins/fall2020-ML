@@ -7,43 +7,38 @@ class Node:
     weights coming into this neuron, and is capable of processing inputs and using the
     activation function"""
 
-    def __init__(self, n_inputs, type):
+    def __init__(self, n_inputs, node_type):
         """Initializes a random set of weights for each input"""
         self.weights = [random.uniform(-.01, .01) for _ in range(n_inputs)]
         self.output = 0
-        self.type = type
-        self.momentum = 0
-        self.delta_weight = 0
-        self.activate = self.hyperbolic_tangent
-        self.derivative = self.hyperbolic_tangent_derivative
-
+        self.node_type = node_type
+        self.momentum = [0] * n_inputs
+        self.delta_weight = 0   #Stores the amount to update node weights
 
     def process_input(self, inputs):
         """Processes inputs for a node and returns a sum of weights by inputs, utilizing
         the activation function"""
-        #Starts by assuming bias node is last weight in weight list
-        output = self.weights[-1]
-        #Iterates through each weight up to the bias node
-        for i in range(len(self.weights) - 1):
-            output += self.weights[i] * inputs[i]
-        if self.type == "output":
-            self.output = output
-        else:
-            self.output = self.activate(output)
-    def hyperbolic_tangent(self, x):
+
+        #Computes the dot product of weights and inputs. then adds the bias node's value
+        output = np.dot(self.weights[:-1], inputs) + self.weights[-1]
+        #print(inputs)
+
+        #If node is part of hidden layer, sends the output through the activation function
+        self.output = output if self.node_type == "output" else self.activate(output)
+        return self.output
+
+    def activate(self, x):
         """Uses hyperbolic tangent function as activation function"""
         return math.tanh(x)
 
-    def hyperbolic_tangent_derivative(self,):
+    def derivative(self,):
+        """Derivative of hyperbolic tangent function, used for gradient descent in
+        backpropagation."""
         return 1 - (math.tanh(self.output)) ** 2
-
-    def softmax(self, output_vector):
-        return math.exp(self.raw_output) / np.sum(np.exp(output_vector))
 
     def __repr__(self):
         """Magic method to override string representation in a list"""
-        repr = f"Weights: {self.weights}\nOutput: {self.output}\nDelta: {self.delta_weight}\n"
-        return repr
+        return f"Weights: {self.weights}\nOutput: {self.output}\nDelta: {self.delta_weight}\n"
 
     def __len__(self):
         """Magic method to describe the length of the node"""

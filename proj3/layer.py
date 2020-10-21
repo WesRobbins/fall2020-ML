@@ -1,4 +1,5 @@
 from node import *
+import numpy as np
 
 class Layer:
     """Class that represents a layer of nodes in a neural network"""
@@ -9,6 +10,19 @@ class Layer:
         self.nodes = [Node(n_inputs+1, type) for _ in range(n_nodes)]
         self.index = -1
 
+    def compute_softmax(self):
+        exp_vector = np.exp([node.output for node in self.nodes])
+        exp_vector = exp_vector / exp_vector.sum()
+        for i in range(len(exp_vector)):
+            self.nodes[i].output = exp_vector[i]
+        return exp_vector
+
+
+
+        def softmax(self, output_vector):
+            # print(output_vector)
+            exp_vector = np.exp(output_vector)
+            return exp_vector / exp_vector.sum()
     def __repr__(self):
         """Magic method to override string representation in lists"""
         return str(self.nodes)

@@ -8,63 +8,52 @@ class Evaluator:
     def __init__(self, classification_type):
         """Initializes the evaluator object with the classification type and performance attributes"""
         self.classification_type = classification_type
-        self.performance = 0
-        self.correct = 0
-        self.mses = 0
-        self.num_performances = 0
 
-
-    def evaluate(self):
+    def evaluate(self, true_values, predicted_values):
         """Runs different loss functions depending on if it is classifying or regressing"""
 
         if self.classification_type == "classification":
-            print(f"Average cross entropy:\t{self.performance / self.num_performances}")
-            print(f"Average percent accuracy:\t{self.correct / self.num_performances * 100}%")
+            self.cross_entropy(true_values, predicted_values)
+            self.percent_accuracy(true_values,predicted_values)
         elif self.classification_type == "regression":
-            print(f"Average MSE:\t{self.mses / self.num_performances}")
+            self.mean_squared_error(true_values, predicted_values)
 
-    def classification_evaluation(self, test_set, predicted_values, certainty):
-        """Runs all the classification log functions and prints out their results"""
+    def cross_entropy(self, true_values, predicted_values):
+        """Calculates the average cross entropy across a testing set and prints out that
+        information"""
 
-        percent_accuracy = self.percent_accuracy(test_set, predicted_values)
-        one_zero = self.one_zero_loss(test_set, predicted_values)
-        log_loss = self.log_loss(test_set, predicted_values, certainty)
-        print(f"Percent correct:\t{percent_accuracy * 100:.2f}%")
-        print(f"1/0 Loss:\t\t\t{one_zero:.2f}")
-        print("Log Loss: ", log_loss)
-
-    def regression_evaluation(self, test_set, predicted_values):
-        """Runs all of the regression loss functions and prints out their results"""
-
-        MAE = self.mean_absolute_error(test_set, predicted_values)
-        MSE = self.mean_square_error(test_set, predicted_values)
-        print(f"Mean Percent Error:\t{MAE:.2f}")
-        print(f"Mean Square Error:\t{MSE:.2f}")
-
-    def mean_square_error(self, test_set, predicted_values):
-        """Returns the mean square error for a given test set and their predicted values"""
-
+        testing_set_size = len(true_values)
         running_sum = 0
-        for i in range(len(test_set)):
-            running_sum += (test_set[i].classification - predicted_values[i])**2
-        running_sum = running_sum / len(test_set)
-        return running_sum
+        for i in range(len(true_values)):
+            true_set = true_values[i]
+            predicted_set = predicted_values[i]
+            running_sum = sum([(true_set[j] * math.log(predicted_set[j])) for j in range(len(true_set))])
 
-    def cross_entropy(self, truth_labels, predicted_labels):
-        #print(f"Truth: {truth_labels}")
-        #print(f"Predicted: {predicted_labels}")
+        print(f"Average cross entropy:\t{-running_sum / testing_set_size}")
 
-        x = sum([(truth_labels[i] * math.log(predicted_labels[i])) for i in range(len(truth_labels))])
-        self.performance += x
-        self.num_performances += 1
-        return x
-    def percent_accuracy(self, truth_labels, predicted_labels):
-        predicted_index = np.argmax(predicted_labels)
+    def percent_accuracy(self, true_values, predicted_values):
+        """Calculates the average percent accuracy across classification of a testing set
+        and prints out that information"""
 
-        if truth_labels[predicted_index] == 1:
-            self.correct += 1
+        correct = 0
+        size = len(true_values)
+        for i in range(len(true_values)):
+            true_labels = true_values[i]
+            predicted_labels = predicted_values[i]
+            predicted_index = np.argmax(predicted_labels)
 
-    def MSE(self, expected, true):
-        x = (expected - true) ** 2
-        self.mses += x
-        self.num_performances += 1
+            if true_labels[predicted_index] == 1:
+                correct += 1
+        print(f"Percent Accuracy:\t\t{correct / size * 100:.2f}%")
+
+    def mean_squared_error(self, true_values, predicted_values):
+        """Calculates the mean squared error of predictions over a testing set"""
+        #print(true_values)
+        #print(predicted_values)
+        size = len(true_values)
+        #print(size)
+        running_sum = 0
+        for i in range(len(true_values)):
+            running_sum += (true_values[i][0] - predicted_values[i][0]) ** 2
+        print(f"Mean Squared Error:\t{running_sum/size}")
+

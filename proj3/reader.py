@@ -14,6 +14,14 @@ month_dict = {"jan" : 1,
                   "oct" : 10,
                   "nov" : 11,
                   "dec" : 12}
+
+day_dict = {"sun" : 1,
+            "mon" : 2,
+            "tue" : 3,
+            "wed" : 4,
+            "thu" : 5,
+            "fri" : 6,
+            "sat" : 7,}
 class Reader:
     """Creates a dataframe containing the dataset, with changes for each dataset depending on what they need"""
 
@@ -35,21 +43,29 @@ class Reader:
         elif "forestfires" in file_path:
             df = pd.read_csv(file_path, header=0)
             df.month = df.month.replace(month_dict)
-            df["month_sin"] = np.sin(2 * np.pi * df.month / 12)
+            df["month_sin"] = np.sin(2 * np.pi * (df.month / 12))
 
-            df["month_cos"] = np.cos(2 * np.pi * df.month / 12)
-            #df["area"] = np.log(df.pop("area"))
+            df["month_cos"] = np.cos(2 * np.pi * (df.month / 12))
+            df.drop("day", axis=1, inplace=True)
+            df.drop("month", axis=1, inplace=True)
+            df.area = df.area.replace(0, 1e-15)
+
+            df["area"] = np.log(df.pop("area"))
 
         elif "machine" in file_path:
             #Removes the last column in the dataframe
             last_col_index = df.columns[-1]
             df.pop(last_col_index)
+            df.pop(0)
+            df.pop(1)
+
         elif "breast-cancer-wisconsin" in file_path:
             df[6] = pd.to_numeric(df[6], errors="coerce")
             df.fillna(df.mean(axis=0), inplace=True)
             df.pop(0)
         elif "abalone" in file_path:
-            df.pop(0)
+            sex_dictionary = {"M": 1,"F":-1, "I":0}
+            df.replace(sex_dictionary, inplace=True)
         return df
 
     def remove_constant_features(self):
