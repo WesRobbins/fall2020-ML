@@ -17,6 +17,7 @@ class Evaluator:
             self.percent_accuracy(true_values,predicted_values)
         elif self.classification_type == "regression":
             self.mean_squared_error(true_values, predicted_values)
+            self.mean_absolute_error(true_values, predicted_values)
 
     def cross_entropy(self, true_values, predicted_values):
         """Calculates the average cross entropy across a testing set and prints out that
@@ -48,12 +49,19 @@ class Evaluator:
 
     def mean_squared_error(self, true_values, predicted_values):
         """Calculates the mean squared error of predictions over a testing set"""
-        #print(true_values)
-        #print(predicted_values)
+
         size = len(true_values)
-        #print(size)
         running_sum = 0
         for i in range(len(true_values)):
             running_sum += (true_values[i][0] - predicted_values[i][0]) ** 2
         print(f"Mean Squared Error:\t{running_sum/size}")
+
+    def mean_absolute_error(self, true_values, predicted_values):
+        """Calculates the mean absolute error of predictions over a testing set"""
+
+        size = len(true_values)
+        running_sum = 0
+        for i in range(len(true_values)):
+            running_sum += abs(true_values[i][0] - predicted_values[i][0])
+        print(f"Mean Absolute Error:\t{running_sum/size}")
 
