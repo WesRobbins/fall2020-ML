@@ -1,0 +1,276 @@
+\documentclass[twoside,11pt]{article}
+
+% Any additional packages needed should be included after jmlr2e.
+% Note that jmlr2e.sty includes epsfig, amssymb, natbib and graphicx,
+% and defines many common macros, such as 'proof' and 'example'.
+%
+% It also sets the bibliographystyle to plainnat; for more information on
+% natbib citation styles, see the natbib documentation, a copy of which
+% is archived at http://www.jmlr.org/format/natbib.pdf
+
+\usepackage{./jmlr2e}
+\usepackage{amsmath}
+\usepackage{subcaption}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+% Definitions of handy macros can go here
+
+\newcommand{\dataset}{{\cal D}}
+\newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
+
+% Heading arguments are {volume}{year}{pages}{submitted}{published}{author-full-names}
+
+\jmlrheading{1}{2020}{1-48}{4/00}{10/00}{Seth Bassetti, Ben Holmgren, and Wes Robbins}
+
+% Short headings should be running head and authors last names
+
+\ShortHeadings{An Inquiry Into the Multi Layer Perceptron}{Bassetti, Holmgren, and Robbins}
+\firstpageno{1}
+
+\begin{document}
+
+\title{An Inquiry Into the Multi Layer Perceptron}
+
+\author{\name Seth Bassetti \email seth.bassetti@student.montana.edu \\
+       \addr School of Computing\\
+       Montana State University\\
+       Bozeman, MT, USA
+	\AND
+	\name Ben Holmgren \email benjamin.holmgren1@student.montana.edu \\
+       \addr School of Computing\\
+       Montana State University\\
+       Bozeman, MT, USA
+       \AND
+       \name Wes Robbins \email wesley.robbins@student.montana.edu \\
+       \addr School of Computing\\
+       Montana State University\\
+       Bozeman, MT, USA}
+\editor{Seth Bassett, Ben Holmgren, and Wes Robbins}
+
+\maketitle
+
+\begin{abstract}%   <- trailing '%' for backward compatibility of .sty file
+This paper describes our group's findings when implementing a feedforward multi layer
+perceptron neural network with back propagation, and running the model on various sets of data. 
+ More specifically, we show how our model performs on a set of breast cancer data, on data pertaining
+to different kinds of glass, on data related to different kinds of soybeans, predicting the age of abalone,
+performance values for various computer hardware, and on forest fire data.
+	The performance of our model on each respective set of data
+ is evaluated in the context of both classification and regression. For datasets where
+ classification was performed, performance was evaluated in terms of
+ 0/1 loss and average cross entropy. For datasets where regression was performed,
+ mean squared error and mean absolute error were the chosen metrics to evaluate
+ our model. We provided hypotheses for each specific dataset in terms of their overall performance in our model.
+ Namely, we hypothesized the specific performance intervals and rough convergence times for each dataset, and our
+ hypotheses were generally upheld. For classification and regression data, we chose a specific performance value for
+our hypotheses, and decided to uphold our hypotheses if they fell within 5\% in either direction of the hypothesized
+value. In terms of convergence time, we specified a number of iterations predicted iterations and again confirmed our hypothesis
+if the convergence time found experimentally was within 10\% of the predicted value.
+\end{abstract}
+
+
+\begin{keywords}
+	Neural Network, Feedforward, Back Propagation, Multi Layer Perceptron
+\end{keywords}
+
+\section{Problem Statement}
+Utilizing six datasets- each from unique and differing settings, we implemented a feedforward neural network as an attempt to provide insights 
+into the performance of this kind of neural network with respect to differing kinds of data. The model worked on these varying data sets with the aim
+of conducting supervised learning, that is- accurately guessing the class corresponding to each entry in the data given other examples of each respective
+class the model is attempting to guess. More rigorously, we utilized a multilayer perceptron 
+to carry out learning on regression and categorization data. In particular, three of the datasets are used to perform regression 
+(Abalone, Computer Hardware, and Forest Fires),
+  and three are used to perform classification (Glass, Soybean, Breast Cancer). Each of the six datasets we use in the project have a variable 
+  number of classes and either discrete or real valued attributes. As the data sets are each representative of pretty drastically different situations,
+  we generated completely seperate hypotheses for each kind of data with regards to its performance in our model. 
+  
+  For the abalone data, we hypothesized that
+  mean squared error and mean absolute error would reflect a high degree of efficacy in predicting the age of abalone. Explicitly, we presumed that mean squared 
+  error would be roughly a value of 20, and mean absolute
+  error would be roughly a value of 2. The rationale behind these values being that the data provided with each entry in the dataset would seem to be highly correlative
+  with the age of abalone (things like the size, weight, and rings on each creature). We thought that our model would be able to generally predict age successfully within
+  2 years, which is generally reflected in these hypothesized error values.
+  
+  For the computer hardware data, we thought that, as with the abalone data, we would expect attribute values to be highly correlative to the classes of hardware.
+  Namely, we presumed that mean absolute error would be roughly a value of 80- as each individual class generally spanned a range of about 100 PRP, with a few 
+  smaller outliers. This would seem to imply then a mean squared error of roughly 6400.
+
+  For the forest fire data, we thought that predicting classes would be a bit trickier, since here we are attempting to predict the burned area of the forest.
+  Just from briefly examining the data, it seems that the area burned can range anywhere from 0 to roughly 1000 hectares. However, most area values are relatively low,
+  most are under 50. A high performing model in this scenario would likely produce a mean absolute error around 10. We had relatively low expectations for our model on
+  this particular dataset, as the attribute data doesn't seem to be particularly revealing for class values. We predict a mean absolute error around 30 and a mean squared
+  error around 1000, but are more or less shooting from the hip with this hypothesis. 
+
+  Moving on to the classification data, we presumed that our model would perform reasonably well comparatively on the glass data set, which had 7 total classes. Guessing
+  randomly would provide a roughly 14\% rate of accuracy, so we decided that any accuracy percentage above 90\% would mean a high performance for this data. Thus, we 
+  hypothesized a 0/1 loss value of roughly $20$, and a cross entropy value smaller than $0.1$. 
+
+  In terms of the small soybean data, the feature values would seem to be highly related to each of the soybean classes, and the data set only featured four classes,
+  meaning that randomly guessing should have a 25\% success rate. As such, we hypothesized a roughly 95\% accuracy rating, implying a 0/1 loss value of roughly
+  5. We hypothesized also a cross entropy value $0.001$ on average.
+
+  Lastly, for the breast cancer data, we expected to find that our model also performed quite well. In terms of specific values, the breast cancer categorized
+  only two classes (malignant and benign cancer), so random guessing would provide correct answers in theory 50\% of the time. Meaning that a high performing model
+  we'd expect to be accurate certainly over 95\% of the time, and we presumed it would be correct 98\% of the time. Implying a 0/1 loss value of roughly 2. In terms of
+  entropy, this was harder for us to predict. Since there were only two classes, a higher amount of entropy may be expected than in other data sets, so we predicted
+  an average cross entropy value of roughly 1.
+
+  That is, neither data set would perform better than the other on at least 90\% of runs. Performance in this context was measurable by
+  0/1 loss and logarithmic loss, with lower values in each corresponding to better performance of the model. For the regression data, we wanted to
+  test the same hypothesis, which led us to believe that our best performing data would be the Abalone data set with 4,177 entries, and the Forest
+  Fire data set with 518 points would perform worse than the Abalone data, but better than the Machine data with only 209 entries on 90\% of runs.
+  Lastly, the Machine data would be the worst performer out of the regression data by our hypothesis, with and without reducing the size of the data.
+  Performance in the context of regression was measurable by mean percent error and mean square error, both of which imply better performance with
+  lower values.
+
+  We also provide a hypothesis with respect to the amount of time each data set would take to converge in our model. Though not a perfect way to measure
+  convergence time, we choose to simply time each run of our model on each differing dataset, and record these times. We hypothesized that the number of
+  different feature variables in a data set would correlate strongly with the runtime of the model, since our multi layer perceptron is much more 
+  combinatorially expensive as more feature values are introduced. Thus, we predicted that our glass data would run fairly slowly, as we thought the total of
+  10 attribute values would cause weights to converge rather slowly, implied by our hypothesized value of roughly 5 seconds per run.
+  We predicted too that the machine data, with its 10 attributes, would also converge rather slowly, similarly falling around 5 seconds per run. The
+  soybean data, with the most attributes (35), we thought would take the longest to converge, falling at roughly 10 seconds per run. The forest fire data,
+  with 13 attributes, we hypothesized would run in roughly 6 seconds. The breast cancer data, with only 8 feature values, we expected to run in only 3 seconds.
+  Similarly, the abalone data we hypothesized would run also in roughly 3 seconds, with its 8 attributes. As a general rule of thumb, we expected the number of
+  attributes to correlate with how long it would take the weights to converge in each dataset, as the number of attributes are what is feeding into the network
+  to contribute to weights in the first place.
+
+  For every single one of our hypotheses, we decided to overturn our findings if their value was not within 10\% of the original hypothesized error value. 
+  That is, 5\% in either the positive or negative direction of what we predicted.
+
+\section{Methods}
+In order to test our hypotheses, we ran our model using classification on the Glass, Breast Cancer, and Small Soybean data sets, and 
+we ran our model using regression on the Abalone, Forest Fire, and Machine data. In order to successfully interpret the data, all feature values
+which were not originally real valued were converted to real number values. The only data set with missing attribute values was the Breast cancer
+data set, which included `?' values in place of missing data. We simply coerced all missing data to `NaN' values, effectively eliminating them from
+being considered in our model. All that this meant was that these particular feature values didn't end up being used in the model. We acknowledge that our
+solution in this case reveals potential vulnerabilities in our model, but we justify our choice to exclude this data by the large number of entries in the breast
+cancer data set, along with the presence of a wealth of attributes to delineate only two classes. After all of the datasets had been preprocessed, we implemented the multi
+layer perceptron, which on a high level is as follows:
+\begin{algorithm}
+\begin{algorithmic}
+\caption{\textsc{K-Nearest-Neighbor}}
+\STATE \textbf{Input:} A set of vectors $X \subset \mathbb{R}^n$, each with a corresponding classification, an integer $k$, and a query point $\mathbb{X}_q$ whose class is unknown
+\STATE \textbf{Output:} The estimated classification of $\mathbb{X}_q$, denoted $Class(\mathbb{X}_q)$
+\STATE $\mathbb{K} \gets$ $k$ nearest neighbors to $\mathbb{X}_q$
+\STATE $Class(\mathbb{X}_q) \gets \argmax{Classes(K)}$ 
+\STATE \RETURN $Class(\mathbb{X}_q)$
+\end{algorithmic}
+\end{algorithm}
+
+The implementation of \textsc{K-Nearest-Neighbor} then raises a number of questions in its implementation. Perhaps first and foremost, how is
+distance computed? For our purposes, the Minkowski metric was utilized with a $p$ value set to $2$- i.e. the Euclidean distance was
+what we chose for our KNN model. Letting $\mathbb{X}_i, \mathbb{X}_j$ denote two points and $d$ denote the dimension of the vector space,
+the Minkoswki distance is computed with the following:
+\begin{equation}
+D(\mathbb{X}_i, \mathbb{X}_j) = (\sum_{l = 1}^{d} |\mathbb{X}_{il} - \mathbb{X}_{jl}|^p)^\frac{1}{p}
+\end{equation}
+
+Furthermore, in light of this distance metric, we also needed to construct a value difference metric \textit{(vdm)} to correctly process every column of
+categorical data in order to actually use the Minkowski metric. To do this, for regression data, we computed the raw difference in frequencies
+of each entry of categorical data, and used this as the numeric value to base distance from before inserting values into the vdm equation.
+ For classification data, we simply insert values into the vdm equation. 
+ TODO Ask sef what we're doin here.
+ 
+ When computing distances between points, we also made use of a kernel function to smooth the densities of points and allow for weights to be
+ considered in classification based on hw close other points are to a given query point. To do so, we computed a smooth kernel function using the following
+ formula:
+ \begin{equation}
+ weight = (\frac{1}{\sqrt{2\pi}})^d * e(\frac{-1}{2} (\frac{dist}{band})^2)
+ \end{equation}
+ Here, we compute a continuous weight function to add a dimension to our data in order to smoothly incorporate density. In the equation we denote the dimension
+ of an entry $d$, the distance between this query entry and its neighbor $dist$, and the tunable bandwidth parameter $band$. For our purposes, we chose to set
+ $b=1$ after conducting some basic tests on our model, because it didn't seem to have any noticeable effect on our findings and meant that we would have one less
+ variable to think about and justify throughout the rest of the project.
+ 
+ Once a reliable distance metric was attained, we could compute $KNN$ for each of our 6 datasets. Lastly, there is the final remaining step of evaluating 
+ the efficacy of KNN on each set of data. For classification data, we computed the logarithmic loss and 0/1 loss when our model attempted to guess
+ classifications on the test set. 
+These loss functions provide an effective method of determining model performance when certain features of the model are changed. Explicitly, letting $c_i$ be the level 
+of certainty with which a guess was made in our model for the $i$th line of test data, logarithmic loss for each data point was computed as follows:
+\[\begin{cases}
+	ln(c_i) \text{ if correct}\\
+	ln(1-c_i) \text{ if incorrect}\\
+\end{cases}\]
+Letting the value $y_i$ be the value produced by the above equation for the $i$th line of test data, the logarithmic loss  for the entire test set $T$ is computed
+as:
+\begin{equation}
+\frac{-1}{|T|}\sum_{t \in T}^{ } y_i
+\end{equation}
+
+%1-correct/total
+The second loss function we introduced was the 0/1 loss function, which is the ratio of incorrect guesses to total guesses made on the testing data.
+Again denoting the test set $T$, and letting the number of correct guesses made on the test set by the model be denoted $g_c$, the 0/1 loss is computed with the simple ratio:
+\begin{equation}
+	1 - \frac{g_c}{|T|}
+\end{equation}
+
+We chose both of the above loss functions with the motivation that both are relatively simple to compute, as all of the terms are directly attainable from the output of our algorithm, and
+because they are metrics with importantly opposed qualities in the evaluation of a simple KNN learning model. Perhaps the most famous and immediately logical evaluation of loss is 0/1 loss, 
+which is a measurement of the ratio of incorrect guesses made in a test set. Importantly, this is indicative of the accuracy of our model, but is not particularly informative of overfitting.
+Logarithmic loss however is helpful when evaluating the performance of a model while also keeping in mind the potential of overfitting. By incorporating punishments for having a high degree
+of certainty in an incorrect decision, logarithmic loss is useful in capturing the performance of a model with greater depth than simply counting the number of correct solutions- 
+which in turn provides a weariness for overfitting.
+Both metrics are important to have an effective model, so both loss functions were chosen in the evaluation of our model on various data.
+
+For regression data, we evaluated the performance of our model using mean percent error and mean squared error. Mean squared error is computed by
+simply finding the mean of the squares of the errors. Mathematically, letting $Y$ be the vector of $n$ observed values and $\hat{Y}$ be the vector of $n$ predicted
+values, mean squared error $MSE$ is computed as:
+\begin{equation}
+MSE = \frac{1}{n} \sum_{i=1}^{n} (Y_i - \hat{Y_i})^2
+\end{equation}
+Similarly, mean percent error $MPE$ is computed by finding the average percentage errors by which the forecasts of a model differ from the ground truth. Letting $a_t$ be the 
+ground truth value of a prediction, $f_t$ be the actual value of the prediction, and $n$ being the number of different times a forecast is made, this is rigorously
+computed as follows:
+\begin{equation}
+MPE = \frac{100}{n} \sum_{t=1}{n} \frac{a_t - f_t}{a_t}
+\end{equation}
+
+It is important to note that $KNN$ on a large dataset can be expensive in terms of runtime. To combat this, our group implemented a matrix to store all of the values of the distances
+as defined above between each of the points in every dataset. In doing so, we were able to much more effectively test the success of our implementation of various algorithms, and to
+gauge the overall performance of our model. While it is almost certain that faster implementations exist, we found that creating a matrix for each dataset to be the most effective
+way to go forward throughout the project. The matrix autogenerates if it isn't already installed on a local machine, and generally takes around 20 minutes to a half an hour to install
+for each dataset. It is also available on our github repository, and can be uploaded to a local machine by using \textit{git-lfs}. 
+
+As a result, it can become important to reduce the size of data in some way in order to achieve k-nearest-neighbor with more reasonable time complexity. To reduce our data, we used
+four different methods. The first two come down to choosing a direct subset smaller than the overall size of our dataset. These methods are the edited nearest neighbor and condensed
+nearest neighbor algorithms. Intuitively, our implementation of the edited nearest neighbor algorithm comes in the form of simply deleting any entries which we guess incorrectly on the
+first pass of $KNN$. As long as entries lead to incorrect guesses, we delete them, until the performance of the model stops improving or we stop making incorrect guesses.
+In practice, we found that the vast majority of deletions (>95\%) in our model generally occurred in the first pass of the loop, and continually running the loop was found to be quite expensive in terms of runtime.
+So for practical purposes, our experimentation on edited nearest neighbor was a result of just the first pass of the loop.
+Algorithmically, edited nearest neighbor is as follows:
+\begin{algorithm}
+\begin{algorithmic}
+\caption{\textsc{Edited Nearest Neighbor}}
+\STATE \textbf{Input:} A set $\mathbb{X}$ of raw data
+\STATE \textbf{Output:} A set $\mathbb{X}'$ of edited data
+\STATE $\mathbb{X}^* \gets \emptyset$
+\STATE $\mathbb{X}' \gets \emptyset$
+\WHILE{$(|\mathbb{X}'|< |\mathbb{X}|)$ \textit{and} Performance does not degrade}
+\FOR{$\mathbb{X}_i \in \mathbb{X}$}
+\STATE $predicted \gets classify(\mathbb{X}_i)$
+\IF{$predicted \not= \mathbb{X}_i.class$}
+\STATE $\mathbb{X^*}_i \gets \mathbb{X}_i$
+\ENDIF
+\ENDFOR
+\STATE $\mathbb{X'} \gets \mathbb{X}/\mathbb{X^*}$
+\ENDWHILE
+\end{algorithmic}
+\end{algorithm}
+
+
+
+\section{Results}
+Todo
+
+\section{Discussion}
+Todo
+
+
+\section{Summary}
+Todo
+
+\end{document}
