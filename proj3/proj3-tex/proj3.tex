@@ -15,7 +15,10 @@
 \usepackage{algorithm}
 \usepackage{amsmath}
 \DeclareMathOperator*{\argmax}{arg\,max}
-
+\usepackage {tikz}
+\usetikzlibrary {positioning}
+%\usepackage {xcolor}
+\definecolor {processblue}{cmyk}{0.96,0,0,0}
 % Definitions of handy macros can go here
 
 \newcommand{\dataset}{{\cal D}}
@@ -149,70 +152,88 @@ data set, which included `?' values in place of missing data. We simply coerced 
 being considered in our model. All that this meant was that these particular feature values didn't end up being used in the model. We acknowledge that our
 solution in this case reveals potential vulnerabilities in our model, but we justify our choice to exclude this data by the large number of entries in the breast
 cancer data set, along with the presence of a wealth of attributes to delineate only two classes. After all of the datasets had been preprocessed, we implemented the multi
-layer perceptron, which on a high level is as follows:
-\begin{algorithm}
-\begin{algorithmic}
-\caption{\textsc{K-Nearest-Neighbor}}
-\STATE \textbf{Input:} A set of vectors $X \subset \mathbb{R}^n$, each with a corresponding classification, an integer $k$, and a query point $\mathbb{X}_q$ whose class is unknown
-\STATE \textbf{Output:} The estimated classification of $\mathbb{X}_q$, denoted $Class(\mathbb{X}_q)$
-\STATE $\mathbb{K} \gets$ $k$ nearest neighbors to $\mathbb{X}_q$
-\STATE $Class(\mathbb{X}_q) \gets \argmax{Classes(K)}$ 
-\STATE \RETURN $Class(\mathbb{X}_q)$
-\end{algorithmic}
-\end{algorithm}
+layer perceptron, which on a high level takes the form of the following graph:
 
-The implementation of \textsc{K-Nearest-Neighbor} then raises a number of questions in its implementation. Perhaps first and foremost, how is
-distance computed? For our purposes, the Minkowski metric was utilized with a $p$ value set to $2$- i.e. the Euclidean distance was
-what we chose for our KNN model. Letting $\mathbb{X}_i, \mathbb{X}_j$ denote two points and $d$ denote the dimension of the vector space,
-the Minkoswki distance is computed with the following:
+\begin {center}
+\begin {tikzpicture}[-latex ,auto ,node distance =2.5 cm and 6cm ,on grid ,
+semithick ,
+state/.style ={ circle ,top color =white , bottom color = processblue!20 ,
+draw,processblue , text=blue , minimum width =1 cm}]
+\node[state] (h1)
+{$H_1$};
+\node[state] (h2) [below=of h1] {$H_2$};
+\node[state] (hdot) [below=of h2] {$H...$};
+\node[state] (hn) [below=of hdot] {$H_n$};
+\node[state] (hn1) [below=of hn] {$H_{n+1}$};
+\node[state] (i1) [left=of h1] {$I_1$};
+\node[state] (i2) [left=of h2] {$I_2$};
+\node[state] (idot) [below left=of h2] {$I...$};
+\node[state] (in) [below left=of hdot] {$I_n$};
+\node[state] (b) [below left=of hn] {$B$};
+\node[state] (o1) [right=of h1] {$O$};
+\path (h1) edge [right] (o1);
+\path (h2) edge [right] (o1);
+\path (hdot) edge [right] (o1);
+\path (hn) edge [right] (o1);
+\path (hn1) edge [right] (o1);
+\path (i1) edge [right] (h1);
+\path (i1) edge [right] (h2);
+\path (i1) edge [right] (hdot);
+\path (i1) edge [right] (hn);
+\path (i1) edge [right] (hn1);
+\path (i2) edge [right] (h1);
+\path (i2) edge [right] (h2);
+\path (i2) edge [right] (hdot);
+\path (i2) edge [right] (hn);
+\path (i2) edge [right] (hn1);
+\path (idot) edge [right] (h1);
+\path (idot) edge [right] (h2);
+\path (idot) edge [right] (hdot);
+\path (idot) edge [right] (hn);
+\path (idot) edge [right] (hn1);
+\path (in) edge [right] (h1);
+\path (in) edge [right] (h2);
+\path (in) edge [right] (hdot);
+\path (in) edge [right] (hn);
+\path (in) edge [right] (hn1);
+\path (b) edge [right] (h1);
+\path (b) edge [right] (h2);
+\path (b) edge [right] (hdot);
+\path (b) edge [right] (hn);
+\path (b) edge [right] (hn1);
+\end{tikzpicture}
+\end{center}
+
+Where inputs are denoted $I_1$ through $I_n$, a bias node is denoted $B$, the hidden nodes are denoted $H_1$ through $H_{n+1}$, and 
+the output node is denoted $O$. Importantly, each edge between nodes corresponds to a specific weight. These weights aren't included on
+the diagram for the sake of space, but they are critical for the functioning of the network. TODO!!!! include how weights computed !!!!
+Letting $H_j$ designate each of the weights coming from the hidden nodes into the output, and $w_{k,j}$ denote the weights coming from
+each of the input nodes, all of the $H_j$ are computed as follows:
+
 \begin{equation}
-D(\mathbb{X}_i, \mathbb{X}_j) = (\sum_{l = 1}^{d} |\mathbb{X}_{il} - \mathbb{X}_{jl}|^p)^\frac{1}{p}
+	H_j = \sum_{k = 1}^{n} I_k*w_{k,j} + b_n
 \end{equation}
 
-Furthermore, in light of this distance metric, we also needed to construct a value difference metric \textit{(vdm)} to correctly process every column of
-categorical data in order to actually use the Minkowski metric. To do this, for regression data, we computed the raw difference in frequencies
-of each entry of categorical data, and used this as the numeric value to base distance from before inserting values into the vdm equation.
- For classification data, we simply insert values into the vdm equation. 
- TODO Ask sef what we're doin here.
- 
- When computing distances between points, we also made use of a kernel function to smooth the densities of points and allow for weights to be
- considered in classification based on hw close other points are to a given query point. To do so, we computed a smooth kernel function using the following
- formula:
- \begin{equation}
- weight = (\frac{1}{\sqrt{2\pi}})^d * e(\frac{-1}{2} (\frac{dist}{band})^2)
- \end{equation}
- Here, we compute a continuous weight function to add a dimension to our data in order to smoothly incorporate density. In the equation we denote the dimension
- of an entry $d$, the distance between this query entry and its neighbor $dist$, and the tunable bandwidth parameter $band$. For our purposes, we chose to set
- $b=1$ after conducting some basic tests on our model, because it didn't seem to have any noticeable effect on our findings and meant that we would have one less
- variable to think about and justify throughout the rest of the project.
- 
- Once a reliable distance metric was attained, we could compute $KNN$ for each of our 6 datasets. Lastly, there is the final remaining step of evaluating 
- the efficacy of KNN on each set of data. For classification data, we computed the logarithmic loss and 0/1 loss when our model attempted to guess
- classifications on the test set. 
-These loss functions provide an effective method of determining model performance when certain features of the model are changed. Explicitly, letting $c_i$ be the level 
-of certainty with which a guess was made in our model for the $i$th line of test data, logarithmic loss for each data point was computed as follows:
-\[\begin{cases}
-	ln(c_i) \text{ if correct}\\
-	ln(1-c_i) \text{ if incorrect}\\
-\end{cases}\]
-Letting the value $y_i$ be the value produced by the above equation for the $i$th line of test data, the logarithmic loss  for the entire test set $T$ is computed
-as:
+After the model makes its guesses, we determine model performance using 4 different loss functions.
+These loss functions provide an effective method of determining model performance when certain features of the model are changed. Explicitly, letting
+$N$ be the number of samples, $k$ be the number of classes, $t_{i,j}$ being the value $1$ if sample $i$ is in class $j$ and $0$ otherwise, and $p_{i,j}$ being the
+predicted probability that sample $i$ is in class $j$, the average cross
+entropy was computed as follows:
 \begin{equation}
-\frac{-1}{|T|}\sum_{t \in T}^{ } y_i
+	cross entropy = -\frac{1}{N}\sum_{i=1}^{N}\sum_{j=1}^{k}t_{i,j}ln(p_{i,j})
 \end{equation}
 
-%1-correct/total
 The second loss function we introduced was the 0/1 loss function, which is the ratio of incorrect guesses to total guesses made on the testing data.
-Again denoting the test set $T$, and letting the number of correct guesses made on the test set by the model be denoted $g_c$, the 0/1 loss is computed with the simple ratio:
+Denoting the test set $T$, and letting the number of correct guesses made on the test set by the model be denoted $g_c$, the 0/1 loss is computed with the simple ratio:
 \begin{equation}
 	1 - \frac{g_c}{|T|}
 \end{equation}
 
-We chose both of the above loss functions with the motivation that both are relatively simple to compute, as all of the terms are directly attainable from the output of our algorithm, and
-because they are metrics with importantly opposed qualities in the evaluation of a simple KNN learning model. Perhaps the most famous and immediately logical evaluation of loss is 0/1 loss, 
+We chose both of the above loss functions with the motivation that both are metrics with importantly opposed qualities in the evaluation of a multi layer perceptron neural net. 
+Perhaps the most immediately logical evaluation of loss is 0/1 loss, 
 which is a measurement of the ratio of incorrect guesses made in a test set. Importantly, this is indicative of the accuracy of our model, but is not particularly informative of overfitting.
-Logarithmic loss however is helpful when evaluating the performance of a model while also keeping in mind the potential of overfitting. By incorporating punishments for having a high degree
-of certainty in an incorrect decision, logarithmic loss is useful in capturing the performance of a model with greater depth than simply counting the number of correct solutions- 
+Cross entropy however is helpful when evaluating the performance of a model while also keeping in mind the potential of overfitting. By incorporating punishments for a choice being more 
+`surprising' in that the chances of a correct choice are relatively small, cross entropy is useful in capturing the performance of a model with greater depth than simply counting the number of correct solutions- 
 which in turn provides a weariness for overfitting.
 Both metrics are important to have an effective model, so both loss functions were chosen in the evaluation of our model on various data.
 
@@ -229,38 +250,7 @@ computed as follows:
 MPE = \frac{100}{n} \sum_{t=1}{n} \frac{a_t - f_t}{a_t}
 \end{equation}
 
-It is important to note that $KNN$ on a large dataset can be expensive in terms of runtime. To combat this, our group implemented a matrix to store all of the values of the distances
-as defined above between each of the points in every dataset. In doing so, we were able to much more effectively test the success of our implementation of various algorithms, and to
-gauge the overall performance of our model. While it is almost certain that faster implementations exist, we found that creating a matrix for each dataset to be the most effective
-way to go forward throughout the project. The matrix autogenerates if it isn't already installed on a local machine, and generally takes around 20 minutes to a half an hour to install
-for each dataset. It is also available on our github repository, and can be uploaded to a local machine by using \textit{git-lfs}. 
-
-As a result, it can become important to reduce the size of data in some way in order to achieve k-nearest-neighbor with more reasonable time complexity. To reduce our data, we used
-four different methods. The first two come down to choosing a direct subset smaller than the overall size of our dataset. These methods are the edited nearest neighbor and condensed
-nearest neighbor algorithms. Intuitively, our implementation of the edited nearest neighbor algorithm comes in the form of simply deleting any entries which we guess incorrectly on the
-first pass of $KNN$. As long as entries lead to incorrect guesses, we delete them, until the performance of the model stops improving or we stop making incorrect guesses.
-In practice, we found that the vast majority of deletions (>95\%) in our model generally occurred in the first pass of the loop, and continually running the loop was found to be quite expensive in terms of runtime.
-So for practical purposes, our experimentation on edited nearest neighbor was a result of just the first pass of the loop.
-Algorithmically, edited nearest neighbor is as follows:
-\begin{algorithm}
-\begin{algorithmic}
-\caption{\textsc{Edited Nearest Neighbor}}
-\STATE \textbf{Input:} A set $\mathbb{X}$ of raw data
-\STATE \textbf{Output:} A set $\mathbb{X}'$ of edited data
-\STATE $\mathbb{X}^* \gets \emptyset$
-\STATE $\mathbb{X}' \gets \emptyset$
-\WHILE{$(|\mathbb{X}'|< |\mathbb{X}|)$ \textit{and} Performance does not degrade}
-\FOR{$\mathbb{X}_i \in \mathbb{X}$}
-\STATE $predicted \gets classify(\mathbb{X}_i)$
-\IF{$predicted \not= \mathbb{X}_i.class$}
-\STATE $\mathbb{X^*}_i \gets \mathbb{X}_i$
-\ENDIF
-\ENDFOR
-\STATE $\mathbb{X'} \gets \mathbb{X}/\mathbb{X^*}$
-\ENDWHILE
-\end{algorithmic}
-\end{algorithm}
-
+TODO!!! Giorgio gonna want some stuff on hypertuning.
 
 
 \section{Results}
