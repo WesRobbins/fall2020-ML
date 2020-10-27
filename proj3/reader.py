@@ -30,17 +30,23 @@ class Reader:
         """Depending on the dataset chosen, performs dataset specific preprocessing before returning
         the edited dataset to be used by our model"""
         self.df = self.initialize_dataframe(file_path)
+        #Removes features that only have 1 unique value.
         self.remove_constant_features()
         self.reset_indices()
 
     def initialize_dataframe(self, file_path):
         df = pd.read_csv(file_path, header=None)
         if "glass" in file_path:
+            """Deletes columns which have extremely low correlation with class"""
             df.pop(0)
             df.pop(6)
             df.pop(7)
 
         elif "forestfires" in file_path:
+            """Replaces month with two cyclical features to represent
+            cyclical nature of months in the year and drops the day column.
+            Additionally, performs a log operation on the response variable to counter
+            skewing."""
             df = pd.read_csv(file_path, header=0)
             df.month = df.month.replace(month_dict)
             df["month_sin"] = np.sin(2 * np.pi * (df.month / 12))
@@ -53,6 +59,7 @@ class Reader:
             df["area"] = np.log(df.pop("area"))
 
         elif "machine" in file_path:
+            """Deletes first two columns since they are irrelevant to performance."""
             #Removes the last column in the dataframe
             last_col_index = df.columns[-1]
             df.pop(last_col_index)
@@ -60,10 +67,12 @@ class Reader:
             df.pop(1)
 
         elif "breast-cancer-wisconsin" in file_path:
+            """Fills in each missing value with the mean of their respective column"""
             df[6] = pd.to_numeric(df[6], errors="coerce")
             df.fillna(df.mean(axis=0), inplace=True)
             df.pop(0)
         elif "abalone" in file_path:
+            """Replaces sex values with integers corresponding to sex."""
             sex_dictionary = {"M": 1,"F":-1, "I":0}
             df.replace(sex_dictionary, inplace=True)
         return df

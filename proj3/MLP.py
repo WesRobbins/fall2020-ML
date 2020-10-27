@@ -1,10 +1,7 @@
 from layer import *
 from data_line import *
-import numpy as np
-import random
 import pandas as pd
 from evaluator import *
-import sys
 
 class MLP:
     """A class that represents a multi layer perceptron network with a tunable number
@@ -12,6 +9,8 @@ class MLP:
     classification and regression"""
 
     def __init__(self, dataclass, classification_type):
+        """Initializes the Multi Layer Perceptron Class, with a classification type and
+        dataframe. Then it sets initial hyperparameters and begins cross-validation experiment"""
         self.c_t = classification_type
         self.dataclass = dataclass
         self.df = dataclass.df  #Initializes the dataset
@@ -23,11 +22,11 @@ class MLP:
 
         self.n_inputs = len(self.df.columns[:-1])
         self.n_hidden_per_layer = 2
-        self.n_hidden = 1
+        self.n_hidden = 5
         self.n_outputs = len(self.df.Class.unique()) if self.c_t == "classification" else 1
-        self.learning_rate = .3
-        self.epochs = 20
-        self.momentum_factor = .7
+        self.learning_rate = .05
+        self.epochs = 200
+        self.momentum_factor = .5
 
     def classify(self):
         """Splits the data up into training and testing, then runs k-fold cross validation"""
@@ -80,6 +79,7 @@ class MLP:
         #Assigns delta values to each node in the output layer and calculates momentum
         for i in range(len(self.output_layer)):
             node = self.output_layer[i]
+
             node.delta_weight = expected[i] - node.output
 
         #Backpropagates errors through hidden layers

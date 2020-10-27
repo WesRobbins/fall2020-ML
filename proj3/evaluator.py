@@ -31,6 +31,7 @@ class Evaluator:
             running_sum = sum([(true_set[j] * math.log(predicted_set[j])) for j in range(len(true_set))])
 
         print(f"Average cross entropy:\t{-running_sum / testing_set_size}")
+        return -running_sum / testing_set_size
 
     def percent_accuracy(self, true_values, predicted_values):
         """Calculates the average percent accuracy across classification of a testing set

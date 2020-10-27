@@ -17,12 +17,6 @@ class Layer:
             self.nodes[i].output = exp_vector[i]
         return exp_vector
 
-
-
-        def softmax(self, output_vector):
-            # print(output_vector)
-            exp_vector = np.exp(output_vector)
-            return exp_vector / exp_vector.sum()
     def __repr__(self):
         """Magic method to override string representation in lists"""
         return str(self.nodes)
