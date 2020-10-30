@@ -1,5 +1,6 @@
 import math
 import numpy as np
+import time
 
 class Evaluator:
     """A class containing loss functions and percent accuracy function to
@@ -11,7 +12,7 @@ class Evaluator:
 
     def evaluate(self, true_values, predicted_values):
         """Runs different loss functions depending on if it is classifying or regressing"""
-
+        print("Eval Time: ", time.time())
         if self.classification_type == "classification":
             self.cross_entropy(true_values, predicted_values)
             self.percent_accuracy(true_values,predicted_values)

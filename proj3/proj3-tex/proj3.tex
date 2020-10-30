@@ -121,14 +121,6 @@ to carry out learning on regression and categorization data. In particular, thre
   entropy, this was harder for us to predict. Since there were only two classes, a higher amount of entropy may be expected than in other data sets, so we predicted
   an average cross entropy value of roughly 1.
 
-  That is, neither data set would perform better than the other on at least 90\% of runs. Performance in this context was measurable by
-  0/1 loss and logarithmic loss, with lower values in each corresponding to better performance of the model. For the regression data, we wanted to
-  test the same hypothesis, which led us to believe that our best performing data would be the Abalone data set with 4,177 entries, and the Forest
-  Fire data set with 518 points would perform worse than the Abalone data, but better than the Machine data with only 209 entries on 90\% of runs.
-  Lastly, the Machine data would be the worst performer out of the regression data by our hypothesis, with and without reducing the size of the data.
-  Performance in the context of regression was measurable by mean percent error and mean square error, both of which imply better performance with
-  lower values.
-
   We also provide a hypothesis with respect to the amount of time each data set would take to converge in our model. Though not a perfect way to measure
   convergence time, we choose to simply time each run of our model on each differing dataset, and record these times. We hypothesized that the number of
   different feature variables in a data set would correlate strongly with the runtime of the model, since our multi layer perceptron is much more 
@@ -155,7 +147,7 @@ cancer data set, along with the presence of a wealth of attributes to delineate 
 layer perceptron, which on a high level takes the form of the following graph:
 
 \begin {center}
-\begin {tikzpicture}[-latex ,auto ,node distance =2.5 cm and 6cm ,on grid ,
+\begin {tikzpicture}[-latex ,auto ,node distance =2 cm and 4cm ,on grid ,
 semithick ,
 state/.style ={ circle ,top color =white , bottom color = processblue!20 ,
 draw,processblue , text=blue , minimum width =1 cm}]
@@ -165,17 +157,22 @@ draw,processblue , text=blue , minimum width =1 cm}]
 \node[state] (hdot) [below=of h2] {$H...$};
 \node[state] (hn) [below=of hdot] {$H_n$};
 \node[state] (hn1) [below=of hn] {$H_{n+1}$};
+\node[state] (m1) [right=of h1] {$H'_1$};
+\node[state] (m2) [below=of m1] {$H'_2$};
+\node[state] (mdot) [below=of m2] {$H'...$};
+\node[state] (mn) [below=of mdot] {$H'_n$};
+\node[state] (mn1) [below=of mn] {$H'_{n+1}$};
 \node[state] (i1) [left=of h1] {$I_1$};
 \node[state] (i2) [left=of h2] {$I_2$};
 \node[state] (idot) [below left=of h2] {$I...$};
 \node[state] (in) [below left=of hdot] {$I_n$};
 \node[state] (b) [below left=of hn] {$B$};
-\node[state] (o1) [right=of h1] {$O$};
-\path (h1) edge [right] (o1);
-\path (h2) edge [right] (o1);
-\path (hdot) edge [right] (o1);
-\path (hn) edge [right] (o1);
-\path (hn1) edge [right] (o1);
+\node[state] (o1) [right=of m1] {$O$};
+\path (m1) edge [right] (o1);
+\path (m2) edge [right] (o1);
+\path (mdot) edge [right] (o1);
+\path (mn) edge [right] (o1);
+\path (mn1) edge [right] (o1);
 \path (i1) edge [right] (h1);
 \path (i1) edge [right] (h2);
 \path (i1) edge [right] (hdot);
@@ -201,12 +198,41 @@ draw,processblue , text=blue , minimum width =1 cm}]
 \path (b) edge [right] (hdot);
 \path (b) edge [right] (hn);
 \path (b) edge [right] (hn1);
+\path (h1) edge [right] (m1);
+\path (h1) edge [right] (m2);
+\path (h1) edge [right] (mdot);
+\path (h1) edge [right] (mn);
+\path (h1) edge [right] (mn1);
+\path (h2) edge [right] (m1);
+\path (h2) edge [right] (m2);
+\path (h2) edge [right] (mdot);
+\path (h2) edge [right] (mn);
+\path (h2) edge [right] (mn1);
+\path (hdot) edge [right] (m1);
+\path (hdot) edge [right] (m2);
+\path (hdot) edge [right] (mdot);
+\path (hdot) edge [right] (mn);
+\path (hdot) edge [right] (mn1);
+\path (hn) edge [right] (m1);
+\path (hn) edge [right] (m2);
+\path (hn) edge [right] (mdot);
+\path (hn) edge [right] (mn);
+\path (hn) edge [right] (mn1);
+\path (hn1) edge [right] (m1);
+\path (hn1) edge [right] (m2);
+\path (hn1) edge [right] (mdot);
+\path (hn1) edge [right] (mn);
+\path (hn1) edge [right] (mn1);
 \end{tikzpicture}
 \end{center}
 
 Where inputs are denoted $I_1$ through $I_n$, a bias node is denoted $B$, the hidden nodes are denoted $H_1$ through $H_{n+1}$, and 
-the output node is denoted $O$. Importantly, each edge between nodes corresponds to a specific weight. These weights aren't included on
-the diagram for the sake of space, but they are critical for the functioning of the network. TODO!!!! include how weights computed !!!!
+the output node is denoted $O$. Note that our model implementation was carried out for the cases with both one and two hidden layers, though
+it is capable of more.
+Importantly, each edge between nodes corresponds to a specific weight. These weights aren't included on
+the diagram for the sake of space, but they are critical for the functioning of the network. Initially, in the first forward run through the network, 
+on a high level, weights are assigned randomly, and then the backpropagation
+step is what rigorously trains the model.
 Letting $H_j$ designate each of the weights coming from the hidden nodes into the output, and $w_{k,j}$ denote the weights coming from
 each of the input nodes, all of the $H_j$ are computed as follows:
 
@@ -214,7 +240,26 @@ each of the input nodes, all of the $H_j$ are computed as follows:
 	H_j = \sum_{k = 1}^{n} I_k*w_{k,j} + b_n
 \end{equation}
 
-After the model makes its guesses, we determine model performance using 4 different loss functions.
+Eventually, once all of the outputs are computed on the first pass, back propagation is utilized by computing the derivative of output nodes 
+with respect to the weights. The gradient is then computed moving further backwards through the network, until the process reaches
+the input nodes. This is computed in the following equations:
+
+\begin{equation}
+	\Delta w_{ji} = - \eta \frac{\partial Err}{\partial w_{ji}} \text{ such that } \eta \in (0,1)
+\end{equation}
+
+Where error is computed using squared error for one example at a time, letting $d_k$ denote the target output for unit $k$ and 
+$o_k$ denote the target output for unit $k$:
+\begin{equation}
+	Err(w) = \frac{1}{2} \sum_{k \in outputs}(d_k - o_k)^2
+\end{equation}
+
+In practice, this ends up boiling down to the more simple equation
+\begin{equation}
+	\Delta w_{ji} = \eta(d_j - o_j)o_j(1-o_j)x_{ji}
+\end{equation}
+
+After the model is trained and makes its guesses, we determine model performance using 4 different loss functions.
 These loss functions provide an effective method of determining model performance when certain features of the model are changed. Explicitly, letting
 $N$ be the number of samples, $k$ be the number of classes, $t_{i,j}$ being the value $1$ if sample $i$ is in class $j$ and $0$ otherwise, and $p_{i,j}$ being the
 predicted probability that sample $i$ is in class $j$, the average cross
@@ -250,12 +295,94 @@ computed as follows:
 MPE = \frac{100}{n} \sum_{t=1}{n} \frac{a_t - f_t}{a_t}
 \end{equation}
 
-TODO!!! Giorgio gonna want some stuff on hypertuning.
-
 
 \section{Results}
-Todo
+By running our model on each of the 6 respective datasets, we were able to compare our hypotheses against experimental findings. Further, we were able
+to analyze the performance of our model with regards to the time it took to run on varying data, and also to most effectively hypertune
+many of the parameters within our model.
 
+To begin, we present the performance of our algorithm on each data set. Each table holds the values found on ten runs of our model with 0, 1, and 2 hidden layers,
+after hypertuning the number of nodes per layer. The number of nodes per layer was tuned by beginning with an equivalent number of nodes to the number of inputs,
+and then reducing this number until the performance average didn't improve. We acknowledge the assumption to not consider more hidden nodes than inputs is imperfect,
+but for practical purposes related to mostly to time complexity it is the approach we chose. We also found generally the best performances using roughly 0.5 as a
+momentum factor, so this value was included for momentum throughout our experimentation.
+
+First, we present our findings on the machine data. In the process of hypertuning the number of nodes in the hidden layer, we worked down from the largest
+value we tested which was 8. The results for 0, 1, and 2 hidden layers are as follows: 
+\begin{center}
+	\begin{tabular}{|c c c c|}
+		\hline
+		Metric & 0 Hidden Layers & 1 Hidden Layer & 2 Hidden Layers \\ [0.5ex]
+		\hline \hline
+		No. Hidden Nodes & N.A. & 8 & 6 \\
+		\hline
+		Mean Abs. Err. & 3.195e+32 & 87.546 & 95.202 \\
+		\hline
+		Mean Sq. Err. & 2.453e+59 & 24797.948 & 23266.021 \\
+		\hline
+		Runtime(sec) & 6.643 & 22.380 & 23.110 \\
+		\hline
+	\end{tabular}
+\end{center}
+
+Next, we present our findings with the Soybean data. Importantly, due to the large number of input variables
+for any given node in the model under Soybean data, (and because roughly half of these inputs could be considered
+redundant to some degree) we limited our hypertuning to only have 10 total hidden nodes,
+as performance was effectively universally strong on this data set and changes in performance were incredibly minute.
+
+\begin{center}
+	\begin{tabular}{|c c c c|}
+		\hline
+		Metric & 0 Hidden Layers & 1 Hidden Layer & 2 Hidden Layers \\ [0.5ex]
+		\hline \hline
+		No. Hidden Nodes & N.A. & 7 & 9 \\
+		\hline
+		Ave. Cross Entropy & 0.000128 & 0.000105 & 0.0000846 \\
+		\hline
+		\% Accuracy & 100\% & 100\% & 100\% \\
+		\hline
+		Runtime(sec) & 6.043 & 11.012 & 13.819 \\
+		\hline
+	\end{tabular}
+\end{center}
+
+Now we include our findings for the glass data. Particularly with 0 hidden layers, our findings were quite volatile
+with this data set, with cross entropy in particular ranging wildly from roughly 0.04 to 1.7e-08. Hypertuning started
+with 9 hidden nodes and worked downward.
+
+\begin{center}
+	\begin{tabular}{|c c c c|}
+		\hline
+		Metric & 0 Hidden Layers & 1 Hidden Layer & 2 Hidden Layers \\ [0.5ex]
+		\hline \hline
+		No. Hidden Nodes & N.A. & 8 & 9 \\
+		\hline
+		Ave. Cross Entropy & 0.0172 & 0.0236 & 0.0327 \\
+		\hline
+		\% Accuracy & 62.54\% & 67.11\% & 60.95\% \\
+		\hline
+		Runtime(sec) & 19.26 & 29.056 & 39.19 \\
+		\hline
+	\end{tabular}
+\end{center}
+
+Next we provide our findings when testing our model on the Breast Cancer data. Hypertuning began with 10
+hidden nodes and worked downward.
+\begin{center}
+	\begin{tabular}{|c c c c|}
+		\hline
+		Metric & 0 Hidden Layers & 1 Hidden Layer & 2 Hidden Layers \\ [0.5ex]
+		\hline \hline
+		No. Hidden Nodes & N.A. & 5 & 8 \\
+		\hline
+		Ave. Cross Entropy & 0.0000673 & 0.00048 & 0.0088 \\
+		\hline
+		\% Accuracy & 96.65\% & 96.99\% & 97.14\% \\
+		\hline
+		Runtime(sec) & 35.71 & 65.57 & 115.15 \\
+		\hline
+	\end{tabular}
+\end{center}
 \section{Discussion}
 Todo
 
