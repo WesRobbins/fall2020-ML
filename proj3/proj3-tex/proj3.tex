@@ -69,7 +69,7 @@ performance values for various computer hardware, and on forest fire data.
  our model. We provided hypotheses for each specific dataset in terms of their overall performance in our model.
  Namely, we hypothesized the specific performance intervals and rough convergence times for each dataset, and our
  hypotheses were generally upheld. For classification and regression data, we chose a specific performance value for
-our hypotheses, and decided to uphold our hypotheses if they fell within 5\% in either direction of the hypothesized
+our hypotheses, and decided to uphold our hypotheses if they fell within 10\% of the hypothesized
 value. In terms of convergence time, we specified a predicted change in convergence time by switching the number
 	of hidden layers for a given problem, and confirmed our hypothesis
 if the convergence time found experimentally was within 10\% of the predicted value.
@@ -111,20 +111,19 @@ to carry out learning on regression and categorization data. In particular, thre
 
   Moving on to the classification data, we presumed that our model would perform reasonably well comparatively on the glass data set, which had 7 total classes. Guessing
   randomly would provide a roughly 14\% rate of accuracy, so we decided that any accuracy percentage above 90\% would mean a high performance for this data. Thus, we 
-  hypothesized a 0/1 loss value of roughly $20$, and a cross entropy value smaller than $0.1$. 
+  hypothesized a 0/1 loss value of roughly 0.20, and a cross entropy value smaller than $0.1$. 
 
   In terms of the small soybean data, the feature values would seem to be highly related to each of the soybean classes, and the data set only featured four classes,
   meaning that randomly guessing should have a 25\% success rate. As such, we hypothesized a roughly 95\% accuracy rating, implying a 0/1 loss value of roughly
-  5. We hypothesized also a cross entropy value $0.001$ on average.
+  0.05. We hypothesized also a cross entropy value $0.001$ on average.
 
   Lastly, for the breast cancer data, we expected to find that our model also performed quite well. In terms of specific values, the breast cancer categorized
   only two classes (malignant and benign cancer), so random guessing would provide correct answers in theory 50\% of the time. Meaning that a high performing model
-  we'd expect to be accurate certainly over 95\% of the time, and we presumed it would be correct 98\% of the time. Implying a 0/1 loss value of roughly 2. In terms of
+  we'd expect to be accurate certainly over 95\% of the time, and we presumed it would be correct 98\% of the time. Implying a 0/1 loss value of roughly 0.02. In terms of
   entropy, this was harder for us to predict. Since there were only two classes, a higher amount of entropy may be expected than in other data sets, so we predicted
   an average cross entropy value of roughly 1.
 
-  Wholistically, we conjecture that the deeper the network, the better the performance of our model after full hypertuning has taken place. We hypothesize that
-  this trend will exist for every data set, regardless of the underlying data or performance values, since 
+  Wholistically, we expect to find that the deeper the network, the better the performance of our model after full hypertuning has taken place.
 
   We also provide a hypothesis with respect to the amount of time each data set would take to converge in our model, which are provided with the knowledge of
   the number of hypertuned hidden nodes used in each experiment. 
@@ -133,19 +132,20 @@ to carry out learning on regression and categorization data. In particular, thre
   specific hypotheses for each individual dataset with respect to their exact times, we provide a hypothesis for each problem with regards to the factors with
   which runtime will change when increasing layers. For the abalone data, as we experimentally determined that the optimal number of hidden nodes was 5 and 6 for
   1 hidden layer and 2 hidden layers respectively, we hypothesize a roughly linear increase in runtime as hidden layers increase. For the machine data, as the optimal
-  number of hidden nodes was hypertuned to be 3 and 6 for 1 and 2 hidden layers respectively, we expect no considerable increase in runtime as layers are added. For
+  number of hidden nodes was hypertuned to be 6 and 3 for 1 and 2 hidden layers respectively, we expect no considerable increase in runtime as layers are added. For
   the forest fire data, we expect to find no considerable increases in runtime as layers are added, since the number of hidden layers was hypertuned to be
-  4 and 2 for 1 and 2 hidden layers respectively. For the soybean data, where the hypertuned number of hidden nodes was determined to be 7 and 9, we expect a
-  continual roughly linear increase in time complexity. Similarly, for the glass data, as the hypertuned number of hidden nodes was determined to be 8 and 9,
-  we expect to find similarly linear increases in convergence time. Lastly, for the breast cancer data, as the hypertuned hidden nodes total 5 and 8 for the cases
-  of 1 and 2 hidden layers respectively, we hypothesize exponential increases in runtime. Rigorously, we define linear increases as the continuation of the constant
-  factor which increases when the transition is made from 0 to 1 hidden layers. Letting $k$ be the factor of increase from the convergence time of 0 hidden layers 
-  to the convergence time of 1
-  hidden layer, we define exponential increase from 1 to 2 hidden layers as roughly $time(2layers) = k*time(1layer)$. For any predicted convergence time complexity
+  4 and 2 for 1 and 2 hidden layers respectively. For the soybean data, where the hypertuned number of hidden nodes was determined to be 9 and 6, we expect no 
+  statistically significant change in time complexity. Similarly, for the glass data, as the hypertuned number of hidden nodes was determined to be 10 and 8,
+  we expect to find linear increases in convergence time as a second hidden layer is added. 
+  Lastly, for the breast cancer data, as the hypertuned hidden nodes total 8 and 5 for the cases
+  of 1 and 2 hidden layers respectively, we hypothesize no statistically significant changes in runtime. 
+  Rigorously, we define linear increases as the continuation of the constant
+  factor which increases when the transition is made from 0 to 1 hidden layers. For any predicted convergence time complexity
   change, we confirm our hypothesis if the experimental value is within 10\% in either direction of the value resulting from our hypotheses.
 
-  For each of our rigorously value defined hypotheses, we decided to overturn our findings if the experimentally found value was not within 5\% of the original 
-  hypothesized error value in either the positive or negative direction.
+  For each of our rigorously value defined hypotheses, we decided to overturn our findings if the experimentally found value was not within 10\% of the original 
+  hypothesized error value in the positive direction, and if our experimental values were within this threshold or below the proposed value, we would confirm the
+  hypothesis.
 
 \section{Methods}
 In order to test our hypotheses, we ran our model using classification on the Glass, Breast Cancer, and Small Soybean data sets, and 
@@ -509,6 +509,15 @@ with no statistically significant difference in time between 1 and 2 hidden laye
 significant decrease in convergence time.
 
 \section{Summary}
-Todo
+In running our feedforward multi-layer perceptron on 6 diverse sets of data, we came away with a broader understanding of the performance of our model with respect to
+hypotheses both regarding performance and convergence time. Namely, we found quite mixed performances, and in general were not able to overwhelmingly uphold the 
+majority of our hypotheses. Broadly speaking, we had expected that more hidden layers would mean improved performance of our model, which in numerous examples
+proved to be untrue. However, with respect to performance, our hypotheses were more generally upheld in problems of regression than in those of classification.
+Alternatively, when examining our hypotheses regarding convergence time, we found quite reliably that our expected results were overturned. Generally, our hypotheses
+seemed to reflect a bias towards greater computational expense in adding additional hidden layers, which proved not to be the case in
+numerous examples. To our surprise, adding additional hidden layers actually regularly contributed to decreases in the amount of time it took for our
+algorithm to converge. Further investigating even deeper neural networks is certainly an exciting area of future work. All in all, our findings are revealing
+of the wide possibilities- and limitations- of networks such as the multi-layer perceptron, and refining such models will undoubtedly be immediately 
+relevant for the forseeable future in the world of machine learning.
 
 \end{document}
