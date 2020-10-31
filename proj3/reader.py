@@ -35,6 +35,8 @@ class Reader:
         self.reset_indices()
 
     def initialize_dataframe(self, file_path):
+        """Performs dataset specific preprocessing on datasets and then converts them into
+        pandas dataframes"""
         df = pd.read_csv(file_path, header=None)
         if "glass" in file_path:
             """Deletes columns which have extremely low correlation with class"""

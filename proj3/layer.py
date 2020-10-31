@@ -11,6 +11,8 @@ class Layer:
         self.index = -1
 
     def compute_softmax(self):
+        """Computes the softmax probability values for the layer, using the layer's output
+        values"""
         exp_vector = np.exp([node.output for node in self.nodes])
         exp_vector = exp_vector / exp_vector.sum()
         for i in range(len(exp_vector)):
