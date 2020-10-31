@@ -70,7 +70,8 @@ performance values for various computer hardware, and on forest fire data.
  Namely, we hypothesized the specific performance intervals and rough convergence times for each dataset, and our
  hypotheses were generally upheld. For classification and regression data, we chose a specific performance value for
 our hypotheses, and decided to uphold our hypotheses if they fell within 5\% in either direction of the hypothesized
-value. In terms of convergence time, we specified a number of iterations predicted iterations and again confirmed our hypothesis
+value. In terms of convergence time, we specified a predicted change in convergence time by switching the number
+	of hidden layers for a given problem, and confirmed our hypothesis
 if the convergence time found experimentally was within 10\% of the predicted value.
 \end{abstract}
 
@@ -82,7 +83,8 @@ if the convergence time found experimentally was within 10\% of the predicted va
 \section{Problem Statement}
 Utilizing six datasets- each from unique and differing settings, we implemented a feedforward neural network as an attempt to provide insights 
 into the performance of this kind of neural network with respect to differing kinds of data. The model worked on these varying data sets with the aim
-of conducting supervised learning, that is- accurately guessing the class corresponding to each entry in the data given other examples of each respective
+of conducting supervised learning, that is- accurately guessing the class, or roughly the underlying function value in the case of regression, 
+corresponding to each entry in the data given other examples of each respective
 class the model is attempting to guess. More rigorously, we utilized a multilayer perceptron 
 to carry out learning on regression and categorization data. In particular, three of the datasets are used to perform regression 
 (Abalone, Computer Hardware, and Forest Fires),
@@ -121,29 +123,40 @@ to carry out learning on regression and categorization data. In particular, thre
   entropy, this was harder for us to predict. Since there were only two classes, a higher amount of entropy may be expected than in other data sets, so we predicted
   an average cross entropy value of roughly 1.
 
-  We also provide a hypothesis with respect to the amount of time each data set would take to converge in our model. Though not a perfect way to measure
-  convergence time, we choose to simply time each run of our model on each differing dataset, and record these times. We hypothesized that the number of
-  different feature variables in a data set would correlate strongly with the runtime of the model, since our multi layer perceptron is much more 
-  combinatorially expensive as more feature values are introduced. Thus, we predicted that our glass data would run fairly slowly, as we thought the total of
-  10 attribute values would cause weights to converge rather slowly, implied by our hypothesized value of roughly 5 seconds per run.
-  We predicted too that the machine data, with its 10 attributes, would also converge rather slowly, similarly falling around 5 seconds per run. The
-  soybean data, with the most attributes (35), we thought would take the longest to converge, falling at roughly 10 seconds per run. The forest fire data,
-  with 13 attributes, we hypothesized would run in roughly 6 seconds. The breast cancer data, with only 8 feature values, we expected to run in only 3 seconds.
-  Similarly, the abalone data we hypothesized would run also in roughly 3 seconds, with its 8 attributes. As a general rule of thumb, we expected the number of
-  attributes to correlate with how long it would take the weights to converge in each dataset, as the number of attributes are what is feeding into the network
-  to contribute to weights in the first place.
+  Wholistically, we conjecture that the deeper the network, the better the performance of our model after full hypertuning has taken place. We hypothesize that
+  this trend will exist for every data set, regardless of the underlying data or performance values, since 
 
-  For every single one of our hypotheses, we decided to overturn our findings if their value was not within 10\% of the original hypothesized error value. 
-  That is, 5\% in either the positive or negative direction of what we predicted.
+  We also provide a hypothesis with respect to the amount of time each data set would take to converge in our model, which are provided with the knowledge of
+  the number of hypertuned hidden nodes used in each experiment. 
+  Though not a perfect way to measure
+  convergence time, we choose to simply time each run of our model on each differing dataset, and record these times. Perhaps more interesting than providing
+  specific hypotheses for each individual dataset with respect to their exact times, we provide a hypothesis for each problem with regards to the factors with
+  which runtime will change when increasing layers. For the abalone data, as we experimentally determined that the optimal number of hidden nodes was 5 and 6 for
+  1 hidden layer and 2 hidden layers respectively, we hypothesize a roughly linear increase in runtime as hidden layers increase. For the machine data, as the optimal
+  number of hidden nodes was hypertuned to be 3 and 6 for 1 and 2 hidden layers respectively, we expect no considerable increase in runtime as layers are added. For
+  the forest fire data, we expect to find no considerable increases in runtime as layers are added, since the number of hidden layers was hypertuned to be
+  4 and 2 for 1 and 2 hidden layers respectively. For the soybean data, where the hypertuned number of hidden nodes was determined to be 7 and 9, we expect a
+  continual roughly linear increase in time complexity. Similarly, for the glass data, as the hypertuned number of hidden nodes was determined to be 8 and 9,
+  we expect to find similarly linear increases in convergence time. Lastly, for the breast cancer data, as the hypertuned hidden nodes total 5 and 8 for the cases
+  of 1 and 2 hidden layers respectively, we hypothesize exponential increases in runtime. Rigorously, we define linear increases as the continuation of the constant
+  factor which increases when the transition is made from 0 to 1 hidden layers. Letting $k$ be the factor of increase from the time of 0 hidden layers to the time of 1
+  hidden layer, we define exponential increase from 1 to 2 hidden layers as roughly $time(2layers) = k*time(1layer)$. For any predicted convergence time complexity
+  change, we confirm our hypothesis if the experimental value is within 10\% in either direction of the value resulting from our hypotheses.
+
+  For each of our rigorously value defined hypotheses, we decided to overturn our findings if the experimentally found value was not within 5\% of the original 
+  hypothesized error value in either the positive or negative direction.
 
 \section{Methods}
 In order to test our hypotheses, we ran our model using classification on the Glass, Breast Cancer, and Small Soybean data sets, and 
 we ran our model using regression on the Abalone, Forest Fire, and Machine data. In order to successfully interpret the data, all feature values
 which were not originally real valued were converted to real number values. The only data set with missing attribute values was the Breast cancer
-data set, which included `?' values in place of missing data. We simply coerced all missing data to `NaN' values, effectively eliminating them from
-being considered in our model. All that this meant was that these particular feature values didn't end up being used in the model. We acknowledge that our
+data set, which included `?' values in place of missing data. We chose to assign each of these missing attribute values with the mean value found for 
+that specific attribute in the data. We acknowledge that our
 solution in this case reveals potential vulnerabilities in our model, but we justify our choice to exclude this data by the large number of entries in the breast
-cancer data set, along with the presence of a wealth of attributes to delineate only two classes. After all of the datasets had been preprocessed, we implemented the multi
+cancer data set, along with the presence of a wealth of attributes to delineate only two classes. 
+Otherwise, preprocessing occurred by binning categorical data and assigning bins to real numbers. Furthermore, we used z-score normalization 
+for each numeric attribute value so that the values wouldn't require any special handling.
+After all of the datasets had been preprocessed, we implemented the multi
 layer perceptron, which on a high level takes the form of the following graph:
 
 \begin {center}
@@ -160,7 +173,7 @@ draw,processblue , text=blue , minimum width =1 cm}]
 \node[state] (m1) [right=of h1] {$H'_1$};
 \node[state] (m2) [below=of m1] {$H'_2$};
 \node[state] (mdot) [below=of m2] {$H'...$};
-\node[state] (mn) [below=of mdot] {$H'_n$};
+\node[state] (mn) [below=of mdot] {$H'_n$};1604104728.7778292
 \node[state] (mn1) [below=of mn] {$H'_{n+1}$};
 \node[state] (i1) [left=of h1] {$I_1$};
 \node[state] (i2) [left=of h2] {$I_2$};
@@ -193,7 +206,7 @@ draw,processblue , text=blue , minimum width =1 cm}]
 \path (in) edge [right] (hdot);
 \path (in) edge [right] (hn);
 \path (in) edge [right] (hn1);
-\path (b) edge [right] (h1);
+\path (b) edge [right] (h1);1604104728.7778292
 \path (b) edge [right] (h2);
 \path (b) edge [right] (hdot);
 \path (b) edge [right] (hn);
@@ -228,7 +241,9 @@ draw,processblue , text=blue , minimum width =1 cm}]
 
 Where inputs are denoted $I_1$ through $I_n$, a bias node is denoted $B$, the hidden nodes are denoted $H_1$ through $H_{n+1}$, and 
 the output node is denoted $O$. Note that our model implementation was carried out for the cases with both one and two hidden layers, though
-it is capable of more.
+it is capable of many more- as many as the user specifies.
+Furthermore, in many cases, we want to train a network with multiple outputs, and though not included in the above figure this implementation
+of multinets is included in our model.
 Importantly, each edge between nodes corresponds to a specific weight. These weights aren't included on
 the diagram for the sake of space, but they are critical for the functioning of the network. Initially, in the first forward run through the network, 
 on a high level, weights are assigned randomly, and then the backpropagation
@@ -240,6 +255,10 @@ each of the input nodes, all of the $H_j$ are computed as follows:
 	H_j = \sum_{k = 1}^{n} I_k*w_{k,j} + b_n
 \end{equation}
 
+After each $H_j$ is computed in its raw form, it is also passed through an activation function before being sent to the next node in the network.
+For weights being sent to a hidden node, we use the hyperbolic tangent.
+Then after all of the hidden nodes are passed, for regression data, we used a simple linear activation function, and for classification data we used 
+the common softmax function when sending weights to the output.
 Eventually, once all of the outputs are computed on the first pass, back propagation is utilized by computing the derivative of output nodes 
 with respect to the weights. The gradient is then computed moving further backwards through the network, until the process reaches
 the input nodes. This is computed in the following equations:
@@ -254,7 +273,8 @@ $o_k$ denote the target output for unit $k$:
 	Err(w) = \frac{1}{2} \sum_{k \in outputs}(d_k - o_k)^2
 \end{equation}
 
-In practice, this ends up boiling down to the more simple equation
+In practice, this ends up boiling down to the more simple equation where $d_j$ denotes the target output for unit $j$ and 
+$o_j$ denotes the target output for unit $j$.
 \begin{equation}
 	\Delta w_{ji} = \eta(d_j - o_j)o_j(1-o_j)x_{ji}
 \end{equation}
@@ -298,44 +318,85 @@ MPE = \frac{100}{n} \sum_{t=1}{n} \frac{a_t - f_t}{a_t}
 
 \section{Results}
 By running our model on each of the 6 respective datasets, we were able to compare our hypotheses against experimental findings. Further, we were able
-to analyze the performance of our model with regards to the time it took to run on varying data, and also to most effectively hypertune
-many of the parameters within our model.
+to analyze the performance of our model with regards to the time it took to run on varying data, and also to fully view the optimal performance of our model 
+in solving each respective problem after hypertuning had taken place. To begin, we reached the consensus that we would carry out our experimentation
+with a momentum factor of 0.5, which seemed to generally optimize our overall performance and runtime in the most wide array of problems being investigated 
+in the model. We kept this value consistent throughout experimentation to focus specifically on hypertuning the optimal number of hidden nodes, 
+which seemed generally to play the biggest role in optimizing the model overall. We also chose to maintain 5 epochs throughout the experimentation 
+process, as it seemed to give us relatively steady results without drastically increasing the runtime or seeming to overfit the model. 
+Hypertuning the optimal number of hidden nodes in each run of the algorithm
+was conducted by simply testing the average performance values from using 1 to the total number of attributes in a given set of data, and then
+choosing the number which gave us the greatest average performances.  We acknowledge the assumption to not consider more hidden nodes than inputs is imperfect,
+but we believe it provides enough options to get at least close to running our model optimally.
 
 To begin, we present the performance of our algorithm on each data set. Each table holds the values found on ten runs of our model with 0, 1, and 2 hidden layers,
-after hypertuning the number of nodes per layer. The number of nodes per layer was tuned by beginning with an equivalent number of nodes to the number of inputs,
-and then reducing this number until the performance average didn't improve. We acknowledge the assumption to not consider more hidden nodes than inputs is imperfect,
-but for practical purposes related to mostly to time complexity it is the approach we chose. We also found generally the best performances using roughly 0.5 as a
-momentum factor, so this value was included for momentum throughout our experimentation.
+after hypertuning the number of nodes per layer.
 
 First, we present our findings on the machine data. In the process of hypertuning the number of nodes in the hidden layer, we worked down from the largest
-value we tested which was 8. The results for 0, 1, and 2 hidden layers are as follows: 
+value we tested which was 9. The results for 0, 1, and 2 hidden layers are as follows: 
 \begin{center}
 	\begin{tabular}{|c c c c|}
 		\hline
 		Metric & 0 Hidden Layers & 1 Hidden Layer & 2 Hidden Layers \\ [0.5ex]
 		\hline \hline
-		No. Hidden Nodes & N.A. & 8 & 6 \\
+		No. Hidden Nodes & N.A. & 6 & 3 \\
 		\hline
-		Mean Abs. Err. & 3.195e+32 & 87.546 & 95.202 \\
+		Mean Abs. Err. & 2611.02 & 73.67 & 95.202 \\
 		\hline
-		Mean Sq. Err. & 2.453e+59 & 24797.948 & 23266.021 \\
+		Mean Sq. Err. & 3195073.89 & 19371.32 & 23266.021 \\
 		\hline
-		Runtime(sec) & 6.643 & 22.380 & 23.110 \\
+		Runtime(sec) & 0.17 & 0.45 & 0.34 \\
 		\hline
 	\end{tabular}
 \end{center}
 
-Next, we present our findings with the Soybean data. Importantly, due to the large number of input variables
-for any given node in the model under Soybean data, (and because roughly half of these inputs could be considered
-redundant to some degree) we limited our hypertuning to only have 10 total hidden nodes,
-as performance was effectively universally strong on this data set and changes in performance were incredibly minute.
+Next we present our findings when running the abalone data in our model. The Abalone data may have 8 inputs, so our hypertuning of
+hidden nodes started at 8 tested decreasing values until testing 1.
+\begin{center}
+	\begin{tabular}{|c c c c|}
+		\hline
+		Metric & 0 Hidden Layers & 1 Hidden Layer & 2 Hidden Layers \\ [0.5ex]
+		\hline \hline
+		No. Hidden Nodes & N.A. & 5 & 6 \\
+		\hline
+		Mean Abs. Err. & 2.71 & 2.18 & 2.057 \\
+		\hline
+		Mean Sq. Err. & 15.92 & 8.438 & 7.7254 \\
+		\hline
+		Runtime(sec) & 3.77 & 9.22 & 12.68 \\
+		\hline
+	\end{tabular}
+\end{center}
+
+And for the final regression data set, we present our experimental findings of the performance of our multi layer perceptron
+on the Forest Fire data. Interestingly, this was where we found the lowest optimal number of hidden nodes in general, specifically
+with the case of 2 hidden layers. We tried values under 10 for this data.
 
 \begin{center}
 	\begin{tabular}{|c c c c|}
 		\hline
 		Metric & 0 Hidden Layers & 1 Hidden Layer & 2 Hidden Layers \\ [0.5ex]
 		\hline \hline
-		No. Hidden Nodes & N.A. & 7 & 9 \\
+		No. Hidden Nodes & N.A. & 4 & 2 \\
+		\hline
+		Mean Abs. Err. & 3.195e+32 & 426.00 & 353.71 \\
+		\hline
+		Mean Sq. Err. & 1.84e+15 & 18.05 & 17.97 \\
+		\hline
+		Runtime(sec) & 0.49 & 1.13 &  0.81 \\
+		\hline
+	\end{tabular}
+\end{center}
+
+Next, we present our findings with the Soybean data. Here our model performed quite well, and plenty of values for hidden nodes could've been used
+with similar results.
+
+\begin{center}
+	\begin{tabular}{|c c c c|}
+		\hline
+		Metric & 0 Hidden Layers & 1 Hidden Layer & 2 Hidden Layers \\ [0.5ex]
+		\hline \hline
+		No. Hidden Nodes & N.A. & 9 & 9 \\
 		\hline
 		Ave. Cross Entropy & 0.000128 & 0.000105 & 0.0000846 \\
 		\hline
@@ -347,7 +408,7 @@ as performance was effectively universally strong on this data set and changes i
 \end{center}
 
 Now we include our findings for the glass data. Particularly with 0 hidden layers, our findings were quite volatile
-with this data set, with cross entropy in particular ranging wildly from roughly 0.04 to 1.7e-08. Hypertuning started
+with this data set, with cross entropy in particular ranging quite a lot. Hypertuning started
 with 9 hidden nodes and worked downward.
 
 \begin{center}
@@ -355,7 +416,7 @@ with 9 hidden nodes and worked downward.
 		\hline
 		Metric & 0 Hidden Layers & 1 Hidden Layer & 2 Hidden Layers \\ [0.5ex]
 		\hline \hline
-		No. Hidden Nodes & N.A. & 8 & 9 \\
+		No. Hidden Nodes & N.A. & 9 & 8 \\
 		\hline
 		Ave. Cross Entropy & 0.0172 & 0.0236 & 0.0327 \\
 		\hline
@@ -373,7 +434,7 @@ hidden nodes and worked downward.
 		\hline
 		Metric & 0 Hidden Layers & 1 Hidden Layer & 2 Hidden Layers \\ [0.5ex]
 		\hline \hline
-		No. Hidden Nodes & N.A. & 5 & 8 \\
+		No. Hidden Nodes & N.A. & 8 & 5 \\
 		\hline
 		Ave. Cross Entropy & 0.0000673 & 0.00048 & 0.0088 \\
 		\hline
@@ -384,8 +445,25 @@ hidden nodes and worked downward.
 	\end{tabular}
 \end{center}
 \section{Discussion}
-Todo
 
+In this section, we mention our experimental findings as they pertain to our previously generated hypotheses,
+and provide some commentary on possible explanations of our findings- which were quite varied.
+
+For the Abalone data, we predicred a rough mean squared error of 20, and a rough mean absolute error value of 2.
+With respect to our performance-related hypotheses, our hypothesis was upheld with regards to mean absolute error, but
+our best performing model (with 2 hidden layers and 6 hidden nodes) significantly outperformed our hypothesis, with an 
+average mean squared error value of 7.7254. With regards to the convergence time of our model, we hypothesized a roughly linear
+increase from the model with 1 hidden layer vs 2 hidden layers. Experimentally, we found that convergence time increased when
+adding one hidden layer by a factor of 2.44- so to confirm our hypothesis we require a factor of increase when adding
+two hidden layers to the model within 10\% in either direction of 2.44. In the end, we found an increasing factor of roughly
+1.37, which was not large enough to confirm our hypothesis by our predefined standards. This trend in convergence time
+may be reflective of more of a logarithmic exponential behavior of the model as more hidden layers are introduced. 
+
+For the most difficult data set, the forest fire data, we had set our expectations fairly low for the performance of our
+model. We had predicted a mean absolute error value of roughly 30, and a mean squared error of roughly 1,000. We significantly
+outperformed our hypothesis, with a best average mean squared error of 353.71, and a best mean squared error value of 17.97.
+For this problem, it was noteworthy how massive of an impact adding even one layer made for the performance of the model.
+And in general, despite this being a difficult problem, we were pleased with how well our model performed.
 
 \section{Summary}
 Todo
