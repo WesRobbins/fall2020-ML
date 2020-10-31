@@ -15,18 +15,38 @@ class MLP:
         self.dataclass = dataclass
         self.df = dataclass.df  #Initializes the dataset
         self.initialize_parameters()    #Sets initial parameters
+        self.eval = Evaluator(self.c_t)
         self.classify()
 
     def initialize_parameters(self):
         """Initializes a set of parameters for the neural network"""
 
         self.n_inputs = len(self.df.columns[:-1])
-        self.n_hidden_per_layer = 2
-        self.n_hidden = 5
+        self.n_hidden_per_layer = 3
+        self.n_hidden = 2
         self.n_outputs = len(self.df.Class.unique()) if self.c_t == "classification" else 1
-        self.learning_rate = .05
-        self.epochs = 200
+        self.learning_rate = .07
+        self.epochs = 5
         self.momentum_factor = .5
+        self.performance = 0
+
+    def hypertune(self):
+        """Runs a number of experiments, optimizing k, using the average loss value of the experiments"""
+
+        if self.tuning == "off":
+            self.k = 5
+        else:
+            # if hypertuning is on find optimal k value
+            for i in range(5):
+                k = i * 2 + 3
+                self.k = k
+                self.classify()  # Runs the experiment with set k
+                avg_performance = self.evaluater.performance / self.evaluater.num_performances
+                self.performances.append(avg_performance)
+                print("\n Loss score for k = ", self.k, " is ", avg_performance)
+            index = self.performances.index(min(self.performances))  # Gets the best performance
+            self.k = index * 2 + 3
+            self.eval.average_performance()
 
     def classify(self):
         """Splits the data up into training and testing, then runs k-fold cross validation"""
@@ -40,6 +60,8 @@ class MLP:
             #  Concatenates all slices other than the testing set into the training set
             training_set = pd.concat(data_folds[:i] + data_folds[i + 1:])
             self.classify_all(training_set, testing_set)
+        print("")
+        self.eval.average_performance()
 
     def initialize_network(self):
         """Initializes a neural network with an input layer, hidden layers, and output layers"""
@@ -79,7 +101,6 @@ class MLP:
         #Assigns delta values to each node in the output layer and calculates momentum
         for i in range(len(self.output_layer)):
             node = self.output_layer[i]
-
             node.delta_weight = expected[i] - node.output
 
         #Backpropagates errors through hidden layers
@@ -140,7 +161,7 @@ class MLP:
         """Runs a testing set through the neural network and evaluates accuracy"""
 
         #Creates an evaluator object and creates empty list to hold results
-        eval = Evaluator(self.c_t)
+
         true_values = []
         predicted_values = []
 
@@ -156,7 +177,7 @@ class MLP:
             true_values.append(expected)
             predicted_values.append(outputs)
         #Evaluates performance of test set
-        eval.evaluate(true_values, predicted_values)
+        self.eval.evaluate(true_values, predicted_values)
 
     def classify_all(self, training_set, testing_set):
         """Re initializes the network with random weights, trains it, then tests it"""
