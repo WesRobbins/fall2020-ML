@@ -153,10 +153,15 @@ we ran our model using regression on the Abalone, Forest Fire, and Machine data.
 which were not originally real valued were converted to real number values. The only data set with missing attribute values was the Breast cancer
 data set, which included `?' values in place of missing data. We chose to assign each of these missing attribute values with the mean value found for 
 that specific attribute in the data. We acknowledge that our
-solution in this case reveals potential vulnerabilities in our model, but we justify our choice to exclude this data by the large number of entries in the breast
+solution in this case reveals potential vulnerabilities in our model, but we justify our choice by the large number of entries in the breast
 cancer data set, along with the presence of a wealth of attributes to delineate only two classes. 
 Otherwise, preprocessing occurred by binning categorical data and assigning bins to real numbers. Furthermore, we used z-score normalization 
 for each numeric attribute value so that the values wouldn't require any special handling.
+z-score normalization is defined as follows:
+\begin{equation}
+	z = (x-\mu)/\sigma
+\end{equation}
+Where a value $x$ is subtracted by the mean $\mu$ of a sample and then divided by that sample's standard deviation $\sigma$.
 After all of the datasets had been preprocessed, we implemented the multi
 layer perceptron, which on a high level takes the form of the following graph:
 
@@ -303,17 +308,15 @@ Cross entropy however is helpful when evaluating the performance of a model whil
 which in turn provides a weariness for overfitting.
 Both metrics are important to have an effective model, so both loss functions were chosen in the evaluation of our model on various data.
 
-For regression data, we evaluated the performance of our model using mean percent error and mean squared error. Mean squared error is computed by
+For regression data, we evaluated the performance of our model using mean absolute error and mean squared error. Mean squared error is computed by
 simply finding the mean of the squares of the errors. Mathematically, letting $Y$ be the vector of $n$ observed values and $\hat{Y}$ be the vector of $n$ predicted
 values, mean squared error $MSE$ is computed as:
 \begin{equation}
 MSE = \frac{1}{n} \sum_{i=1}^{n} (Y_i - \hat{Y_i})^2
 \end{equation}
-Similarly, mean percent error $MPE$ is computed by finding the average percentage errors by which the forecasts of a model differ from the ground truth. Letting $a_t$ be the 
-ground truth value of a prediction, $f_t$ be the actual value of the prediction, and $n$ being the number of different times a forecast is made, this is rigorously
-computed as follows:
+Similarly, mean absolute error $MAE$ is computed by finding the raw average errors by which the forecasts of a model differ from the ground truth.  
 \begin{equation}
-MPE = \frac{100}{n} \sum_{t=1}{n} \frac{a_t - f_t}{a_t}
+MAE = \frac{1}{n} \sum_{i=1}^{n} (Y_i - \hat{Y_i})
 \end{equation}
 
 
