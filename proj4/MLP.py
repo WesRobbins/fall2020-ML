@@ -8,7 +8,7 @@ class MLP:
     of hidden nodes/ nodes per layer that is capable of binary classification, multi-class
     classification and regression"""
 
-    def __init__(self, dataclass, classification_type):
+    def __init__(self, dataclass, classification_type, run_network=False):
         """Initializes the Multi Layer Perceptron Class, with a classification type and
         dataframe. Then it sets initial hyperparameters and begins cross-validation experiment"""
         self.c_t = classification_type
@@ -16,7 +16,9 @@ class MLP:
         self.df = dataclass.df  #Initializes the dataset
         self.initialize_parameters()    #Sets initial parameters
         self.eval = Evaluator(self.c_t)
-        self.classify()
+        self.NN = self.initialize_network()
+        if run_network:
+            self.classify()
 
     def initialize_parameters(self):
         """Initializes a set of parameters for the neural network"""
@@ -52,7 +54,6 @@ class MLP:
         """Splits the data up into training and testing, then runs k-fold cross validation"""
 
         data_folds = self.dataclass.make_f_fold("off")
-        self.NN = self.initialize_network()
         for i in range(self.dataclass.k):  # This runs the cross validation, using each slice as the testing set
             print(f"Run Number {i + 1}:")
             testing_set = data_folds[i]  # Selects a slice for the testing set
@@ -177,13 +178,36 @@ class MLP:
             true_values.append(expected)
             predicted_values.append(outputs)
         #Evaluates performance of test set
-        self.eval.evaluate(true_values, predicted_values)
+        return self.eval.evaluate(true_values, predicted_values)
 
     def classify_all(self, training_set, testing_set):
         """Re initializes the network with random weights, trains it, then tests it"""
         self.NN = self.initialize_network()
         self.train(training_set)
         self.test(testing_set)
+
+    def get_weights(self):
+        """Returns on array of all weights in the network for training use"""
+
+        weights = []
+        for layer in self.NN:
+            for node in layer:
+                for weight in node.weights:
+                    weights.append(weight)
+
+        return weights
+
+    def set_weights(self, weights):
+        """Sets the weights of the nodes in the network after training them"""
+        
+        for layer in self.NN:
+            for node in layer:
+                n_weights = len(node.weights)
+                for i in range(n_weights):
+                    node.weights[i] = weights[i]
+                weights = weights[n_weights:]
+
+
 
 
 

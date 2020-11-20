@@ -11,16 +11,17 @@ def main():
         of the ML class, each object relating to a different run. The ML class is passed a list of configuration
          settings which are described more in depth below"""
     print("Start Time: ", time.time())
-    ML("MLP", "regression", [10, .1], "off",0,0,  "./data/abalone.data")
+    ML("MLP", "classification", "genetic_algorithm", [10, .1], "off", "./data/breast-cancer-wisconsin.data")
 
     """ ML params in order:
      1. algorithm name -> options: KNN, KNNedited, KNNcondensed, KNNcluster, KNN_Cluster_Medoids, KNNmenas
      2. classification type -> "classification" or "regression"
-     3. data split options ->  [int k, float tuning_set %]
-     4. hypertuning on or off -> "on" or "off"
-     5. Number of hidden layers
-     6. Number of hidden nodes per hidden layer
-     7. file name
+     3. Training type -> "genetic_algorithm" or "backpropagation"
+     4. data split options ->  [int k, float tuning_set %]
+     5. hypertuning on or off -> "on" or "off"
+     6. Number of hidden layers
+     7. Number of hidden nodes per hidden layer
+     8. file name
 
       """
 

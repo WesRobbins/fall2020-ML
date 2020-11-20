@@ -1,6 +1,5 @@
 import math
 import numpy as np
-import time
 
 class Evaluator:
     """A class containing loss functions and percent accuracy function to
@@ -14,13 +13,14 @@ class Evaluator:
 
     def evaluate(self, true_values, predicted_values):
         """Runs different loss functions depending on if it is classifying or regressing"""
-        print("Eval Time: ", time.time())
         if self.classification_type == "classification":
-            self.cross_entropy(true_values, predicted_values)
+            cross_entropy = self.cross_entropy(true_values, predicted_values)
             self.percent_accuracy(true_values,predicted_values)
+            return cross_entropy
         elif self.classification_type == "regression":
-            self.mean_squared_error(true_values, predicted_values)
+            MSE = self.mean_squared_error(true_values, predicted_values)
             self.mean_absolute_error(true_values, predicted_values)
+            return MSE
 
     def average_performance(self):
         """Prints the average performance across 10 folds for a model."""
@@ -38,7 +38,7 @@ class Evaluator:
             predicted_set = predicted_values[i]
             running_sum += sum([(true_set[j] * math.log(predicted_set[j])) for j in range(len(true_set))])
 
-        print(f"Average cross entropy:\t{-running_sum / testing_set_size}")
+        #print(f"Average cross entropy:\t{-running_sum / testing_set_size}")
         self.performance += (-running_sum / testing_set_size)
         return -running_sum / testing_set_size
 
@@ -55,7 +55,7 @@ class Evaluator:
 
             if true_labels[predicted_index] == 1:
                 correct += 1
-        print(f"Percent Accuracy:\t\t{correct / size * 100:.2f}%")
+       # print(f"Percent Accuracy:\t\t{correct / size * 100:.2f}%")
 
     def mean_squared_error(self, true_values, predicted_values):
         """Calculates the mean squared error of predictions over a testing set"""
