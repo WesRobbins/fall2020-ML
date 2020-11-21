@@ -10,7 +10,7 @@ def main():
     """This is the main function that initializes all machine learning runs. The function instantiates many objects
         of the ML class, each object relating to a different run. The ML class is passed a list of configuration
          settings which are described more in depth below"""
-    print("Start Time: ", time.time())
+
     ML("MLP", "classification", "genetic_algorithm", [10, .1], "off", "./data/breast-cancer-wisconsin.data")
 
     """ ML params in order:

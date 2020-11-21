@@ -178,7 +178,8 @@ class MLP:
             true_values.append(expected)
             predicted_values.append(outputs)
         #Evaluates performance of test set
-        return self.eval.evaluate(true_values, predicted_values)
+        self.fitness = self.eval.evaluate(true_values, predicted_values)
+        return self.fitness
 
     def classify_all(self, training_set, testing_set):
         """Re initializes the network with random weights, trains it, then tests it"""
