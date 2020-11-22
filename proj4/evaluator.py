@@ -15,7 +15,7 @@ class Evaluator:
         """Runs different loss functions depending on if it is classifying or regressing"""
         if self.classification_type == "classification":
             cross_entropy = self.cross_entropy(true_values, predicted_values)
-            self.percent_accuracy(true_values,predicted_values)
+            #self.percent_accuracy(true_values,predicted_values)
             return cross_entropy
         elif self.classification_type == "regression":
             MSE = self.mean_squared_error(true_values, predicted_values)

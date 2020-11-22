@@ -2,6 +2,8 @@ from layer import *
 from data_line import *
 import pandas as pd
 from evaluator import *
+import sys
+import time
 
 class MLP:
     """A class that represents a multi layer perceptron network with a tunable number
@@ -17,6 +19,7 @@ class MLP:
         self.initialize_parameters()    #Sets initial parameters
         self.eval = Evaluator(self.c_t)
         self.NN = self.initialize_network()
+
         if run_network:
             self.classify()
 
@@ -162,6 +165,8 @@ class MLP:
         """Runs a testing set through the neural network and evaluates accuracy"""
 
         #Creates an evaluator object and creates empty list to hold results
+        start_time = time.time()
+
 
         true_values = []
         predicted_values = []
@@ -179,6 +184,8 @@ class MLP:
             predicted_values.append(outputs)
         #Evaluates performance of test set
         self.fitness = self.eval.evaluate(true_values, predicted_values)
+        end_time = time.time()
+        #print(f"Time to initialize class: {end_time - start_time}")
         return self.fitness
 
     def classify_all(self, training_set, testing_set):
@@ -195,18 +202,24 @@ class MLP:
             for node in layer:
                 for weight in node.weights:
                     weights.append(weight)
-
         return weights
 
     def set_weights(self, weights):
         """Sets the weights of the nodes in the network after training them"""
-        
+
+        weight_index = 0
         for layer in self.NN:
             for node in layer:
-                n_weights = len(node.weights)
-                for i in range(n_weights):
-                    node.weights[i] = weights[i]
-                weights = weights[n_weights:]
+                for i in range(len(node.weights)):
+                    #print(weight_index)
+                    try:
+                        node.weights[i] = weights[weight_index]
+                    except Exception as e:
+                        print(weight_index)
+                        print(len(weights))
+                        sys.exit()
+
+                    weight_index += 1
 
 
 

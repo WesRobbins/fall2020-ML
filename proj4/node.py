@@ -9,7 +9,7 @@ class Node:
 
     def __init__(self, n_inputs, node_type):
         """Initializes a random set of weights for each input"""
-        self.weights = [random.uniform(-.01, .01) for _ in range(n_inputs)]
+        self.weights = [random.uniform(-1, 1) for _ in range(n_inputs)]
         self.output = 0
         self.node_type = node_type
         self.momentum = [0] * n_inputs
