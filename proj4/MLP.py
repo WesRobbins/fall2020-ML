@@ -31,7 +31,7 @@ class MLP:
         self.n_hidden = 2
         self.n_outputs = len(self.df.Class.unique()) if self.c_t == "classification" else 1
         self.learning_rate = .07
-        self.epochs = 5
+        self.epochs = 3
         self.momentum_factor = .5
         self.performance = 0
 
