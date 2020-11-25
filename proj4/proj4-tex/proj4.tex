@@ -205,8 +205,8 @@ as the algorithms are well known and documented, we will provide our hypertuning
 \begin{enumerate}
 \item Particle Swarm Optimization:
 
-	Particle Swarm Optimization has hyper parameters commonly noted as $\omega, swarmsize, c_1, c_2$.
-
+	Particle Swarm Optimization has hyper parameters commonly noted as $\omega$, swarmsize, $c_1, c_2$. $\omega$ affects the strength of the intertia term when calculating velocity. The value of $\omega$ is between the range 0 and 1. A lower $\omega$ value allows for more dynamic movement of particles with in the swarm allowing for finding a solution for quickly. However, by having a small interia term the alogorithm is at a higher risk of getting stuck in local optimum. After tuning we found $\omega = .8$ to be the most optimum value that prevented getting stuck in local optima, but did not out power the cognitive and social terms. The hyperparamets $c_1, c_2$ act as coefficents for the social and cognitive terms respectively. We found the optimally tuned values of these to be dependant on the topology used for the swarm. In a gBEST smarm we found it optimal values to be $c_1 = 1.2, c_2 = .6$. In this case we have $c_1$ equal to twice the value to $c_2$ in order to comboat selection pressure applied by high fitness of the social term in a gBEST topology. When using an lBEST topology we tuned $c_1 = .8, c_2 = .8$. The swarm size hyperparamter represents the number of particles in the swarm. We tuned this value to 10 because we found it was sufficiently large, while still being small enough to keep runtime relatively low.
+  
 \item Differential Evolution:
 
 	Differential Evolution is especially customizable. Namely, in our implementation, we iterate over all vectors in a population $\mathbb{P}$, and call each vector
