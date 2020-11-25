@@ -1,7 +1,9 @@
 from DataClass import *
 from MLP import *
 from ga import *
+from pso import *
 from de import *
+
 
 class ML:
     """Takes in the input commands from main and runs the KNN class with the specified algorithm

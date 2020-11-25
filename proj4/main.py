@@ -11,8 +11,13 @@ def main():
         of the ML class, each object relating to a different run. The ML class is passed a list of configuration
          settings which are described more in depth below"""
 
-    #ML("MLP", "classification", "genetic_algorithm", [10, .1], "off", "./data/breast-cancer-wisconsin.data")
+
+    # ML("MLP", "classification", "genetic_algorithm", [10, .1], "off", "./data/breast-cancer-wisconsin.data")
+
+    ML("MLP", "classification", "PSO", [10, .1], "off", "./data/breast-cancer-wisconsin.data")
+
     ML("MLP", "classification", "differential_evolution", [10, .1], "off", "./data/breast-cancer-wisconsin.data")
+
 
     """ ML params in order:
      1. algorithm name -> options: KNN, KNNedited, KNNcondensed, KNNcluster, KNN_Cluster_Medoids, KNNmenas
