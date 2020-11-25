@@ -83,8 +83,9 @@ if the convergence time found experimentally was within 10\% of the predicted va
 \end{keywords}
 
 \section{Problem Statement}
-Utilizing six datasets- each from unique and differing settings, we implemented a feedforward neural network as an attempt to provide insights 
-into the performance of this kind of neural network with respect to differing kinds of data. The model worked on these varying data sets with the aim
+Utilizing six datasets- each from unique and differing settings, we implemented a feedforward neural network in an attempt to provide insights 
+into the performance of evolutionary algorithms when applied to this kind of neural network with respect to differing kinds of data. 
+The model worked on these varying data sets with the aim
 of conducting supervised learning, that is- accurately guessing the class, or roughly the underlying function value in the case of regression, 
 corresponding to each entry in the data given other examples of each respective
 class the model is attempting to guess. More rigorously, we utilized a multilayer perceptron 
@@ -92,62 +93,67 @@ to carry out learning on regression and categorization data. In particular, thre
 (Abalone, Computer Hardware, and Forest Fires),
   and three are used to perform classification (Glass, Soybean, Breast Cancer). Each of the six datasets we use in the project have a variable 
   number of classes and either discrete or real valued attributes. As the data sets are each representative of pretty drastically different situations,
-  we generated completely seperate hypotheses for each kind of data with regards to its performance in our model. 
+  we generated completely seperate hypotheses for each kind of data with regards to its performance in our model. We chose to evaluate our evolutionary algorithm's
+  performance on each set of data in multiple ways. Namely, we focused on the convergence rate and \% difference in loss when compared to back propagation 
+  (either positive or negative). 
+  Fitness is measured as an average loss throughout the entire neural network as data is fed in. Convergence rate is measured in the number
+  of seconds it takes for our evolutionary algorithms to begin and then terminate. For each metric, if our experimental values are within $10\%$ in either direction of the
+  hypothesized values, we choose to confirm the hypothesis.
   
   For the abalone data, we hypothesized that
-  mean squared error and mean absolute error would reflect a high degree of efficacy in predicting the age of abalone. Explicitly, we presumed that mean squared 
-  error would be roughly a value of 20, and mean absolute
-  error would be roughly a value of 2. The rationale behind these values being that the data provided with each entry in the dataset would seem to be highly correlative
-  with the age of abalone (things like the size, weight, and rings on each creature). We thought that our model would be able to generally predict age successfully within
-  2 years, which is generally reflected in these hypothesized error values.
-  
+  generally, our model would perform relatively well in this setting, and most members of the population would start with a relatively high fitness.
+  As such, we thought that working more globally towards an optimum would be favorable for evolutionary algorithms, and particle swarm optimization
+  would perform especially well. Rigorously, we hypothesized roughly a $10\%$ decrease in fitness values (which corresponds to an improvement in fitness)
+  when compared to back propagation for our genetic algorithm, roughly a $20\%$
+  decrease for our differential evolution algorithm, and roughly an $30\%$ increase for particle swarm optimization. We anticipate that our time of convergence
+  will be roughly 3 seconds for $GA$ and $DE$, and roughly $3.5$ seconds for $PSO$.
+
   For the computer hardware data, we thought that, as with the abalone data, we would expect attribute values to be highly correlative to the classes of hardware.
-  Namely, we presumed that mean absolute error would be roughly a value of 80- as each individual class generally spanned a range of about 100 PRP, with a few 
-  smaller outliers. This would seem to imply then a mean squared error of roughly 6400.
+  Thus, we expected a focus on global optimums to be pertinent, and we expected $PSO$ to find the most dramatic decrease in fitness values, of roughly $15\%$.
+  We expected our genetic algorithm to represent a roughly $10\%$ decrease in fitness values, and our differential evolution to be roughly the same as back propagation.
+  In terms of runtime, we expected genetic algorithms to perform the fastest, then differential evolution, and finally particle swarm to perform the slowest, each of these
+  with statistical significance. (At least $10\%$ slower/faster than the other algorithm specified).
 
   For the forest fire data, we thought that predicting classes would be a bit trickier, since here we are attempting to predict the burned area of the forest.
   Just from briefly examining the data, it seems that the area burned can range anywhere from 0 to roughly 1000 hectares. However, most area values are relatively low,
-  most are under 50. A high performing model in this scenario would likely produce a mean absolute error around 10. We had relatively low expectations for our model on
-  this particular dataset, as the attribute data doesn't seem to be particularly revealing for class values. We predict a mean absolute error around 30 and a mean squared
-  error around 1000, but are more or less shooting from the hip with this hypothesis. 
+  most are under 50. We had relatively low expectations for our model on
+  this particular dataset, as the attribute data doesn't seem to be particularly revealing for class values. As such, we thought that bias in the model towards elite members would
+  be preferable. Differential evolution, with the largest bias towards the fittest members, we thought would be the most successful here. 
+  Specifically, we anticipated a $50\%$ decrease in fitness values from differential evolution, a roughly $40\%$ decrease from genetic algorithms, and 
+  a roughly $10\%$ decrease from particle swarm optimization. Each model we expect to take a bit longer to converge, as we expect genetic algorithms and differential algorithms
+  to converge roughly around 8 seconds, and particle swarm optimization roughly around 10. We are more or less shooting from the hip with this hypothesis. 
 
-  Moving on to the classification data, we presumed that our model would perform reasonably well comparatively on the glass data set, which had 7 total classes. Guessing
-  randomly would provide a roughly 14\% rate of accuracy, so we decided that any accuracy percentage above 90\% would mean a high performance for this data. Thus, we 
-  hypothesized a 0/1 loss value of roughly 0.20, and a cross entropy value smaller than $0.1$. 
+  Moving on to the classification data, we presumed that our model would perform reasonably well comparatively on the glass data set, which had 7 total classes. We thought that 
+  since there were a large amount of classes, it might make sense for particle swarm optimization to perform particularly well. We hypothesized a roughly 10\% decrease from $PSO$,
+  a roughly $10\%$ decrease from $GA$, and a roughly $5\%$ increase from DE. In terms of convergence time, we thought $PSO$ might converge at roughly the same speed as $GA$, each at 
+  around $5$ seconds. We thought that $DE$ might converge a little slower, at roughly 7 seconds.
 
   In terms of the small soybean data, the feature values would seem to be highly related to each of the soybean classes, and the data set only featured four classes,
-  meaning that randomly guessing should have a 25\% success rate. As such, we hypothesized a roughly 95\% accuracy rating, implying a 0/1 loss value of roughly
-  0.05. We hypothesized also a cross entropy value $0.001$ on average.
+  meaning that randomly guessing should have a 25\% success rate. We thought that preferring the most elite members in a population here would be preferable, since there
+  are relatively few classes to worry about, and moving towards them would probably happen the quickest favoring those with the highest fitness. As such, we thought
+  $DE$ would have the highest percent decrease, of roughly $15\%$, and $GA$ would follow with roughly $5\%$, and $PSO$ would bring up the rear with a $5\%$ or so increase.
+  We thought that because of these somewhat clear cut distinctions, $DE$ and $GA$ would converge the fastest, each at roughly 3 seconds. $PSO$ we thought would
+  converge at roughly 4 seconds. 
 
   Lastly, for the breast cancer data, we expected to find that our model also performed quite well. In terms of specific values, the breast cancer categorized
-  only two classes (malignant and benign cancer), so random guessing would provide correct answers in theory 50\% of the time. Meaning that a high performing model
-  we'd expect to be accurate certainly over 95\% of the time, and we presumed it would be correct 98\% of the time. Implying a 0/1 loss value of roughly 0.02. In terms of
-  entropy, this was harder for us to predict. Since there were only two classes, a higher amount of entropy may be expected than in other data sets, so we predicted
-  an average cross entropy value of roughly 1.
+  only two classes (malignant and benign cancer), so random guessing would provide correct answers in theory 50\% of the time. In this kind of setting, we thought
+  that the most elite members of the population would be similarly highly favored as in the soybean data. However, we also thought that normal backpropagation would
+  be quite effective. Thus, we anticipated a $25\%$ reduction in
+  fitness (loss) values from $DE$, and roughly $10\%$ from $GA$. We didn't think particle swarms would be particularly helpful here, and expected an increase of 
+  roughly $30\%$ in fitness values from $PSO$ when compared to back propagation. 
+  In terms of runtime, we also thought that $DE$ would be really fast, roughly $2$ seconds per run, with $GA$ at roughly
+  3 seconds per run, and $PSO$ at roughly 6 seconds.
 
-  Wholistically, we expect to find that the deeper the network, the better the performance of our model after full hypertuning has taken place.
+  Wholistically, we expect to find that the more complex of differentiation (different possible categories, huge variation in function values) a neural net sets out to do, 
+  the better more globally focused algorithms like $PSO$ will do. We expect generally for $DE$ to perform better when the delineation between different classes is more clear.
+  Generally, we anticipate $GA$ will be somewhere in between the two, but nearer to $DE$.
 
-  We also provide a hypothesis with respect to the amount of time each data set would take to converge in our model, which are provided with the knowledge of
-  the number of hypertuned hidden nodes used in each experiment. 
-  Though not a perfect way to measure
-  convergence time, we choose to simply time each run of our model on each differing dataset, and record these times. Perhaps more interesting than providing
-  specific hypotheses for each individual dataset with respect to their exact times, we provide a hypothesis for each problem with regards to the factors with
-  which runtime will change when increasing layers. For the abalone data, as we experimentally determined that the optimal number of hidden nodes was 5 and 6 for
-  1 hidden layer and 2 hidden layers respectively, we hypothesize a roughly linear increase in runtime as hidden layers increase. For the machine data, as the optimal
-  number of hidden nodes was hypertuned to be 6 and 3 for 1 and 2 hidden layers respectively, we expect no considerable increase in runtime as layers are added. For
-  the forest fire data, we expect to find no considerable increases in runtime as layers are added, since the number of hidden layers was hypertuned to be
-  4 and 2 for 1 and 2 hidden layers respectively. For the soybean data, where the hypertuned number of hidden nodes was determined to be 9 and 6, we expect no 
-  statistically significant change in time complexity. Similarly, for the glass data, as the hypertuned number of hidden nodes was determined to be 10 and 8,
-  we expect to find linear increases in convergence time as a second hidden layer is added. 
-  Lastly, for the breast cancer data, as the hypertuned hidden nodes total 8 and 5 for the cases
-  of 1 and 2 hidden layers respectively, we hypothesize no statistically significant changes in runtime. 
-  Rigorously, we define linear increases as the continuation of the constant
-  factor which increases when the transition is made from 0 to 1 hidden layers. For any predicted convergence time complexity
-  change, we confirm our hypothesis if the experimental value is within 10\% in either direction of the value resulting from our hypotheses.
+  Note that we chose to measure the performance of evolutionary algorithms with respect to the percent change in their fitness values when comparing the outputs of two
+  different methods. In doing so, we're able to categorize the performance of these algorithms in how effectively they may alter a population
+  to be more fit after a fixed number of generations- based most specifically just on the holistic performance of the algorithms rather than the performance of
+  our model on generic data.
+  
 
-  For each of our rigorously value defined hypotheses, we decided to overturn our findings if the experimentally found value was not within 10\% of the original 
-  hypothesized error value in the positive direction, and if our experimental values were within this threshold or below the proposed value, we would confirm the
-  hypothesis.
 
 \section{Methods}
 In order to test our hypotheses, we ran our model using classification on the Glass, Breast Cancer, and Small Soybean data sets, and 
@@ -164,130 +170,13 @@ z-score normalization is defined as follows:
 	z = (x-\mu)/\sigma
 \end{equation}
 Where a value $x$ is subtracted by the mean $\mu$ of a sample and then divided by that sample's standard deviation $\sigma$.
+
 After all of the datasets had been preprocessed, we implemented the multi
-layer perceptron, which on a high level takes the form of the following graph:
+layer perceptron, with back propagation. As this implementation is not at the heart of this experiment,
+for details of the exact equations we used and our exact implementation of the MLP, see our programming assignment 3.
 
-\begin {center}
-\begin {tikzpicture}[-latex ,auto ,node distance =2 cm and 4cm ,on grid ,
-semithick ,
-state/.style ={ circle ,top color =white , bottom color = processblue!20 ,
-draw,processblue , text=blue , minimum width =1 cm}]
-\node[state] (h1)
-{$H_1$};
-\node[state] (h2) [below=of h1] {$H_2$};
-\node[state] (hdot) [below=of h2] {$H...$};
-\node[state] (hn) [below=of hdot] {$H_n$};
-\node[state] (hn1) [below=of hn] {$H_{n+1}$};
-\node[state] (m1) [right=of h1] {$H'_1$};
-\node[state] (m2) [below=of m1] {$H'_2$};
-\node[state] (mdot) [below=of m2] {$H'...$};
-\node[state] (mn) [below=of mdot] {$H'_n$};1604104728.7778292
-\node[state] (mn1) [below=of mn] {$H'_{n+1}$};
-\node[state] (i1) [left=of h1] {$I_1$};
-\node[state] (i2) [left=of h2] {$I_2$};
-\node[state] (idot) [below left=of h2] {$I...$};
-\node[state] (in) [below left=of hdot] {$I_n$};
-\node[state] (b) [below left=of hn] {$B$};
-\node[state] (o1) [right=of m1] {$O$};
-\path (m1) edge [right] (o1);
-\path (m2) edge [right] (o1);
-\path (mdot) edge [right] (o1);
-\path (mn) edge [right] (o1);
-\path (mn1) edge [right] (o1);
-\path (i1) edge [right] (h1);
-\path (i1) edge [right] (h2);
-\path (i1) edge [right] (hdot);
-\path (i1) edge [right] (hn);
-\path (i1) edge [right] (hn1);
-\path (i2) edge [right] (h1);
-\path (i2) edge [right] (h2);
-\path (i2) edge [right] (hdot);
-\path (i2) edge [right] (hn);
-\path (i2) edge [right] (hn1);
-\path (idot) edge [right] (h1);
-\path (idot) edge [right] (h2);
-\path (idot) edge [right] (hdot);
-\path (idot) edge [right] (hn);
-\path (idot) edge [right] (hn1);
-\path (in) edge [right] (h1);
-\path (in) edge [right] (h2);
-\path (in) edge [right] (hdot);
-\path (in) edge [right] (hn);
-\path (in) edge [right] (hn1);
-\path (b) edge [right] (h1);1604104728.7778292
-\path (b) edge [right] (h2);
-\path (b) edge [right] (hdot);
-\path (b) edge [right] (hn);
-\path (b) edge [right] (hn1);
-\path (h1) edge [right] (m1);
-\path (h1) edge [right] (m2);
-\path (h1) edge [right] (mdot);
-\path (h1) edge [right] (mn);
-\path (h1) edge [right] (mn1);
-\path (h2) edge [right] (m1);
-\path (h2) edge [right] (m2);
-\path (h2) edge [right] (mdot);
-\path (h2) edge [right] (mn);
-\path (h2) edge [right] (mn1);
-\path (hdot) edge [right] (m1);
-\path (hdot) edge [right] (m2);
-\path (hdot) edge [right] (mdot);
-\path (hdot) edge [right] (mn);
-\path (hdot) edge [right] (mn1);
-\path (hn) edge [right] (m1);
-\path (hn) edge [right] (m2);
-\path (hn) edge [right] (mdot);
-\path (hn) edge [right] (mn);
-\path (hn) edge [right] (mn1);
-\path (hn1) edge [right] (m1);
-\path (hn1) edge [right] (m2);
-\path (hn1) edge [right] (mdot);
-\path (hn1) edge [right] (mn);
-\path (hn1) edge [right] (mn1);
-\end{tikzpicture}
-\end{center}
-
-Where inputs are denoted $I_1$ through $I_n$, a bias node is denoted $B$, the hidden nodes are denoted $H_1$ through $H_{n+1}$, and 
-the output node is denoted $O$. Note that our model implementation was carried out for the cases with both one and two hidden layers, though
-it is capable of many more- as many as the user specifies.
-Furthermore, in many cases, we want to train a network with multiple outputs, and though not included in the above figure this implementation
-of multinets is included in our model.
-Importantly, each edge between nodes corresponds to a specific weight. These weights aren't included on
-the diagram for the sake of space, but they are critical for the functioning of the network. Initially, in the first forward run through the network, 
-on a high level, weights are assigned randomly, and then the backpropagation
-step is what rigorously trains the model.
-Letting $H_j$ designate each of the weights coming from the hidden nodes into the output, and $w_{k,j}$ denote the weights coming from
-each of the input nodes, all of the $H_j$ are computed as follows:
-
-\begin{equation}
-	H_j = \sum_{k = 1}^{n} I_k*w_{k,j} + b_n
-\end{equation}
-
-After each $H_j$ is computed in its raw form, it is also passed through an activation function before being sent to the next node in the network.
-For weights being sent to a hidden node, we use the hyperbolic tangent.
-Then after all of the hidden nodes are passed, for regression data, we used a simple linear activation function, and for classification data we used 
-the common softmax function when sending weights to the output.
-Eventually, once all of the outputs are computed on the first pass, back propagation is utilized by computing the derivative of output nodes 
-with respect to the weights. The gradient is then computed moving further backwards through the network, until the process reaches
-the input nodes. This is computed in the following equations:
-
-\begin{equation}
-	\Delta w_{ji} = - \eta \frac{\partial Err}{\partial w_{ji}} \text{ such that } \eta \in (0,1)
-\end{equation}
-
-Where error is computed using squared error for one example at a time, letting $d_k$ denote the target output for unit $k$ and 
-$o_k$ denote the target output for unit $k$:
-\begin{equation}
-	Err(w) = \frac{1}{2} \sum_{k \in outputs}(d_k - o_k)^2
-\end{equation}
-
-In practice, this ends up boiling down to the more simple equation where $d_j$ denotes the target output for unit $j$ and 
-$o_j$ denotes the target output for unit $j$.
-\begin{equation}
-	\Delta w_{ji} = \eta(d_j - o_j)o_j(1-o_j)x_{ji}
-\end{equation}
-
-After the model is trained and makes its guesses, we determine model performance using 4 different loss functions.
+After the model is trained and makes its guesses, we determine model performance using 2 different loss functions- which we deem indicative of
+the evolutionary fitness of that particular neural net.
 These loss functions provide an effective method of determining model performance when certain features of the model are changed. Explicitly, letting
 $N$ be the number of samples, $k$ be the number of classes, $t_{i,j}$ being the value $1$ if sample $i$ is in class $j$ and $0$ otherwise, and $p_{i,j}$ being the
 predicted probability that sample $i$ is in class $j$, the average cross
@@ -296,31 +185,33 @@ entropy was computed as follows:
 	cross entropy = -\frac{1}{N}\sum_{i=1}^{N}\sum_{j=1}^{k}t_{i,j}ln(p_{i,j})
 \end{equation}
 
-The second loss function we introduced was the 0/1 loss function, which is the ratio of incorrect guesses to total guesses made on the testing data.
-Denoting the test set $T$, and letting the number of correct guesses made on the test set by the model be denoted $g_c$, the 0/1 loss is computed with the simple ratio:
-\begin{equation}
-	1 - \frac{g_c}{|T|}
-\end{equation}
+Cross entropy is helpful when evaluating the performance of a model while also keeping in mind the potential of overfitting. By incorporating punishments for a choice being more 
+`surprising' in that the chances of a correct choice are relatively small, cross entropy is useful in capturing the performance of a model with greater depth than simply 
+counting the number of correct solutions- which in turn provides a weariness for overfitting.
+We chose to use this loss function because we thought it would be more important in guaging the efficacy of our evolution- without too
+heavily overfitting data. 
 
-We chose both of the above loss functions with the motivation that both are metrics with importantly opposed qualities in the evaluation of a multi layer perceptron neural net. 
-Perhaps the most immediately logical evaluation of loss is 0/1 loss, 
-which is a measurement of the ratio of incorrect guesses made in a test set. Importantly, this is indicative of the accuracy of our model, but is not particularly informative of overfitting.
-Cross entropy however is helpful when evaluating the performance of a model while also keeping in mind the potential of overfitting. By incorporating punishments for a choice being more 
-`surprising' in that the chances of a correct choice are relatively small, cross entropy is useful in capturing the performance of a model with greater depth than simply counting the number of correct solutions- 
-which in turn provides a weariness for overfitting.
-Both metrics are important to have an effective model, so both loss functions were chosen in the evaluation of our model on various data.
-
-For regression data, we evaluated the performance of our model using mean absolute error and mean squared error. Mean squared error is computed by
+For regression data, we evaluated the performance of our model using mean squared error. Mean squared error is computed by
 simply finding the mean of the squares of the errors. Mathematically, letting $Y$ be the vector of $n$ observed values and $\hat{Y}$ be the vector of $n$ predicted
 values, mean squared error $MSE$ is computed as:
 \begin{equation}
 MSE = \frac{1}{n} \sum_{i=1}^{n} (Y_i - \hat{Y_i})^2
 \end{equation}
-Similarly, mean absolute error $MAE$ is computed by finding the raw average errors by which the forecasts of a model differ from the ground truth.  
-\begin{equation}
-MAE = \frac{1}{n} \sum_{i=1}^{n} (Y_i - \hat{Y_i})
-\end{equation}
 
+Both metrics were used as fitness values for a given neural network in the context of evolutionary algorithms. After the neural network had been initialized and evaluated
+in this manner, we incorporated the Genetic algorithm, differential evolution algorithm, and particle swarm optimization. Though we won't include their pseudocode here,
+as the algorithms are well known and documented, we will provide our hypertuning of specific parameters within each algorithm, and justification for our hypertuning.
+
+\begin{enumerate}
+\item Particle Swarm Optimization:
+
+	Particle Swarm Optimization has hyper parameters commonly noted as $\omega, swarmsize, c_1, c_2$.
+
+\item Differential Evolution:
+
+	Differential Evolution is especially customizable. 
+
+\end{enumerate}
 
 \section{Results}
 By running our model on each of the 6 respective datasets, we were able to compare our hypotheses against experimental findings. Further, we were able
