@@ -209,28 +209,34 @@ as the algorithms are well known and documented, we will provide our hypertuning
 
 \item Differential Evolution:
 
-	Differential Evolution is especially customizable. 
+	Differential Evolution is especially customizable. Namely, in our implementation, we iterate over all vectors in a population $\mathbb{P}$, and call each vector
+		the targed vector, denoted $\mathbb{X}_j$. Then we also choose three other distinct vectors $\{\mathbb{X}^1, \mathbb{X}^2, \mathbb{X}^3\}\in \mathbb{P}$.
+		From these vectors, we compute a trial vector $\mathbb{U}_j$ as follows:
 
+		\begin{equation}
+			\mathbb{U}_j := \mathbb{X}^1 + \beta(\mathbb{X}^2 - \mathbb{X}^3) | \beta \in [0,2]
+		\end{equation}
+
+		The above constitutes the mutation operation for differential evolution. Below, we now show the crossover operation as follows:
+		\begin{equation}
+		\mathbb{X}_j'=
+		\begin{cases}
+			\mathbb{X}_{ji} \text{ if } rand(0,1)\leq Pr \\
+			\mathbb{U}_j \text{ else}
+		\end{cases}
+		Pr = 0.5
+		\end{equation}
+
+		Where $\mathbb{X}_j'$ denotes the crossed over $\mathbb{X}_j$ and $Pr$ is a tunable parameter for a crosshold probability. We chose to stick to $0.5$ for this
+		value, as we seemed to get the best performance with this setting in trials.
+
+		We then check to see if the target vector has higher fitness than the crossed over vector. If so, we just keep the original target vector. Otherwise, we replace
+		the target vector with the vector $\mathbb{X}_j'$ which came from the combination of our mutation and crossover operations. As a result, $DE$ has a tendency to
+		be a bit elitist. In the notation common to the field, we chose to use the implementation denoted ``\textit{DE/curr/2/Bin}" Where we conducted DE choosing the 
+		current organism while iterating through the population, with a total of 2 difference vectors in the mutation, and where we used binomial crossover. 
 \end{enumerate}
 
 \section{Results}
-By running our model on each of the 6 respective datasets, we were able to compare our hypotheses against experimental findings. Further, we were able
-to analyze the performance of our model with regards to the time it took to run on varying data, and also to fully view the optimal performance of our model 
-in solving each respective problem after hypertuning had taken place. To begin, we reached the consensus that we would carry out our experimentation
-with a momentum factor of 0.5, which seemed to generally optimize our overall performance and runtime in the most wide array of problems being investigated 
-in the model. We kept this value consistent throughout experimentation to focus specifically on hypertuning the optimal number of hidden nodes, 
-which seemed generally to play the biggest role in optimizing the model overall. We also chose to maintain 5 epochs throughout the experimentation 
-process, as it seemed to give us relatively steady results without drastically increasing the runtime or seeming to overfit the model. 
-Hypertuning the optimal number of hidden nodes in each run of the algorithm
-was conducted by simply testing the average performance values from using 1 to the total number of attributes in a given set of data, and then
-choosing the number which gave us the greatest average performances.  We acknowledge the assumption to not consider more hidden nodes than inputs is imperfect,
-but we believe it provides enough options to get at least close to running our model optimally.
-
-To begin, we present the performance of our algorithm on each data set. Each table holds the values found on ten runs of our model with 0, 1, and 2 hidden layers,
-after hypertuning the number of nodes per layer.
-
-First, we present our findings on the machine data. In the process of hypertuning the number of nodes in the hidden layer, we worked down from the largest
-value we tested which was 9. The results for 0, 1, and 2 hidden layers are as follows: 
 \begin{center}
 	\begin{tabular}{|c c c c|}
 		\hline
@@ -247,8 +253,6 @@ value we tested which was 9. The results for 0, 1, and 2 hidden layers are as fo
 	\end{tabular}
 \end{center}
 
-Next we present our findings when running the abalone data in our model. The Abalone data may have 8 inputs, so our hypertuning of
-hidden nodes started at 8 tested decreasing values until testing 1.
 \begin{center}
 	\begin{tabular}{|c c c c|}
 		\hline
@@ -265,9 +269,6 @@ hidden nodes started at 8 tested decreasing values until testing 1.
 	\end{tabular}
 \end{center}
 
-And for the final regression data set, we present our experimental findings of the performance of our multi layer perceptron
-on the Forest Fire data. Interestingly, this was where we found the lowest optimal number of hidden nodes in general, specifically
-with the case of 2 hidden layers. We tried values under 10 for this data.
 
 \begin{center}
 	\begin{tabular}{|c c c c|}
@@ -285,8 +286,6 @@ with the case of 2 hidden layers. We tried values under 10 for this data.
 	\end{tabular}
 \end{center}
 
-Next, we present our findings with the Soybean data. Here our model performed quite reliably (albeit rather strangely), 
-and plenty of values for hidden nodes could've been used with likely similar results- which showed strong performance for only one hidden layer.
 
 \begin{center}
 	\begin{tabular}{|c c c c|}
@@ -304,9 +303,6 @@ and plenty of values for hidden nodes could've been used with likely similar res
 	\end{tabular}
 \end{center}
 
-Now we include our findings for the glass data. Particularly with 0 hidden layers, our findings were quite volatile
-with this data set, with cross entropy in particular ranging quite a lot. Hypertuning started
-with 9 hidden nodes and worked downward.
 
 \begin{center}
 	\begin{tabular}{|c c c c|}
@@ -324,8 +320,6 @@ with 9 hidden nodes and worked downward.
 	\end{tabular}
 \end{center}
 
-Next we provide our findings when testing our model on the Breast Cancer data. Hypertuning began with 10
-hidden nodes and worked downward.
 \begin{center}
 	\begin{tabular}{|c c c c|}
 		\hline
@@ -346,74 +340,7 @@ hidden nodes and worked downward.
 In this section, we mention our experimental findings as they pertain to our previously generated hypotheses,
 and provide some commentary on possible explanations of our findings- which were quite varied.
 
-For the Abalone data, we predicred a rough mean squared error of 20, and a rough mean absolute error value of 2.
-With respect to our performance-related hypotheses, our hypothesis was upheld with regards to mean absolute error, but
-our best performing model (with 2 hidden layers and 6 hidden nodes) significantly outperformed our hypothesis, with an 
-average mean squared error value of 7.7254. With regards to the convergence time of our model, we hypothesized a roughly linear
-increase from the model with 1 hidden layer vs 2 hidden layers. Experimentally, we found that convergence time increased when
-adding one hidden layer by a factor of 2.44- so to confirm our hypothesis we require a factor of increase when adding
-two hidden layers to the model within 10\% in either direction of 2.44. In the end, we found an increasing factor of roughly
-1.37, which was not large enough to confirm our hypothesis by our predefined standards. This trend in convergence time
-may be reflective of more of a logarithmic exponential behavior of the model as more hidden layers are introduced. 
-
-For the most difficult data set, the forest fire data, we had set our expectations fairly low for the performance of our
-model. We had predicted a mean absolute error value of roughly 30, and a mean squared error of roughly 1,000. We significantly
-outperformed our hypothesis, with a best average mean squared error of 353.71, and a best mean squared error value of 17.97.
-For this problem, it was noteworthy how massive of an impact adding even one layer made for the performance of the model.
-And in general, despite this being a difficult problem, we were pleased with how well our model performed here.
-With regards to convergence time, we expected to find no condsiderable changes in runtime when adding a new layer. In practice,
-we actually found a statistically significant decrease in runtime when transitioning from 1 to 2 hidden layers in the model. (From 1.13
-to 0.81, a 28\% reduction in convergence time).
-
-For the final regression data set, the machine data, we found that our hypothesized average mean absolute error would be roughly 80, 
-and mean squared error roughly 6400. In practice, we had mixed results. We were able to confirm our hypothesis with respect to mean absolute
-error, experimentally finding at the lowest a value of 73.67, which lies within 10\% of our hypothesized value. However, our experimentally
-determined mean squared error was much higher than anticipated, lying at 19371.32. Interestingly, the best performance was found
-when only 1 hidden layer was used in the model- which came against the preconcieved bias towards complexity in models as a general benefit.
-With regards to converence time, we had expected to find no considerable change in runtime as we changed 1 hidden layer to 2. We found 
-experimentally that there were statistically significant changes in convergence time, namely a decrease of about 24\% in runtime as
-2 hidden layers were added, again breaking preconceived expectations that increasing the complexity of a model might guarantee
-increased runtime. This was likely in large part due to the significant difference between the number of optimal hidden nodes used in 1 hidden
-layer vs in 2 hidden layers. 6 hidden nodes per layer were found to be optimal in the case of just 1 hidden layer, whereas only 3 hidden nodes
-were optimal in the case with 2 hidden layers.
-
-In the classification data, we had incredibly varied results, and found that for 2/3 of the classification data sets, our model performed
-best with 1 hidden layer, and using 2 hidden layers was actually worse than no hidden layers- a result we never found in regression data.
-
-To start, we analyze the glass data with respect to our hypothesis on the performance of our model. We hypothesized a 0/1 loss value of roughly 0.20, corresponding
-to guessing correctly 80\% of the time, and a cross entropy value of roughly 0.1. In practice, we found that our 0/1 loss hypothesized value could not be upheld (finding
-experimentally a 0/1 loss on average in the best case of 0.33),
-but that we outperformed our expected cross entropy value, gaining in the lowest case an average cross entropy of 0.0172. Allowing us to partially reject our
-hypothesis. In terms of runtime,
-we had hypothesized a linear change in runtime when adding the second layer based on the number of hidden nodes, which didn't quite hold experimentally.
-(Adding 1 hidden layer increased convergence time by a factor of 1.7, adding 2 hidden layers increased convergence time by a factor of 1.15).
-
-
-
-For the soybean data, we hypothesized a 0/1 loss value of roughly 0.05, and an average cross entropy value of 0.001. In practice, we performed 
-better in the best case for our model,
-gaining a 0/1 loss value of approximately 0 and an average cross entropy of roughly 0.0236 for the model with 1 hidden layer. Interestingly, our
-performance dropped significantly when adding a second hidden layer, and in this case underperformed in terms of the hypothesis. With regards to
-convergence time, we had anticipated no significant change in the time it took to converge with 2 hidden layers as opposed to 1. In practice, we
-found that adding a 2nd hidden layer came with a statistically significant decrease in convergence time.
-
-Lastly, for breast cancer, we hypothesized a 0/1 loss value of roughly 0.02, and an average cross entropy value of roughly 1. We found in the best case a value
-just shy of the 0/1 loss value (0.028), which was just slightly too far to be deemed close enough to the specified value to confirm the hypothesis. However,
-we found a cross entropy value significantly lower in all cases than what was hypothesized, leading to inconclusive results with regards
-to our initial thoughts towards the performance of our model on this problem. With respect to convergence time, we again had thought that the model would converge
-with no statistically significant difference in time between 1 and 2 hidden layers. Experimentally, we found that having 2 hidden layers allowed for a statistically
-significant decrease in convergence time.
 
 \section{Summary}
-In running our feedforward multi-layer perceptron on 6 diverse sets of data, we came away with a broader understanding of the performance of our model with respect to
-hypotheses both regarding performance and convergence time. Namely, we found quite mixed performances, and in general were not able to overwhelmingly uphold the 
-majority of our hypotheses. Broadly speaking, we had expected that more hidden layers would mean improved performance of our model, which in numerous examples
-proved to be untrue. However, with respect to performance, our hypotheses were more generally upheld in problems of regression than in those of classification.
-Alternatively, when examining our hypotheses regarding convergence time, we found quite reliably that our expected results were overturned. Generally, our hypotheses
-seemed to reflect a bias towards greater computational expense in adding additional hidden layers, which proved not to be the case in
-numerous examples. To our surprise, adding additional hidden layers actually regularly contributed to decreases in the amount of time it took for our
-algorithm to converge. Further investigating even deeper neural networks is certainly an exciting area of future work. All in all, our findings are revealing
-of the wide possibilities- and limitations- of networks such as the multi-layer perceptron, and refining such models will undoubtedly be immediately 
-relevant for the forseeable future in the world of machine learning.
 
 \end{document}
