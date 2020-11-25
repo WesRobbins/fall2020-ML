@@ -20,6 +20,7 @@ class Evaluator:
         elif self.classification_type == "regression":
             MSE = self.mean_squared_error(true_values, predicted_values)
             self.mean_absolute_error(true_values, predicted_values)
+
             return MSE
 
     def average_performance(self):
@@ -66,6 +67,8 @@ class Evaluator:
             running_sum += (true_values[i][0] - predicted_values[i][0]) ** 2
         print(f"Mean Squared Error:\t{running_sum/size}")
         self.performance += running_sum / size
+        return self.performance
+
 
     def mean_absolute_error(self, true_values, predicted_values):
         """Calculates the mean absolute error of predictions over a testing set"""

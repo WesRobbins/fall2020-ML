@@ -186,6 +186,7 @@ class MLP:
         self.fitness = self.eval.evaluate(true_values, predicted_values)
         end_time = time.time()
         #print(f"Time to initialize class: {end_time - start_time}")
+        print(self.fitness)
         return self.fitness
 
     def classify_all(self, training_set, testing_set):
