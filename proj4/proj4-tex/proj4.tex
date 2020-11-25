@@ -200,12 +200,25 @@ MSE = \frac{1}{n} \sum_{i=1}^{n} (Y_i - \hat{Y_i})^2
 
 Both metrics were used as fitness values for a given neural network in the context of evolutionary algorithms. After the neural network had been initialized and evaluated
 in this manner, we incorporated the Genetic algorithm, differential evolution algorithm, and particle swarm optimization. Though we won't include their pseudocode here,
-as the algorithms are well known and documented, we will provide our hypertuning of specific parameters within each algorithm, and justification for our hypertuning.
+as the algorithms are well known and documented, we will provide our hypertuning of specific parameters within each algorithm, and justification for our hypertuning. For all
+algorithms, a population of 40 individuals was used- as this seemed a sizable enough population to experience serious, meaningful evolutionary changes without drastically
+harming the runtime.
 
 \begin{enumerate}
 \item Particle Swarm Optimization:
 
-	Particle Swarm Optimization has hyper parameters commonly noted as $\omega$, swarmsize, $c_1, c_2$. $\omega$ affects the strength of the intertia term when calculating velocity. The value of $\omega$ is between the range 0 and 1. A lower $\omega$ value allows for more dynamic movement of particles with in the swarm allowing for finding a solution for quickly. However, by having a small interia term the alogorithm is at a higher risk of getting stuck in local optimum. After tuning we found $\omega = .8$ to be the most optimum value that prevented getting stuck in local optima, but did not out power the cognitive and social terms. The hyperparamets $c_1, c_2$ act as coefficents for the social and cognitive terms respectively. We found the optimally tuned values of these to be dependant on the topology used for the swarm. In a gBEST smarm we found it optimal values to be $c_1 = 1.2, c_2 = .6$. In this case we have $c_1$ equal to twice the value to $c_2$ in order to comboat selection pressure applied by high fitness of the social term in a gBEST topology. When using an lBEST topology we tuned $c_1 = .8, c_2 = .8$. The swarm size hyperparamter represents the number of particles in the swarm. We tuned this value to 10 because we found it was sufficiently large, while still being small enough to keep runtime relatively low.
+	Particle Swarm Optimization has hyper parameters commonly noted as $\omega$, swarmsize, $c_1, c_2$. $\omega$ 
+		affects the strength of the intertia term when calculating velocity. 
+		The value of $\omega$ is between the range 0 and 1. A lower $\omega$ value allows for more dynamic 
+		movement of particles with in the swarm allowing for finding a solution for quickly. 
+		However, by having a small interia term the alogorithm is at a higher risk of getting stuck in local optimum. 
+		After tuning we found $\omega = .8$ to be the optimum value that prevented getting stuck in local optima, but 
+		did not overpower the cognitive and social terms. The hyperparameters $c_1, c_2$ act as coefficents for the social 
+		and cognitive terms respectively. We found the optimally tuned values of these to be dependant on the topology used 
+		for the swarm. In a gBEST smarm we found it optimal values to be $c_1 = 1.2, c_2 = .6$. In this case we have $c_1$ 
+		equal to twice the value to $c_2$ in order to comboat selection pressure applied by high fitness of the social term in a gBEST 
+		topology. When using an lBEST topology we tuned $c_1 = .8, c_2 = .8$. The swarm size hyperparamter represents the number of particles in the swarm. 
+		We tuned this value to 10 because we found it was sufficiently large, while still being small enough to keep runtime relatively low.
   
 \item Differential Evolution:
 
@@ -227,114 +240,79 @@ as the algorithms are well known and documented, we will provide our hypertuning
 		Pr = 0.5
 		\end{equation}
 
-		Where $\mathbb{X}_j'$ denotes the crossed over $\mathbb{X}_j$ and $Pr$ is a tunable parameter for a crosshold probability. We chose to stick to $0.5$ for this
+		Where $\mathbb{X}_j'$ denotes the crossed over $\mathbb{X}_j$ and $Pr$ is a tunable parameter for a crossover probability. We chose to stick to $0.5$ for this
 		value, as we seemed to get the best performance with this setting in trials.
 
 		We then check to see if the target vector has higher fitness than the crossed over vector. If so, we just keep the original target vector. Otherwise, we replace
 		the target vector with the vector $\mathbb{X}_j'$ which came from the combination of our mutation and crossover operations. As a result, $DE$ has a tendency to
 		be a bit elitist. In the notation common to the field, we chose to use the implementation denoted ``\textit{DE/curr/2/Bin}" Where we conducted DE choosing the 
-		current organism while iterating through the population, with a total of 2 difference vectors in the mutation, and where we used binomial crossover. 
+		current organism while iterating through the population, with a total of 2 difference vectors in the mutation, and where we used binomial crossoveri.
+
+\item Genetic Algorithm:
+	In our genetic algorithm implementation, we iteratively choose pairs in the population randomly, comparing their fitness. Whichever member of the pair has greater
+		fitness, we add to the selected population. We then conduct the crossover operation, doing so uniformly, and on another randomly designated pair, iteratively
+		over the entire population. More rigorously, honoring some crossover rate $\mathbb{C}$ 
+		value in $[0,1]$, we choose to do gene crossover whenever a random variable on the same interval is less than $\mathbb{C}$. This is done by randomly assigning
+		two children genes (weights) corresponding to a random mix of the weights of the original pair (parents). If the random variable is not less than $\mathbb{C}$,
+		we just keep the randomly chosen pair the same for the next generation of the genetic algorithm. Finally, mutation occurs uniformly based on random number generation
+		within some range, to be added or subtracted to a given gene, based on a mutation rate. We found experimentally that retaining a mutation rate and a mutation amount
+		of roughly $0.2$ seemed to add in the perfect amount of random genetic diversity into the population, without introducing too much randomness to outweigh
+		evolutionary processes. However, for the genetic algorithm we found it optimal to use a much higher frequency of crossover. We rationalize this decision with the
+		rationale that adding in crossover for selected individuals introduces genetic diversity- but only from the already determined most fit individuals. Which is extremely
+		beneficial for a population in the long term.
+
+
 \end{enumerate}
 
 \section{Results}
+We now provide our results when running our various implementations of genetic algorithsm on the named sets of data. We compare these results alongside other genetic algorithms,
+as well as against standard back propagation of our multi layer perceptron. We conduct all evolutionary algorithms on a population of 40 individuals. Here we record the final
+fitness value provided by each of our algorithms, which is an average fitness value across the entire population in that generation.
+
+We begin by providing the performance of our model on the breast cancer categorization data. Our results with respect to runtime and fitness measured in cross entropy are as
+follows:
+
 \begin{center}
-	\begin{tabular}{|c c c c|}
+	\begin{tabular}{|c c c c c|}
 		\hline
-		Metric & 0 Hidden Layers & 1 Hidden Layer & 2 Hidden Layers \\ [0.5ex]
+		Metric & GA & DE & PSO & Back Propagation \\ [0.5ex]
 		\hline \hline
-		No. Hidden Nodes & N.A. & 6 & 3 \\
+		Fitness (entropy)  & 0.118 & 0.208 & 0.205 & 0.129 \\
 		\hline
-		Mean Abs. Err. & 2611.02 & 73.67 & 95.202 \\
-		\hline
-		Mean Sq. Err. & 3195073.89 & 19371.32 & 23266.021 \\
-		\hline
-		Runtime(sec) & 0.17 & 0.45 & 0.34 \\
+		Convergence(sec) & 2.914 & 2.899 & 59 & N.A.\\
 		\hline
 	\end{tabular}
 \end{center}
 
+Next, we provide our findings on the glass data:
+
 \begin{center}
-	\begin{tabular}{|c c c c|}
+	\begin{tabular}{|c c c c c|}
 		\hline
-		Metric & 0 Hidden Layers & 1 Hidden Layer & 2 Hidden Layers \\ [0.5ex]
+		Metric & GA & DE & PSO & Back Propagation \\ [0.5ex]
 		\hline \hline
-		No. Hidden Nodes & N.A. & 5 & 6 \\
+		Fitness (entropy)  & 1.225 & 1.729 & 1.177 &  \\
 		\hline
-		Mean Abs. Err. & 2.71 & 2.18 & 2.057 \\
-		\hline
-		Mean Sq. Err. & 15.92 & 8.438 & 7.7254 \\
-		\hline
-		Runtime(sec) & 3.77 & 9.22 & 12.68 \\
+		Convergence(sec) & 1.140 & 0.983 & 260 & N.A.\\
 		\hline
 	\end{tabular}
 \end{center}
 
+For the final set of categorical data, we investigate the small soybean data:
 
 \begin{center}
-	\begin{tabular}{|c c c c|}
+	\begin{tabular}{|c c c c c|}
 		\hline
-		Metric & 0 Hidden Layers & 1 Hidden Layer & 2 Hidden Layers \\ [0.5ex]
+		Metric & GA & DE & PSO & Back Propagation \\ [0.5ex]
 		\hline \hline
-		No. Hidden Nodes & N.A. & 4 & 2 \\
+		Fitness (entropy)  & 0.741 & 1.184 & 0.630 & 1.133 \\
 		\hline
-		Mean Abs. Err. & 3.195e+32 & 426.00 & 353.71 \\
-		\hline
-		Mean Sq. Err. & 1.84e+15 & 18.05 & 17.97 \\
-		\hline
-		Runtime(sec) & 0.49 & 1.13 &  0.81 \\
-		\hline
-	\end{tabular}
-\end{center}
-
-
-\begin{center}
-	\begin{tabular}{|c c c c|}
-		\hline
-		Metric & 0 Hidden Layers & 1 Hidden Layer & 2 Hidden Layers \\ [0.5ex]
-		\hline \hline
-		No. Hidden Nodes & N.A. & 9 & 6 \\
-		\hline
-		Ave. Cross Entropy & 0.00447 & 0.00589 & 0.3027 \\
-		\hline
-		\% Accuracy & 100\% & 100\% & 35.5\% \\
-		\hline
-		Runtime(sec) & 0.146 & 0.309 & 0.24 \\
+		Convergence(sec) & 0.237 & 0.242 & 160 & N.A.\\
 		\hline
 	\end{tabular}
 \end{center}
 
 
-\begin{center}
-	\begin{tabular}{|c c c c|}
-		\hline
-		Metric & 0 Hidden Layers & 1 Hidden Layer & 2 Hidden Layers \\ [0.5ex]
-		\hline \hline
-		No. Hidden Nodes & N.A. & 10 & 8 \\
-		\hline
-		Ave. Cross Entropy & 0.0172 & 0.0236 & 0.0327 \\
-		\hline
-		\% Accuracy & 62.54\% & 66.67\% & 57.55\% \\
-		\hline
-		Runtime(sec) & 0.50 & 0.85 & 0.98 \\
-		\hline
-	\end{tabular}
-\end{center}
-
-\begin{center}
-	\begin{tabular}{|c c c c|}
-		\hline
-		Metric & 0 Hidden Layers & 1 Hidden Layer & 2 Hidden Layers \\ [0.5ex]
-		\hline \hline
-		No. Hidden Nodes & N.A. & 8 & 5 \\
-		\hline
-		Ave. Cross Entropy & 0.0000673 & 0.00048 & 0.0088 \\
-		\hline
-		\% Accuracy & 96.65\% & 96.99\% & 97.14\% \\
-		\hline
-		Runtime(sec) & 0.89 & 2.32 & 1.93 \\
-		\hline
-	\end{tabular}
-\end{center}
 \section{Discussion}
 
 In this section, we mention our experimental findings as they pertain to our previously generated hypotheses,
