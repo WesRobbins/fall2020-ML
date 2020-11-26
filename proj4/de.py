@@ -3,8 +3,13 @@ import random
 import time
 
 class DiffEvol:
+    """Class that applies the differential evolution algorithm to train the weights
+    of the neural network"""
 
     def __init__(self, dataclass, class_type):
+        """Initializes the class with the parameters, builds the initial population
+        and then runs the main training loop"""
+
         self.initialize_parameters()
         self.dataclass = dataclass
         self.df = dataclass.df
@@ -15,6 +20,8 @@ class DiffEvol:
 
 
     def initialize_parameters(self):
+        """Initializes hyperparameters for tuning purposes"""
+
         self.pop_size = 20
         self.cutoff = .4
         self.mutation_rate = .2
@@ -29,6 +36,8 @@ class DiffEvol:
         self.population = [MLP(dataclass, self.class_type) for i in range(self.pop_size)]
 
     def run(self):
+        """Runs the main training loop that selects individuals, and then mutates
+        their genes"""
         for i in range(self.generations):
             start_time = time.time()
             avg_fitness = self.fitness()
