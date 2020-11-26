@@ -202,7 +202,9 @@ Both metrics were used as fitness values for a given neural network in the conte
 in this manner, we incorporated the Genetic algorithm, differential evolution algorithm, and particle swarm optimization. Though we won't include their pseudocode here,
 as the algorithms are well known and documented, we will provide our hypertuning of specific parameters within each algorithm, and justification for our hypertuning. For all
 algorithms, a population of 40 individuals was used- as this seemed a sizable enough population to experience serious, meaningful evolutionary changes without drastically
-harming the runtime.
+harming the runtime. Measuring timing of different algorithms was also an interesting problem for our group. We chose to focus on a fixed number of iterations for each algorithm,
+and to measure the time it took on average for one iteration (generation) to proceed to the next. Certainly, other interpretations are plentiful, this was just the approach
+we chose to focus on strict experimental runtime in our study.
 
 \begin{enumerate}
 \item Particle Swarm Optimization:
@@ -279,7 +281,7 @@ follows:
 		\hline \hline
 		Fitness (entropy)  & 0.118 & 0.208 & 0.205 & 0.129 \\
 		\hline
-		Convergence(sec) & 2.914 & 2.899 & 59 & N.A.\\
+		Convergence(sec) & 2.914 & 2.899 & 3.557 & 11.2 \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -291,9 +293,9 @@ Next, we provide our findings on the glass data:
 		\hline
 		Metric & GA & DE & PSO & Back Propagation \\ [0.5ex]
 		\hline \hline
-		Fitness (entropy)  & 1.225 & 1.729 & 1.177 &  \\
+		Fitness (entropy)  & 1.225 & 1.729 & 1.177 &  1.1024\\
 		\hline
-		Convergence(sec) & 1.140 & 0.983 & 260 & N.A.\\
+		Convergence(sec) & 1.140 & 0.983 & 1.026 & 3.76\\
 		\hline
 	\end{tabular}
 \end{center}
@@ -305,20 +307,127 @@ For the final set of categorical data, we investigate the small soybean data:
 		\hline
 		Metric & GA & DE & PSO & Back Propagation \\ [0.5ex]
 		\hline \hline
-		Fitness (entropy)  & 0.741 & 1.184 & 0.630 & 1.133 \\
+		Fitness (entropy)  & 0.741 & 1.184 & 0.630 & 1.199 \\
 		\hline
-		Convergence(sec) & 0.237 & 0.242 & 160 & N.A.\\
+		Convergence(sec) & 0.237 & 0.242 & 0.265 & 15.89\\
 		\hline
 	\end{tabular}
 \end{center}
 
+For the first set of regression data, we present the abalone data, and our findings with
+respect to the performance of our varying models in solving this problem.
+\begin{center}
+	\begin{tabular}{|c c c c c|}
+		\hline
+		Metric & GA & DE & PSO & Back Propagation \\ [0.5ex]
+		\hline \hline
+		Fitness (mean squared)  & 39.062 & 193.095 & 107.711 & 60.725 \\
+		\hline
+		Convergence(sec) & 15.286 & 15.501 & 15.498 & 46.69\\
+		\hline
+	\end{tabular}
+\end{center}
+
+Next, we present our findings on the machine data as follows:
+\begin{center}
+	\begin{tabular}{|c c c c c|}
+		\hline
+		Metric & GA & DE & PSO & Back Propagation \\ [0.5ex]
+		\hline \hline
+		Fitness (mean squared)  & 35844.32 & 39820.496 & 36896.332 & 26006.236 \\
+		\hline
+		Convergence(sec) & 0.777 & 0.796 & 0.945 & 3.71\\
+		\hline
+	\end{tabular}
+\end{center}
+
+Finally, we present our findings on the forest fire data- the most challenging problem present
+in our collections of data.
+\begin{center}
+	\begin{tabular}{|c c c c c|}
+		\hline
+		Metric & GA & DE & PSO & Back Propagation \\ [0.5ex]
+		\hline \hline
+		Fitness (mean squared)  & 463.795 & 100.073 & 479.550 & 490.241 \\
+		\hline
+		Convergence(sec) & 1.905 & 1.909 & 1.24 & 7.38\\
+		\hline
+	\end{tabular}
+\end{center}
 
 \section{Discussion}
-
 In this section, we mention our experimental findings as they pertain to our previously generated hypotheses,
 and provide some commentary on possible explanations of our findings- which were quite varied.
 
+We begin by discussing our findings on the breast cancer data. The genetic algorithm was the
+strongest performer in terms of fitness, with differential evolution and particle swarm 
+optimization lagging a bit behind. We significantly underestimated the performance of back propagation in this section, which outperformed both differential evolution and PSO by a sizeable
+margin (roughly 31\% lower than each in fitness). However, genetic algorithms were still able to outperform back propagation. We can comfortably fail to uphold our hypotheses for both of 
+these methods. Our hypothesis for the decreases brought about by switching from backpropagation
+to genetic algorithms were much closer to being confirmable. We can confirm this hypothesis, asthe decrease brought about by choosing genetic algorithms sat at roughly within 5 percent of 
+15\%, which was all we deemed necessary. In terms of runtime, we were outside of statistical
+significance for all of our hypotheses, comfortably failing to uphold any of them.
+
+We now discuss our findings on the glass data. We'd expected small improvements from using
+PSO and GA, and small loss in performance using DE in this scenario. In practice, back propagation defeated all of our evolutionary algorithms in performance, causing us to definitely not uphold our hypotheses in htis regard. In terms of convergence time, we were much faster than
+we'd hypothesized. DE was the fastest performer in this setting, but all algorithms blew our 
+hypotheses out of the water.
+
+For the final set of classification data, we discuss the soybean dataset. In this problem,
+we found that our model was most effective in the context of the PSO algorithm, though
+all evolutionary algorithms won out over back propagation in this setting. However, we were
+incorrect in our hypothesis regarding the exact performance of each of these models with
+respect to one another. We'd predicted PSO would be the worst of the three, and in practice
+it was the best. All of our performance values were slightly vetter than hypothesized, as well.
+In terms of runtime, We'd thought DE and GA would be the fastest, converging around 3 seconds,
+with PSO converging around 4 seconds. We were way off. GA, DE, and PSO all converged
+with roughly the same timing, with GA converging the fastest of any method.
+
+Moving on to the regression data, we found in the case of the abalone data that our results
+were quite varied. Our best performer was by far the genetic algorithm, and it was the only
+algorithm out of the three evolutionary algorithms to outperform backpropagation. We couldn't
+have been further off in our hypothesis. Though, technically outperformed our hypothesis
+in our judgement of the genetic algorithm's performance, we significantly underperformed
+our hypotheses with respect to DE and PSO. We'd expected PSO to significantly outstrip
+backpropagation, which was quite far from our findings. However, in terms of runtime, 
+all models performed quite similarly. GA was the best performer, but only very slightly.
+Our hypothesis was way off in the context of explicit values, but in spirit, our hypothesis
+was correct. We'd expected all models to converge similarly on the abalone data, and indeed
+this is what we found, with a slight edge in performance from GA and DE over PSO.
+
+For the machine data, we again found that the best performer was GA. However, again, our
+hypotheses were dead wrong in the context of backpropagation, which outperformed all of 
+our evolutionary algorithms by a quite significant margin (roughly 25\%). GA was favorable
+here for runtime, with DE coming in only slighyly slower on average. This portion of the
+experiment, along with a handful of others, was revealing at the real power of backpropagation
+in conducting learning effectively.
+
+Finally, for the forest fire data, we had by far the best performance, and indeed the best
+performance from throughout the entire set of experiments, for DE. Here, we significantly
+overshot our hypothesis, with DE improving upon backpropagation by roughly 490\%. This makes
+sense on some level, since DE significantly favors elitism. In a weird dataset like the
+forest fire data, this may be preferable. And indeed, from our findings, DE was vastly superior
+in this kind of difficult, unusual setting for data. In the context of our other hypotheses,
+GA underformed our hypothesis by a statistically significant margin, and PSO was dead on.
+
 
 \section{Summary}
+The takeaways from this experiment are quite varied, and numerous. We gained a strong foundation
+in evolutionary algorithms, and have come away with a much better understanding of the various
+performances of evolutionary algorithms of different forms. We found that, generally speaking, 
+genetic algorithms seemed to be the most powerful of the evolutionary algorithms studied- 
+especially on data that might be considered relatively well behaved. Particle swarm optimization was
+particularly effective on data which might also be considered somewhat well behaved, but with more
+complex and spread apart classes generally than the class of datasets described in the prior case.
+Differential evolution proved to be especially effective in difficult, less well behaved datasets,
+which came in our context from the forest fire data. Here, DE outshined all other algorithms significantly.
+Another major takeaway was the impressive performance of back propagation when compared to evolutionary
+algorithms. Despite being much more simple relatively speaking than all of these intricate genetic algorithms,
+often backpropagation was actually the most powerful technique. Certainly, these kinds of algorithms are an
+interest in future work. Specifically, our group hopes to focus even more on the convergence of these kinds of
+algorithms based on the eventual decrease in improvements in fitness as generations progress. We had wanted to
+study runtime in this context of convergence, but our implementation was specific to a limited number of generations
+in each algorithm. We gained insight into the comparative performances of these algorithms, but convergence is another
+especially interesting avenue to pursue more in the future.
 
 \end{document}
