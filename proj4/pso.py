@@ -7,6 +7,7 @@ import time
 class PSO:
 
     def __init__(self, dataclass, class_type):
+        """ initializes data """
         print("\n\nParticle Swarm Optimization")
         print("------------------------------------------------")
         self.dataclass = dataclass
@@ -19,6 +20,7 @@ class PSO:
 
 
     def initialize_parameters(self):
+        """ initialize hyper parameters and other values"""
         self.average_fitness = 1
         self.swarm_size = 10
         self.swarm = self.build_swarm(self.dataclass)
@@ -41,6 +43,7 @@ class PSO:
         return swarm
 
     def build_topology(self):
+        """ called to make swarm"""
         if self.topology_type == "lBEST":
             return self.make_lbest()
         elif self.topology_type == "gBEST":
@@ -52,7 +55,9 @@ class PSO:
         for i in range(self.swarm_size):
             node = Graph_Node(self.swarm[i])
             topology.append(node)
+
         for i in range(self.swarm_size):
+            """ add left and right to neighbours"""
             if i == 0:
                 topology[i].neighbours.append(topology[self.swarm_size-1])
                 topology[i].neighbours.append(topology[i+1])
@@ -66,6 +71,7 @@ class PSO:
         return topology
 
     def make_gbest(self):
+        """ build complete grapgh"""
         topology = []
         for i in range(self.swarm_size):
             node = Graph_Node(self.swarm[i])
@@ -134,6 +140,7 @@ class PSO:
 
 
     def get_nb(self, node):
+        """ finds and return most fit neighbour ie nb"""
         nb_fit = 9999
         num = ""
         for i in range(len(node.neighbours)):
