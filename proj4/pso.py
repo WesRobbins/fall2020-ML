@@ -5,6 +5,8 @@ import time
 """This file Implements Particle Swarm Optimization"""
 
 class PSO:
+    """Class that runs the particle swarm optimization training algorithm to train
+    weights for a neural network"""
 
     def __init__(self, dataclass, class_type):
         """ initializes data """
@@ -154,6 +156,7 @@ class PSO:
 
 
 class Graph_Node:
+    """Helper node class to contain fitness and velocity information"""
     def __init__(self, nn):
         self.pb = ""
         self.pb_fitness = 10
@@ -167,4 +170,5 @@ class Graph_Node:
         self.neighbours = []
 
     def add_neighbour(self, nn):
+        """Helper neighbor function that adds a neighbor to the graph adjacency list"""
         self.neighbours.append(nn)
