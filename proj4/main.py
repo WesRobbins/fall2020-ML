@@ -13,7 +13,7 @@ def main():
 
 
    # ML("MLP", "classification", "genetic_algorithm", [10, .1], "off", "./data/breast-cancer-wisconsin.data")
-    ML("MLP", "regression", "genetic_algorithm", [10, .1], "off", "./data/abalone.data")
+    ML("MLP", "classification", "genetic_algorithm", [10, .1], "off", "./data/breast-cancer-wisconsin.data")
 
     # ML("MLP", "classification", "PSO", [10, .1], "off", "./data/breast-cancer-wisconsin.data")
 

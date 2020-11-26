@@ -65,7 +65,7 @@ class Evaluator:
         running_sum = 0
         for i in range(len(true_values)):
             running_sum += (true_values[i][0] - predicted_values[i][0]) ** 2
-        print(f"Mean Squared Error:\t{running_sum/size}")
+        #print(f"Mean Squared Error:\t{running_sum/size}")
         self.performance += running_sum / size
         return self.performance
 
@@ -77,5 +77,5 @@ class Evaluator:
         running_sum = 0
         for i in range(len(true_values)):
             running_sum += abs(true_values[i][0] - predicted_values[i][0])
-        print(f"Mean Absolute Error:\t{running_sum/size}")
+        #print(f"Mean Absolute Error:\t{running_sum/size}")
 
